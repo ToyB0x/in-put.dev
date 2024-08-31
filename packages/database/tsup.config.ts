@@ -5,4 +5,5 @@ export default defineConfig({
   format: ['esm'],
   minify: true,
   sourcemap: true,
+  clean: true,
 })
