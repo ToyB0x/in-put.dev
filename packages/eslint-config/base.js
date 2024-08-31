@@ -13,5 +13,9 @@ module.exports = {
       },
     },
   },
-  ignorePatterns: ['node_modules/', 'dist/'],
+  ignorePatterns: [
+    '.*.js', // Ignore dotfiles
+    'node_modules/',
+    'dist/',
+  ],
 }
