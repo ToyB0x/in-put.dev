@@ -21,7 +21,7 @@ importers:
   apps/api:
     dependencies:
       '@hono/zod-validator':
-        specifier: ^0.2.2
+        specifier: 0.2.2
         version: 0.2.2(hono@4.5.10)(zod@3.23.8)
       '@repo/database':
         specifier: workspace:*
