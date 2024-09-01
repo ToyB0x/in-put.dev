@@ -20,7 +20,12 @@ module.exports = {
     browser: true,
     es2022: true,
   },
-  ignorePatterns: ['!**/.server', '!**/.client'],
+
+  ignorePatterns: [
+    '!**/.server',
+    '!**/.client',
+    'worker-configuration.d.ts', // Auto-generated file
+  ],
 
   overrides: [
     // React
