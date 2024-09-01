@@ -2,3 +2,8 @@ node_modules
 
 /.cache
 /build
+
+# Environment variables (Cloudflare)
+# https://remix.run/docs/en/main/guides/envvars
+.dev.vars
+.wrangler
