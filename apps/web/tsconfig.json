@@ -1,9 +1,27 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
+    "baseUrl": ".",
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Bundler",
+    "lib": ["DOM", "DOM.Iterable"],
+    "types": ["@remix-run/node", "vite/client"],
+    "paths": {
+      "@/*": ["./app/*"]
+    },
+    "jsx": "react-jsx",
     "skipLibCheck": true,
-    "moduleResolution": "Bundler"
+    // Vite takes care of building everything, not tsc.
+    "noEmit": true
   },
-  "include": ["src"],
-  "exclude": ["dist", "node_modules", "src/**/*.test.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    "**/.server/**/*.ts",
+    "**/.server/**/*.tsx",
+    "**/.client/**/*.ts",
+    "**/.client/**/*.tsx"
+  ],
+  "exclude": ["build", "node_modules", "src/**/*.test.ts"]
 }
