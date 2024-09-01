@@ -1,39 +1,46 @@
-# Welcome to Remix!
+# Welcome to Remix + Cloudflare!
 
 - 📖 [Remix docs](https://remix.run/docs)
+- 📖 [Remix Cloudflare docs](https://remix.run/guides/vite#cloudflare)
 
 ## Development
 
 Run the dev server:
 
-```shellscript
-npm run dev
+```sh
+pnpm run dev
 ```
+
+To run Wrangler:
+
+```sh
+pnpm run build
+pnpm run start
+```
+
+## Typegen
+
+Generate types for your Cloudflare bindings in `wrangler.toml`:
+
+```sh
+pnpm run typegen
+```
+
+You will need to rerun typegen whenever you make changes to `wrangler.toml`.
 
 ## Deployment
 
 First, build your app for production:
 
 ```sh
-npm run build
+pnpm run build
 ```
 
-Then run the app in production mode:
+Then, deploy your app to Cloudflare Pages:
 
 ```sh
-npm start
+pnpm run deploy
 ```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
 
 ## Styling
 
