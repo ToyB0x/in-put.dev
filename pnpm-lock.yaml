@@ -18,7 +18,7 @@ importers:
         specifier: 5.5.4
         version: 5.5.4
 
-  apps/cloudflare-app:
+  apps/cloudflare-web:
     dependencies:
       '@remix-run/cloudflare':
         specifier: 2.11.2
