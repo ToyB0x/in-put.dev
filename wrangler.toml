@@ -3,6 +3,9 @@ name = "cloudflare-app"
 compatibility_date = "2024-08-21"
 pages_build_output_dir = "./build/client"
 
+[limits]
+cpu_ms = 100 # To prevent accidental runaway bills or denial-of-wallet attacks
+
 [[ d1_databases ]]
 binding = "DB_TEST1"
 database_name = "test1" # used by "wrangler d1 migrations [database_name]"
