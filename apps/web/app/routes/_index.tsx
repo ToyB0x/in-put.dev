@@ -15,7 +15,7 @@ import { useLoaderData } from '@remix-run/react'
 import { Button } from '@repo/ui/button'
 
 export const loader = async () => {
-  const message = 'Hello from the loader 2!'
+  const message = 'Hello from the loader'
   return json({ message })
 }
 
