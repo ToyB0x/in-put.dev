@@ -1,5 +1,15 @@
 name = "api-test1"
-compatibility_date = "2024-09-01"
+compatibility_date = "2024-05-24"
+
+[limits]
+cpu_ms = 100 # To prevent accidental runaway bills or denial-of-wallet attacks (maybe ignored on free-plan)
+
+[[ d1_databases ]]
+binding = "DB_TEST1"
+database_name = "test1" # used by "wrangler d1 migrations [database_name]"
+database_id = "ff259bbd-8d7b-4da7-b709-e3850df4ca63" # db=test1
+preview_database_id = "0e0d1164-e7f3-42db-87c4-fc9819abc4f1" # db=test1-preview
+migrations_dir = "../../packages/database/drizzle"
 
 # compatibility_flags = [ "nodejs_compat" ]
 
