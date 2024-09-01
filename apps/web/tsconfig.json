@@ -6,7 +6,7 @@
     "esModuleInterop": true,
     "moduleResolution": "Bundler",
     "lib": ["DOM", "DOM.Iterable"],
-    "types": ["@remix-run/node", "vite/client"],
+    "types": ["@remix-run/cloudflare", "vite/client", "@cloudflare/workers-types/2023-07-01"],
     "paths": {
       "@/*": ["./app/*"]
     },
