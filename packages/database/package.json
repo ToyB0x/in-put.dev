@@ -5,11 +5,14 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "db:migrate:create": "drizzle-kit generate",
-    "migrate:status:preview": "wrangler d1 migrations list test1 --preview --remote",
-    "migrate:apply:preview": "wrangler d1 migrations apply test1 --preview --remote",
-    "migrate:status:prd": "wrangler d1 migrations list test1 --remote",
-    "migrate:apply:prd": "wrangler d1 migrations apply test1 --remote",
+    "generate": "drizzle-kit generate",
+    "status:local": "wrangler d1 migrations list test1 --local",
+    "apply:local": "wrangler d1 migrations apply test1 --local",
+    "status:preview": "wrangler d1 migrations list test1 --preview --remote",
+    "apply:preview": "wrangler d1 migrations apply test1 --preview --remote",
+    "status:prd": "wrangler d1 migrations list test1 --remote",
+    "apply:prd": "wrangler d1 migrations apply test1 --remote",
+    "backup:prd": "wrangler d1 export test1 --remote --output ./backup.sql",
     "lint": "eslint --max-warnings=0",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc --noEmit"
