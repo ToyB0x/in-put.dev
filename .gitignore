@@ -42,3 +42,6 @@ yarn-error.log*
 
 # IDE
 .idea
+
+# CloudFlare
+cf-local-worker
