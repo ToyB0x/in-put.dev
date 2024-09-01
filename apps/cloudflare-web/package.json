@@ -1,5 +1,5 @@
 {
-  "name": "@repo/cloudflare-app",
+  "name": "@repo/cloudflare-web",
   "private": true,
   "type": "module",
   "scripts": {
