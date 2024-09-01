@@ -1,4 +1,8 @@
-import type { MetaFunction } from '@remix-run/cloudflare'
+import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { useLoaderData } from '@remix-run/react'
+import { drizzle } from 'drizzle-orm/d1'
+import { Button } from '@repo/ui/button'
+import { users } from '@repo/database'
 
 export const meta: MetaFunction = () => {
   return [
@@ -10,22 +14,23 @@ export const meta: MetaFunction = () => {
   ]
 }
 
-import { json } from '@remix-run/cloudflare'
-import { useLoaderData } from '@remix-run/react'
-import { Button } from '@repo/ui/button'
+export const loader = async ({ context }: LoaderFunctionArgs) => {
+  const db = drizzle(context.cloudflare.env.DB_TEST1)
+  const result = await db.select().from(users).all()
 
-export const loader = async () => {
   const message = 'Hello from the loader'
-  return json({ message })
+  return json({ message, result })
 }
 
 export default function Index() {
-  const { message } = useLoaderData<typeof loader>()
+  const { message, result } = useLoaderData<typeof loader>()
 
   return (
     <div className='font-sans p-4'>
       <h1 className='text-3xl'>Welcome to Remix on Cloudflare</h1>
       <div>message: {message}</div>
+      <div>result: {result.length}</div>
+      <div>result: {JSON.stringify(result)}</div>
       <Button appName='cloudflare app' className='border'>
         Click Me!
       </Button>
