@@ -16,14 +16,11 @@ module.exports = {
     },
   },
   env: {
+    node: true,
     browser: true,
-    commonjs: true,
-    es6: true,
+    es2022: true,
   },
   ignorePatterns: ['!**/.server', '!**/.client'],
-
-  // Base config
-  extends: ['eslint:recommended'],
 
   overrides: [
     // React
