@@ -3,6 +3,13 @@ name = "cloudflare-app"
 compatibility_date = "2024-08-21"
 pages_build_output_dir = "./build/client"
 
+[[ d1_databases ]]
+binding = "DB_TEST1"
+database_name = "test1" # used by "wrangler d1 migrations [database_name]"
+database_id = "ff259bbd-8d7b-4da7-b709-e3850df4ca63" # db=test1
+preview_database_id = "0e0d1164-e7f3-42db-87c4-fc9819abc4f1" # db=test1-preview
+migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
+
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Pages Function, running it closer to your back-end infrastructure
 # rather than the end user may result in better performance.
