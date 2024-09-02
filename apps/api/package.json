@@ -8,11 +8,12 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@repo/database": "workspace:*",
     "@hono/zod-validator": "0.2.2",
+    "@repo/database": "workspace:*",
+    "drizzle-orm": "0.33.0",
     "hono": "4.5.10",
-    "zod": "3.23.8",
-    "drizzle-orm": "0.33.0"
+    "node-html-parser": "6.1.13",
+    "zod": "3.23.8"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20240821.1",
