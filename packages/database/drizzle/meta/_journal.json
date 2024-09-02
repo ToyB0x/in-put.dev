@@ -8,6 +8,13 @@
       "when": 1725209705712,
       "tag": "0000_silky_blizzard",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1725238412296,
+      "tag": "0001_tan_blindfold",
+      "breakpoints": true
     }
   ]
 }
