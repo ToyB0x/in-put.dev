@@ -37,14 +37,27 @@ app.get('/add/:url', async (c) => {
   // TODO: zod validation url type
   const url = c.req.param('url')
 
-  // TODO: fetch title from url
-  const pageTitle = 'Title1'
+  const res = await fetch(url)
+  const bodytext = await res.text()
+  // console.log(res)
+  // console.log(bodytext)
+
+  let pageTitle: null | string = null
+  let match = bodytext.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
+  if (!match || typeof match[1] !== 'string') pageTitle = null
+  else pageTitle = match[1]
 
   // TODO: set user_id
   const userId = 1
 
-  await db.insert(urls).values({ url, pageTitle, userId }).onConflictDoNothing()
-  return c.json({ message: 'Inserted', url })
+  await db
+    .insert(urls)
+    .values({ url, pageTitle, userId })
+    .onConflictDoUpdate({
+      target: [urls.userId, urls.url],
+      set: { pageTitle },
+    })
+  return c.json({ message: 'Inserted', url, pageTitle })
 })
 
 // import { z } from 'zod'
