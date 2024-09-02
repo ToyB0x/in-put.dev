@@ -39,8 +39,6 @@ app.get('/add/:url', async (c) => {
 
   const res = await fetch(url)
   const bodytext = await res.text()
-  // console.log(res)
-  // console.log(bodytext)
 
   let pageTitle: null | string = null
   let match = bodytext.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
