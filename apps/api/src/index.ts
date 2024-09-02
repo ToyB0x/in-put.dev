@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { drizzle } from 'drizzle-orm/d1'
 import { insertUrlRequestSchema, urls, users } from '@repo/database'
 import { zValidator } from '@hono/zod-validator'
+import { parse } from 'node-html-parser'
 
 const app = new Hono<{ Bindings: Env }>()
 
@@ -44,13 +45,8 @@ app.get(
 
     const { url } = c.req.valid('param')
     const res = await fetch(url)
-    const bodytext = await res.text()
-
-    // TODO: handle <title data-rh="true">XXX</title>
-    let pageTitle: null | string = null
-    let match = bodytext.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
-    if (!match || typeof match[1] !== 'string') pageTitle = null
-    else pageTitle = match[1]
+    const html = parse(await res.text())
+    const pageTitle = html.querySelector('title')?.text
 
     // TODO: use real user_id with authentication
     const userId = 1
