@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { sql } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/d1'
 import { insertUrlRequestSchema, urls, users } from '@repo/database'
 import { zValidator } from '@hono/zod-validator'
@@ -56,7 +57,7 @@ app.get(
       .values({ url, pageTitle, userId })
       .onConflictDoUpdate({
         target: [urls.userId, urls.url],
-        set: { pageTitle },
+        set: { pageTitle, updatedAt: sql`CURRENT_TIMESTAMP` },
       })
     return c.json({ message: 'Inserted', url, pageTitle })
   },
