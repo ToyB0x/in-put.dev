@@ -1,6 +1,7 @@
 import { integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 import { users } from './users'
+import { createInsertSchema } from 'drizzle-zod'
 
 export const urls = sqliteTable(
   'urls',
@@ -25,3 +26,8 @@ export const urls = sqliteTable(
     urlIdx: uniqueIndex('urlIdx').on(urls.userId, urls.url),
   }),
 )
+
+export const insertUrlSchema = createInsertSchema(urls, {
+  url: (schema) => schema.url.url().startsWith('http'), // validate string as url string
+})
+export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true })

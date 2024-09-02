@@ -19,7 +19,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "drizzle-orm": "0.33.0"
+    "drizzle-orm": "0.33.0",
+    "drizzle-zod": "0.5.1"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",

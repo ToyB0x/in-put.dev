@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { drizzle } from 'drizzle-orm/d1'
-import { urls, users } from '@repo/database'
+import { insertUrlRequestSchema, urls, users } from '@repo/database'
+import { zValidator } from '@hono/zod-validator'
 
 const app = new Hono<{ Bindings: Env }>()
 
@@ -31,52 +32,38 @@ app.get('/users/new', async (c) => {
 
 // Insert url
 // NOTE: Use get method for arriving user via bookmarklet
-app.get('/add/:url', async (c) => {
-  const db = drizzle(c.env.DB_TEST1)
+app.get(
+  '/add/:url',
+  zValidator('param', insertUrlRequestSchema, (result, c) => {
+    if (!result.success) {
+      return c.text('invalid data given', 400)
+    }
+  }),
+  async (c) => {
+    const db = drizzle(c.env.DB_TEST1)
 
-  // TODO: zod validation url type
-  const url = c.req.param('url')
+    const { url } = c.req.valid('param')
+    const res = await fetch(url)
+    const bodytext = await res.text()
 
-  const res = await fetch(url)
-  const bodytext = await res.text()
+    // TODO: handle <title data-rh="true">XXX</title>
+    let pageTitle: null | string = null
+    let match = bodytext.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
+    if (!match || typeof match[1] !== 'string') pageTitle = null
+    else pageTitle = match[1]
 
-  let pageTitle: null | string = null
-  let match = bodytext.match(/<title>([^<]*)<\/title>/) // regular expression to parse contents of the <title> tag
-  if (!match || typeof match[1] !== 'string') pageTitle = null
-  else pageTitle = match[1]
+    // TODO: use real user_id with authentication
+    const userId = 1
 
-  // TODO: set user_id
-  const userId = 1
-
-  await db
-    .insert(urls)
-    .values({ url, pageTitle, userId })
-    .onConflictDoUpdate({
-      target: [urls.userId, urls.url],
-      set: { pageTitle },
-    })
-  return c.json({ message: 'Inserted', url, pageTitle })
-})
-
-// import { z } from 'zod'
-// import { zValidator } from '@hono/zod-validator'
-// app.post(
-//   '/',
-//   (c) =>
-//     zValidator(
-//       'json',
-//       z.object({
-//         url: z.string().url(),
-//       }),
-//     ),
-//   (c) => {
-//     return c.json(
-//       {
-//         success: true,
-//       },
-//       201,
-//     )
-//   },
-// )
+    await db
+      .insert(urls)
+      .values({ url, pageTitle, userId })
+      .onConflictDoUpdate({
+        target: [urls.userId, urls.url],
+        set: { pageTitle },
+      })
+    return c.json({ message: 'Inserted', url, pageTitle })
+  },
+)
 
 export default app
