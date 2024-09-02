@@ -1,5 +1,6 @@
 import { integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
+import { createInsertSchema } from 'drizzle-zod'
 
 export const users = sqliteTable(
   'users',
@@ -19,3 +20,5 @@ export const users = sqliteTable(
     emailIdx: uniqueIndex('emailIdx').on(users.email),
   }),
 )
+
+export const insertUserSchema = createInsertSchema(users)
