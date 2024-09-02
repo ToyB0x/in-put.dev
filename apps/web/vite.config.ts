@@ -5,7 +5,7 @@ import tsconfigPaths from 'vite-tsconfig-paths'
 export default defineConfig({
   plugins: [
     removeUseClient(),
-    remixCloudflareDevProxy(),
+    remixCloudflareDevProxy({ persist: { path: '../../cf-local-worker/v3' } }),
     remix({
       future: {
         v3_fetcherPersist: true,
