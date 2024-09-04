@@ -5,13 +5,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { urls } from '@repo/database'
 
 export const meta: MetaFunction = () => {
-  return [
-    { title: 'New Remix App' },
-    {
-      name: 'description',
-      content: 'Welcome to Remix on Cloudflare!',
-    },
-  ]
+  return [{ title: 'Input.dev' }]
 }
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {
@@ -32,8 +26,8 @@ export default function Index() {
   })
 
   return (
-    <div className='font-sans p-8'>
-      <h1 className='text-4xl'>Input.dev</h1>
+    <div className='font-sans px-8'>
+      <h1 className='text-4xl pt-4 pb-2'>Input.dev</h1>
       {uniqueHostsWithUrls
         .sort((a, b) => {
           const diffBookmark = b.urls.length - a.urls.length
