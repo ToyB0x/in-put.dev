@@ -58,14 +58,15 @@ const Details = ({ host, urls }: { host: string; urls: { url: string; pageTitle:
       <ol className='ml-8'>
         {urls.map((url, i) => (
           <li key={url.url}>
-            {new URL(decodeURIComponent(url.url)).pathname} {showTitle && ` ${url.pageTitle}`}
-            {!showTitle && i === urls.length - 1 && (
+            {showTitle ? url.pageTitle : new URL(decodeURIComponent(url.url)).pathname}
+            {i === urls.length - 1 && (
               <button
+                className='ml-2'
                 onClick={() => {
                   setShowTitle(!showTitle)
                 }}
               >
-                (show title)
+                {showTitle ? '(show url)' : ' (show title)'}
               </button>
             )}
           </li>
