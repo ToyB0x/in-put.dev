@@ -28,6 +28,11 @@ export const urls = sqliteTable(
 )
 
 export const insertUrlSchema = createInsertSchema(urls, {
-  url: (schema) => schema.url.url().startsWith('http'), // validate string as url string
+  url: (schema) =>
+    schema.url
+      .url()
+      .max(500) // limit url length
+      .startsWith('http'), // allow only http(s) urls (not ftp, etc.)
 })
+
 export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true })
