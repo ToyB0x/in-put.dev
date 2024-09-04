@@ -1,5 +1,5 @@
 #:schema node_modules/wrangler/config-schema.json
-name = "cloudflare-app"
+name = "inputs"
 compatibility_date = "2024-05-24"
 pages_build_output_dir = "./build/client"
 
