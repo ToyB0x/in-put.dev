@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
@@ -26,7 +27,8 @@ export default function Index() {
   const uniqueHosts = [...new Set(result.map((url) => new URL(url.url).host))]
   const uniqueHostsWithUrls = uniqueHosts.map((host) => {
     const matchedUrls = result.filter((url) => new URL(url.url).host === host)
-    return { host, matchedUrls }
+    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.url.localeCompare(b.url))
+    return { host, urls: matchedUrlsSorted }
   })
 
   return (
@@ -34,22 +36,41 @@ export default function Index() {
       <h1 className='text-4xl'>Input.dev</h1>
       {uniqueHostsWithUrls
         .sort((a, b) => {
-          const diffBookmark = b.matchedUrls.length - a.matchedUrls.length
+          const diffBookmark = b.urls.length - a.urls.length
           if (diffBookmark !== 0) return diffBookmark
           return a.host.length - b.host.length
         })
-        .map(({ host, matchedUrls }) => (
-          <details className='my-2' key={host}>
-            <summary>
-              {host} {'★'.repeat(matchedUrls.length)}
-            </summary>
-            <ol className='ml-8 list-disc'>
-              {matchedUrls.map((url) => (
-                <li key={url.id}>{decodeURIComponent(url.url)}</li>
-              ))}
-            </ol>
-          </details>
+        .map(({ host, urls }) => (
+          <Details host={host} urls={urls} key={host} />
         ))}
     </div>
+  )
+}
+
+const Details = ({ host, urls }: { host: string; urls: { url: string; pageTitle: string | null }[] }) => {
+  const [showTitle, setShowTitle] = useState(false)
+
+  return (
+    <details className='my-2'>
+      <summary>
+        {host} {'★'.repeat(urls.length)}
+      </summary>
+      <ol className='ml-8'>
+        {urls.map((url, i) => (
+          <li key={url.url}>
+            {new URL(decodeURIComponent(url.url)).pathname} {showTitle && ` ${url.pageTitle}`}
+            {!showTitle && i === urls.length - 1 && (
+              <button
+                onClick={() => {
+                  setShowTitle(!showTitle)
+                }}
+              >
+                (show title)
+              </button>
+            )}
+          </li>
+        ))}
+      </ol>
+    </details>
   )
 }
