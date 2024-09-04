@@ -39,7 +39,7 @@ export default function Index() {
           return a.host.length - b.host.length
         })
         .map(({ host, matchedUrls }) => (
-          <details className='my-2'>
+          <details className='my-2' key={host}>
             <summary>
               {host} {'★'.repeat(matchedUrls.length)}
             </summary>
