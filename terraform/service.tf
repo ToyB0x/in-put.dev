@@ -1,4 +1,7 @@
 resource "google_project_service" "default" {
+  # https://firebase.google.com/docs/projects/terraform/get-started
+  provider = google.no_user_project_override
+
   for_each = toset([
     # for terraform state bucket
     "storage.googleapis.com",
