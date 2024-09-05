@@ -1,4 +1,4 @@
-resource "google_project_service" "service" {
+resource "google_project_service" "default" {
   for_each = toset([
     "storage.googleapis.com", // for terraform state bucket
     "identitytoolkit.googleapis.com", // for firebase auth
