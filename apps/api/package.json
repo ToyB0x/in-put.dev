@@ -19,6 +19,6 @@
     "@cloudflare/workers-types": "4.20240903.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "wrangler": "3.74.0"
+    "wrangler": "3.75.0"
   }
 }
