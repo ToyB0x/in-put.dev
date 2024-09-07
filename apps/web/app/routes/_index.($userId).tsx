@@ -60,14 +60,12 @@ const Details = ({
       <summary>
         {host}{' '}
         {urls.map((url, i) => (
-          <>
+          <span key={i}>
             {/* show + on bookmarked host's last star */}
             {bookMarkingHost === host && i === urls.length - 1 && <span>+</span>}
             {/* color bookmarked host's last star */}
-            <span key={i} className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>
-              ★
-            </span>
-          </>
+            <span className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>★</span>
+          </span>
         ))}
       </summary>
       <ol className='ml-8'>
