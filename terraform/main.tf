@@ -4,6 +4,10 @@ terraform {
       source  = "hashicorp/google"
       version = "6.1.0"
     }
+    google-beta = {
+      source  = "hashicorp/google-beta"
+      version = "6.1.0"
+    }
   }
   backend "gcs" {}
 }
@@ -12,12 +16,12 @@ terraform {
 # https://firebase.google.com/docs/projects/terraform/get-started?hl=ja#resources-authentication
 # https://zenn.dev/maretol/articles/d68bf92c76d0ba
 provider "google" {
-  project = var.project_id
+  project               = var.project_id
   user_project_override = true
 }
 
 provider "google" {
-  alias = "no_user_project_override"
+  alias                 = "no_user_project_override"
   user_project_override = false
 }
 
