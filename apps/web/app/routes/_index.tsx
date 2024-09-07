@@ -64,7 +64,9 @@ const Details = ({
             {/* show + on bookmarked host's last star */}
             {bookMarkingHost === host && i === urls.length - 1 && <span>+</span>}
             {/* color bookmarked host's last star */}
-            <span className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>★</span>
+            <span key={i} className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>
+              ★
+            </span>
           </>
         ))}
       </summary>
