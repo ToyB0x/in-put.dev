@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { useLoaderData } from '@remix-run/react'
+import { useLoaderData, useSearchParams } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
 import { urls } from '@repo/database'
 
@@ -18,6 +18,9 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { result } = useLoaderData<typeof loader>()
+  const [searchParams] = useSearchParams()
+  const bookmakingUrl = searchParams.get('url')
+  const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
   const uniqueHosts = [...new Set(result.map((url) => new URL(url.url).host))]
   const uniqueHostsWithUrls = uniqueHosts.map((host) => {
     const matchedUrls = result.filter((url) => new URL(url.url).host === host)
@@ -35,19 +38,35 @@ export default function Index() {
           return a.host.length - b.host.length
         })
         .map(({ host, urls }) => (
-          <Details host={host} urls={urls} key={host} />
+          <Details host={host} urls={urls} bookMarkingHost={bookMarkingHost} key={host} />
         ))}
     </div>
   )
 }
 
-const Details = ({ host, urls }: { host: string; urls: { url: string; pageTitle: string | null }[] }) => {
+const Details = ({
+  host,
+  bookMarkingHost,
+  urls,
+}: {
+  host: string
+  bookMarkingHost: string | null
+  urls: { url: string; pageTitle: string | null }[]
+}) => {
   const [showTitle, setShowTitle] = useState(false)
 
   return (
     <details className='my-2'>
       <summary>
-        {host} {'★'.repeat(urls.length)}
+        {host}{' '}
+        {urls.map((url, i) => (
+          <>
+            {/* show + on bookmarked host's last star */}
+            {bookMarkingHost === host && i === urls.length - 1 && <span>+</span>}
+            {/* color bookmarked host's last star */}
+            <span className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>★</span>
+          </>
+        ))}
       </summary>
       <ol className='ml-8'>
         {urls.map((url, i) => (
