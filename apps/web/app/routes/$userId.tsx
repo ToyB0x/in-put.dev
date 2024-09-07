@@ -18,10 +18,10 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { result } = useLoaderData<typeof loader>()
-  const { userId } = useParams()
-  if (!userId) return <>no user exist</>
-
   const [searchParams] = useSearchParams()
+  const { userId } = useParams()
+
+  if (!userId) return <>no user exist</>
   const bookmakingUrl = searchParams.get('url')
   const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
   const uniqueHosts = [...new Set(result.map((url) => new URL(url.url).host))]
