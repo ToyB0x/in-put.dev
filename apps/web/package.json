@@ -5,6 +5,7 @@
   "scripts": {
     "build": "remix vite:build",
     "deploy": "pnpm build && wrangler pages deploy",
+    "deploy:prd": "pnpm build && wrangler pages deploy --branch main",
     "//ref": "https://zenn.dev/chimame/articles/e5bf3a18b7d4de#remix-vite%3Adev-の注意点",
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
