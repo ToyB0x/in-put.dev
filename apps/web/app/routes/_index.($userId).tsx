@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { useLoaderData, useSearchParams } from '@remix-run/react'
+import { useLoaderData, useParams, useSearchParams } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
 import { urls } from '@repo/database'
 
@@ -18,6 +18,9 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { result } = useLoaderData<typeof loader>()
+  const { userId } = useParams()
+  if (!userId) return <>no user exist</>
+
   const [searchParams] = useSearchParams()
   const bookmakingUrl = searchParams.get('url')
   const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
@@ -30,7 +33,13 @@ export default function Index() {
 
   return (
     <div className='font-sans px-8'>
-      <h1 className='text-4xl pt-4 pb-2'>Input.dev</h1>
+      <h1 className='text-4xl pt-4 pb-2'>Toyb0x's Knowledge</h1>
+      {/* Other header example 1 */}
+      {/*<h1 className='text-4xl pt-4 pb-2'>Input.dev</h1>*/}
+      {/* Other header example 2 */}
+      {/*<div className='flex'>*/}
+      {/*  <h1 className='text-4xl pt-4 pb-2'>Toyb0x's input</h1>*/}
+      {/*</div>*/}
       {uniqueHostsWithUrls
         .sort((a, b) => {
           const diffBookmark = b.urls.length - a.urls.length
