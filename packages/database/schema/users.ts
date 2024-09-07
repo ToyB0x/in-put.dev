@@ -6,6 +6,7 @@ export const users = sqliteTable(
   'users',
   {
     id: integer('id').primaryKey(),
+    name: text('name').notNull().default('ToyB0x'),
     email: text('email').notNull(),
     displayName: text('displayName'),
     createdAt: text('createdAt')
@@ -17,6 +18,7 @@ export const users = sqliteTable(
     hasDeleted: integer('hasDeleted', { mode: 'boolean' }).notNull().default(false),
   },
   (users) => ({
+    nameIdx: uniqueIndex('name').on(users.name),
     emailIdx: uniqueIndex('emailIdx').on(users.email),
   }),
 )
