@@ -33,7 +33,7 @@ export default function Index() {
 
   return (
     <div className='font-sans px-8'>
-      <h1 className='text-4xl pt-4 pb-2'>Toyb0x's Knowledge</h1>
+      <h1 className='text-4xl pt-4 pb-2'>Toyb0x&apos;s Knowledge</h1>
       {/* Other header example 1 */}
       {/*<h1 className='text-4xl pt-4 pb-2'>Input.dev</h1>*/}
       {/* Other header example 2 */}
