@@ -23,14 +23,14 @@ app.get('/users', async (c) => {
 
 // Insert user
 // TODO: change to post method
-app.get('/users/new', async (c) => {
-  const db = drizzle(c.env.DB_TEST1)
-  const result = await db
-    .insert(users)
-    .values({ displayName: 'User1', email: 'user1@example.com' })
-    .onConflictDoNothing()
-  return c.json({ result })
-})
+// app.get('/users/new', async (c) => {
+//   const db = drizzle(c.env.DB_TEST1)
+//   const result = await db
+//     .insert(users)
+//     .values({ name: 'User1', email: 'user1@example.com' })
+//     .onConflictDoNothing()
+//   return c.json({ result })
+// })
 
 // Insert url
 // NOTE: Use get method for arriving user via bookmarklet

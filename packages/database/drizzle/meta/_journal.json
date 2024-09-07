@@ -15,6 +15,20 @@
       "when": 1725238412296,
       "tag": "0001_tan_blindfold",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1725708896914,
+      "tag": "0002_dark_peter_parker",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1725709231921,
+      "tag": "0003_black_spencer_smythe",
+      "breakpoints": true
     }
   ]
 }
