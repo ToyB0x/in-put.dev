@@ -31,6 +31,14 @@ export default function Index() {
     return { host, urls: matchedUrlsSorted }
   })
 
+  if (uniqueHostsWithUrls.length === 0)
+    return (
+      <div className='font-sans px-8'>
+        <h1 className='text-4xl pt-4 pb-2'>Let's add your knowledge</h1>
+        <p>how to add... (help page WIP)</p>
+      </div>
+    )
+
   return (
     <div className='font-sans px-8'>
       <h1 className='text-4xl pt-4 pb-2'>Toyb0x&apos;s Knowledge</h1>
