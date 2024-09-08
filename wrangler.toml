@@ -1,3 +1,6 @@
+# ref: for cloudflare pages: https://developers.cloudflare.com/pages/functions/wrangler-configuration/
+# ref: for cloudflare workers: https://developers.cloudflare.com/workers/wrangler/configuration/
+
 #:schema node_modules/wrangler/config-schema.json
 name = "inputs"
 compatibility_date = "2024-05-24"
