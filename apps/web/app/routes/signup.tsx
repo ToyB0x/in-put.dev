@@ -1,7 +1,7 @@
 import { unstable_defineAction, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
-import { authCookie, firebaseAuthServer } from '@/.server'
+import { authCookie, verifyJWT } from '@/.server'
 import { SignupFromBrowser } from '@/components'
 import { insertUserSchema, users } from '@repo/database'
 import { cloudFlarePagesMode } from '@/env'
@@ -22,7 +22,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
 
   // validate token
-  const verifiedResult = await firebaseAuthServer.verifyIdToken(idToken)
+  const verifiedResult = await verifyJWT(idToken, context.cloudflare.env)
 
   // insert user to db
   const db = drizzle(context.cloudflare.env.DB_TEST1)

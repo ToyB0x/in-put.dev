@@ -16,7 +16,6 @@ export const users = sqliteTable(
     updatedAt: text('updatedAt')
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
-    hasDeleted: integer('hasDeleted', { mode: 'boolean' }).notNull().default(false),
   },
   (users) => ({
     userNameIdx: uniqueIndex('userName').on(users.userName),
