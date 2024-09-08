@@ -33,6 +33,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
       set: { pageTitle, updatedAt: sql`CURRENT_TIMESTAMP` },
     })
 
+  // return redirect(`/@${userId}/?url=${parseUrlResult.data.url}`)
   return redirect(`/?url=${parseUrlResult.data.url}`)
 }
 
