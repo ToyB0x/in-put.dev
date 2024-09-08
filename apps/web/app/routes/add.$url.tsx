@@ -1,16 +1,20 @@
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
-import { insertUrlRequestSchema, urls } from '@repo/database'
-import { sql } from 'drizzle-orm'
+import { insertUrlRequestSchema, urls, users } from '@repo/database'
+import { eq, sql } from 'drizzle-orm'
 import { parse } from 'node-html-parser'
+import { authCookie, verifyJWT } from '@/.server'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
 }
 
-export const loader = async ({ context, params }: LoaderFunctionArgs) => {
-  const db = drizzle(context.cloudflare.env.DB_TEST1)
+export const loader = async ({ context, request, params }: LoaderFunctionArgs) => {
+  // validate token
+  const cookieHeader = request.headers.get('Cookie')
+  const cookie = await authCookie.parse(cookieHeader)
+  const verifiedResult = await verifyJWT(cookie.idToken, context.cloudflare.env)
 
   const { url } = params
   const parseUrlResult = insertUrlRequestSchema.safeParse({ url })
@@ -22,19 +26,24 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const html = parse(await res.text())
   const pageTitle = html.querySelector('title')?.text
 
-  // TODO: use real user_id with authentication
-  const userId = 1
+  // insert url to db and redirect user page
+  const db = drizzle(context.cloudflare.env.DB_TEST1, { schema: { users, urls } })
+  const userInDb = await db.query.users.findFirst({
+    where: eq(users.firebaseUid, verifiedResult.uid),
+    columns: { id: true, userName: true },
+  })
+
+  if (!userInDb) throw Error('User not found')
 
   await db
     .insert(urls)
-    .values({ url: parseUrlResult.data.url, pageTitle, userId })
+    .values({ url: parseUrlResult.data.url, pageTitle, userId: userInDb.id })
     .onConflictDoUpdate({
       target: [urls.userId, urls.url],
       set: { pageTitle, updatedAt: sql`CURRENT_TIMESTAMP` },
     })
 
-  // return redirect(`/@${userId}/?url=${parseUrlResult.data.url}`)
-  return redirect(`/?url=${parseUrlResult.data.url}`)
+  return redirect(`/@${userInDb.userName}/?url=${parseUrlResult.data.url}`)
 }
 
 // NOTE:
