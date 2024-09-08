@@ -6,9 +6,10 @@ export const users = sqliteTable(
   'users',
   {
     id: integer('id').primaryKey(),
-    name: text('name').notNull(),
+    userName: text('userName').notNull(),
+    displayName: text('displayName').notNull(),
     email: text('email').notNull(),
-    displayName: text('displayName'),
+    firebaseUid: text('firebaseUid').notNull(),
     createdAt: text('createdAt')
       .notNull()
       .default(sql`CURRENT_TIMESTAMP`),
@@ -18,8 +19,9 @@ export const users = sqliteTable(
     hasDeleted: integer('hasDeleted', { mode: 'boolean' }).notNull().default(false),
   },
   (users) => ({
-    nameIdx: uniqueIndex('name').on(users.name),
+    userNameIdx: uniqueIndex('userName').on(users.userName),
     emailIdx: uniqueIndex('emailIdx').on(users.email),
+    firebaseUidIdx: uniqueIndex('firebaseUidIdx').on(users.firebaseUid),
   }),
 )
 
