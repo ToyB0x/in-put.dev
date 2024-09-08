@@ -5,16 +5,26 @@
 name = "inputs"
 compatibility_date = "2024-05-24"
 pages_build_output_dir = "./build/client"
+compatibility_flags = ["nodejs_compat_v2"]
 
 [limits]
 cpu_ms = 100 # To prevent accidental runaway bills or denial-of-wallet attacks (maybe ignored on free-plan)
 
+[vars]
+# Specify cache key to store and get public jwk.
+PUBLIC_JWK_CACHE_KEY = "public-jwk-cache-key"
+
 [[ d1_databases ]]
 binding = "DB_TEST1"
 database_name = "test1" # used by "wrangler d1 migrations [database_name]"
-database_id = "ff259bbd-8d7b-4da7-b709-e3850df4ca63" # db=test1
-preview_database_id = "0e0d1164-e7f3-42db-87c4-fc9819abc4f1" # db=test1-preview
+database_id = "51efb21a-1364-4b84-af15-b7e2b1c02f25" # db=test1
+preview_database_id = "acec2005-f2e7-4d79-97cf-dee89d03012d" # db=test1-preview
 migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
+
+[[kv_namespaces]]
+binding = "PUBLIC_JWK_CACHE_KV"
+id = "23f9b19117db4a7f87d4fdbe4289e56f"
+preview_id = "0381a09d521d4391bbac019799121655"
 
 # Automatically place your workloads in an optimal location to minimize latency.
 # If you are running back-end logic in a Pages Function, running it closer to your back-end infrastructure

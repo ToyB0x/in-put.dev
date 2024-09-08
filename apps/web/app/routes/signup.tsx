@@ -1,10 +1,27 @@
 import { unstable_defineAction, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
-import { authCookie, firebaseAuthServer } from '@/.server'
+import { authCookie, firebaseConfigServer } from '@/.server'
 import { SignupFromBrowser } from '@/components'
 import { insertUserSchema, users } from '@repo/database'
 import { cloudFlarePagesMode } from '@/env'
+
+import { Auth, WorkersKVStoreSingle } from 'firebase-auth-cloudflare-workers'
+
+const verifyJWT = async (
+  idToken: string,
+  firebaseProjectId: string,
+  env: {
+    PUBLIC_JWK_CACHE_KEY: string
+    PUBLIC_JWK_CACHE_KV: KVNamespace
+  },
+) => {
+  const auth = Auth.getOrInitialize(
+    firebaseProjectId,
+    WorkersKVStoreSingle.getOrInitialize(env.PUBLIC_JWK_CACHE_KEY, env.PUBLIC_JWK_CACHE_KV),
+  )
+  return await auth.verifyIdToken(idToken)
+}
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
@@ -22,7 +39,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
 
   // validate token
-  const verifiedResult = await firebaseAuthServer.verifyIdToken(idToken)
+  const verifiedResult = await verifyJWT(idToken, firebaseConfigServer.projectId, context.cloudflare.env)
 
   // insert user to db
   const db = drizzle(context.cloudflare.env.DB_TEST1)

@@ -1,5 +1,3 @@
-import { getApp, getApps, initializeApp } from 'firebase-admin/app'
-import { getAuth } from 'firebase-admin/auth'
 import { type CLOUD_FLARE_PAGES_MODE, cloudFlarePagesMode } from '@/env'
 
 // Your web app's Firebase configuration
@@ -16,9 +14,4 @@ const firebaseConfigsServer = {
   }
 }
 
-const firebaseAppServer =
-  getApps().length === 0
-    ? initializeApp(firebaseConfigsServer[cloudFlarePagesMode]) // map cloudflare local develop env / preview env to firebase local project
-    : getApp()
-
-export const firebaseAuthServer = getAuth(firebaseAppServer)
+export const firebaseConfigServer = firebaseConfigsServer[cloudFlarePagesMode]

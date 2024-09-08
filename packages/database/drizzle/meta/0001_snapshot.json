@@ -1,8 +1,8 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "47f3a826-2a05-44f6-8300-f21fe14811e6",
-  "prevId": "020d4232-4a6e-4b0d-8219-c29b20557e65",
+  "id": "3f49363a-d7a4-44b9-a359-cc819611b37c",
+  "prevId": "4683164c-6a95-40b3-8d2f-ecfed4ee4138",
   "tables": {
     "users": {
       "name": "users",
@@ -14,8 +14,8 @@
           "notNull": true,
           "autoincrement": false
         },
-        "email": {
-          "name": "email",
+        "userName": {
+          "name": "userName",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
@@ -25,7 +25,21 @@
           "name": "displayName",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "email": {
+          "name": "email",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "firebaseUid": {
+          "name": "firebaseUid",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
           "autoincrement": false
         },
         "createdAt": {
@@ -43,21 +57,27 @@
           "notNull": true,
           "autoincrement": false,
           "default": "CURRENT_TIMESTAMP"
-        },
-        "hasDeleted": {
-          "name": "hasDeleted",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true,
-          "autoincrement": false,
-          "default": false
         }
       },
       "indexes": {
+        "userName": {
+          "name": "userName",
+          "columns": [
+            "userName"
+          ],
+          "isUnique": true
+        },
         "emailIdx": {
           "name": "emailIdx",
           "columns": [
             "email"
+          ],
+          "isUnique": true
+        },
+        "firebaseUidIdx": {
+          "name": "firebaseUidIdx",
+          "columns": [
+            "firebaseUid"
           ],
           "isUnique": true
         }
