@@ -2,7 +2,7 @@
 
 import { Form, useFetcher } from '@remix-run/react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
-import { firebaseAuthBrowser } from '@/.client'
+import { firebaseAuthBrowser } from '@/.client/firebase'
 
 export const SignupFromBrowser: React.FC = () => {
   const fetcher = useFetcher()
