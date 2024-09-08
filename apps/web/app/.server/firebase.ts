@@ -1,4 +1,5 @@
 import { type CLOUD_FLARE_PAGES_MODE, cloudFlarePagesMode } from '@/env'
+import { Auth, WorkersKVStoreSingle } from 'firebase-auth-cloudflare-workers'
 
 // Your web app's Firebase configuration
 const firebaseConfigsServer = {
@@ -14,4 +15,18 @@ const firebaseConfigsServer = {
   }
 }
 
-export const firebaseConfigServer = firebaseConfigsServer[cloudFlarePagesMode]
+const firebaseConfigServer = firebaseConfigsServer[cloudFlarePagesMode]
+
+export const verifyJWT = async (
+  idToken: string,
+  env: {
+    PUBLIC_JWK_CACHE_KEY: string
+    PUBLIC_JWK_CACHE_KV: KVNamespace
+  },
+) => {
+  const auth = Auth.getOrInitialize(
+    firebaseConfigServer.projectId,
+    WorkersKVStoreSingle.getOrInitialize(env.PUBLIC_JWK_CACHE_KEY, env.PUBLIC_JWK_CACHE_KV),
+  )
+  return await auth.verifyIdToken(idToken)
+}
