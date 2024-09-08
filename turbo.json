@@ -20,5 +20,8 @@
       "cache": false,
       "persistent": true
     }
-  }
+  },
+  "globalEnv": [
+    "VITE_PUBLIC_CLOUD_FLARE_PAGES_MODE"
+    ]
 }

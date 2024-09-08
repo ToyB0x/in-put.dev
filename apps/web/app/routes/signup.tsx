@@ -10,7 +10,7 @@ export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
 }
 
-export const action = unstable_defineAction(async ({ context, request, params }: LoaderFunctionArgs) => {
+export const action = unstable_defineAction(async ({ context, request }: LoaderFunctionArgs) => {
   const formData = await request.formData()
   const userName = formData.get('userName')
   if (typeof userName !== 'string') throw Error('userName is invalid')

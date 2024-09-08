@@ -34,7 +34,7 @@ export default function Index() {
   if (uniqueHostsWithUrls.length === 0)
     return (
       <div className='font-sans px-8'>
-        <h1 className='text-4xl pt-4 pb-2'>Let's add your knowledge</h1>
+        <h1 className='text-4xl pt-4 pb-2'>Let&apos;s add your knowledge</h1>
         <p>how to add... (help page WIP)</p>
       </div>
     )
