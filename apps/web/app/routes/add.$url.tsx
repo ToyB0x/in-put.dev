@@ -4,7 +4,7 @@ import { drizzle } from 'drizzle-orm/d1'
 import { insertUrlRequestSchema, urls, users } from '@repo/database'
 import { eq, sql } from 'drizzle-orm'
 import { parse } from 'node-html-parser'
-import { authCookie, verifyJWT } from '@/.server'
+import { authCookie } from '@/.server'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
@@ -14,7 +14,9 @@ export const loader = async ({ context, request, params }: LoaderFunctionArgs) =
   // validate token
   const cookieHeader = request.headers.get('Cookie')
   const cookie = await authCookie.parse(cookieHeader)
-  const verifiedResult = await verifyJWT(cookie.idToken, context.cloudflare.env)
+  // await useRefreshToken(cookie.refreshToken)
+
+  // const verifiedResult = await verifyJWT(cookie.idToken, context.cloudflare.env)
 
   const { url } = params
   const parseUrlResult = insertUrlRequestSchema.safeParse({ url })

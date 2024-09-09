@@ -1,7 +1,7 @@
 import { unstable_defineAction, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
-import { authCookie, verifyJWT } from '@/.server'
+import { authCookie } from '@/.server'
 import { LoginFromBrowser } from '@/components'
 import { urls, users } from '@repo/database'
 import { cloudFlarePagesMode } from '@/env'
@@ -20,7 +20,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   const refreshToken = formData.get('refreshToken')
   if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
 
-  const verifiedResult = await verifyJWT(idToken, context.cloudflare.env)
+  // const verifiedResult = await verifyJWT(idToken, context.cloudflare.env)
 
   const db = drizzle(context.cloudflare.env.DB_TEST1, { schema: { users, urls } })
   const userInDb = await db.query.users.findFirst({
@@ -41,6 +41,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
         },
         {
           httpOnly: true,
+          sameSite: 'lax',
           secure: cloudFlarePagesMode === 'production',
         },
       ),
