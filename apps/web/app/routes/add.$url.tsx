@@ -1,10 +1,17 @@
-import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
-import { drizzle } from 'drizzle-orm/d1'
-import { insertUrlRequestSchema, urls, users } from '@repo/database'
-import { eq, sql } from 'drizzle-orm'
+import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { eq } from 'drizzle-orm'
 import { parse } from 'node-html-parser'
-import { authCookie } from '@/.server'
+import { drizzle } from 'drizzle-orm/neon-http'
+import { neon } from '@neondatabase/serverless'
+import { insertUrlRequestSchema, url, user } from '@repo/database'
+import {
+  authCookie,
+  AuthCookieValues,
+  cookieOption,
+  getOrInitializeAuth,
+  verifyAndUpdateSessionCookieWithTokenRefreshIfExpired,
+} from '@/.server'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
@@ -14,12 +21,18 @@ export const loader = async ({ context, request, params }: LoaderFunctionArgs) =
   // validate token
   const cookieHeader = request.headers.get('Cookie')
   const cookie = await authCookie.parse(cookieHeader)
-  // await useRefreshToken(cookie.refreshToken)
 
-  // const verifiedResult = await verifyJWT(cookie.idToken, context.cloudflare.env)
+  const sessionCookie = cookie.sessionCookie
+  const refreshToken = cookie.refreshToken
 
-  const { url } = params
-  const parseUrlResult = insertUrlRequestSchema.safeParse({ url })
+  const auth = await getOrInitializeAuth(context.cloudflare.env)
+  const {
+    user: firebaseUser,
+    newSessionCookie,
+    newRefreshToken,
+  } = await verifyAndUpdateSessionCookieWithTokenRefreshIfExpired(sessionCookie, refreshToken, auth)
+
+  const parseUrlResult = insertUrlRequestSchema.safeParse({ url: params.url })
   if (!parseUrlResult.success) {
     return json({ message: 'Invalid url given', status: 400 })
   }
@@ -29,23 +42,34 @@ export const loader = async ({ context, request, params }: LoaderFunctionArgs) =
   const pageTitle = html.querySelector('title')?.text
 
   // insert url to db and redirect user page
-  const db = drizzle(context.cloudflare.env.DB_TEST1, { schema: { users, urls } })
-  const userInDb = await db.query.users.findFirst({
-    where: eq(users.firebaseUid, verifiedResult.uid),
+  const sql = neon(context.cloudflare.env.DATABASE_URL)
+  const db = drizzle(sql, { schema: { user } })
+
+  const userInDb = await db.query.user.findFirst({
+    where: eq(user.firebaseUid, firebaseUser.uid),
     columns: { id: true, userName: true },
   })
 
   if (!userInDb) throw Error('User not found')
 
   await db
-    .insert(urls)
+    .insert(url)
     .values({ url: parseUrlResult.data.url, pageTitle, userId: userInDb.id })
     .onConflictDoUpdate({
-      target: [urls.userId, urls.url],
-      set: { pageTitle, updatedAt: sql`CURRENT_TIMESTAMP` },
+      target: [url.userId, url.url],
+      set: { pageTitle, updatedAt: new Date() },
     })
 
-  return redirect(`/@${userInDb.userName}/?url=${parseUrlResult.data.url}`)
+  const cookieValues = {
+    sessionCookie: newSessionCookie,
+    refreshToken: newRefreshToken,
+  } satisfies AuthCookieValues
+
+  return redirect(`/@${userInDb.userName}/?url=${parseUrlResult.data.url}`, {
+    headers: {
+      'Set-Cookie': await authCookie.serialize(cookieValues, cookieOption),
+    },
+  })
 }
 
 // NOTE:
