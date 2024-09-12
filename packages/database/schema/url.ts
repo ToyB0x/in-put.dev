@@ -17,8 +17,8 @@ export const url = pgTable(
         onDelete: 'cascade',
       }),
   },
-  (urls) => ({
-    urlIdx: uniqueIndex('urlIdx').on(urls.userId, urls.url),
+  (url) => ({
+    urlIdx: uniqueIndex('urlIdx').on(url.userId, url.url),
   }),
 )
 
