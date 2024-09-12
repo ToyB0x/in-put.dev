@@ -1,6 +1,8 @@
 'use client' // for firebase browser
 
 import { Form, useFetcher } from '@remix-run/react'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import { firebaseAuthBrowser, PersistenceNone } from '@/.client/firebase'
 
 export const LoginFromBrowser: React.FC = () => {
   const fetcher = useFetcher()
@@ -15,8 +17,8 @@ export const LoginFromBrowser: React.FC = () => {
     const password = formData.get('password')
     if (typeof password !== 'string') throw Error('password is invalid')
 
-    // await firebaseAuthBrowser.setPersistence(PersistenceNone)
-    // const credential = await signInWithEmailAndPassword(firebaseAuthBrowser, email, password)
+    await firebaseAuthBrowser.setPersistence(PersistenceNone)
+    const credential = await signInWithEmailAndPassword(firebaseAuthBrowser, email, password)
     const { refreshToken } = credential.user
     const idToken = await credential.user.getIdToken()
 
