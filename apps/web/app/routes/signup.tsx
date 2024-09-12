@@ -1,4 +1,4 @@
-import { unstable_defineAction, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
 import {
   authCookie,
@@ -16,7 +16,7 @@ export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
 }
 
-export const action = unstable_defineAction(async ({ context, request }: LoaderFunctionArgs) => {
+export const action = async ({ context, request }: LoaderFunctionArgs) => {
   const formData = await request.formData()
   const userName = formData.get('userName')
   if (typeof userName !== 'string') throw Error('userName is invalid')
@@ -57,7 +57,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
       'Set-Cookie': await authCookie.serialize(cookieValues, cookieOption),
     },
   })
-})
+}
 
 // TODO: refactor / add ui component
 export default function Page() {
