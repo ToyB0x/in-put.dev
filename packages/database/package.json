@@ -6,9 +6,10 @@
   },
   "scripts": {
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
-    "db:push": "drizzle-kit push",
-    "db:introspect": "drizzle-kit introspect",
+    "db:check:branch-local": "NEON_BRANCH=LOCAL echo 'check issue: https://github.com/drizzle-team/drizzle-orm/issues/2284' && drizzle-kit check",
+    "db:check:branch-main":  "NEON_BRANCH=MAIN echo 'check issue: https://github.com/drizzle-team/drizzle-orm/issues/2284' && drizzle-kit check",
+    "db:migrate:branch-local": "NEON_BRANCH=LOCAL drizzle-kit migrate",
+    "db:migrate:branch-main":  "NEON_BRANCH=MAIN drizzle-kit migrate",
     "lint": "eslint --max-warnings=0",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc --noEmit"
@@ -19,6 +20,7 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
+    "dotenv": "16.4.5",
     "postgres": "3.4.4",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",

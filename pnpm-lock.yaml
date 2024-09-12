@@ -179,7 +179,7 @@ importers:
         specifier: 0.5.1
         version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240903.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.5)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
       zod:
-        specifier: '*'
+        specifier: 3.23.8
         version: 3.23.8
     devDependencies:
       '@repo/eslint-config':
@@ -188,6 +188,9 @@ importers:
       '@repo/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
+      dotenv:
+        specifier: latest
+        version: 16.4.5
       drizzle-kit:
         specifier: 0.24.2
         version: 0.24.2
@@ -2442,6 +2445,10 @@ packages:
 
   dotenv@16.0.3:
     resolution: {integrity: sha512-7GO6HghkA5fYG9TYnNxi14/7K9f5occMlp3zXAuSxn7CKCxt9xbNWG7yF8hTCSUchlfWSe3uLmlPfigevRItzQ==}
+    engines: {node: '>=12'}
+
+  dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
 
   drizzle-kit@0.24.2:
@@ -7535,6 +7542,8 @@ snapshots:
       no-case: 2.3.2
 
   dotenv@16.0.3: {}
+
+  dotenv@16.4.5: {}
 
   drizzle-kit@0.24.2:
     dependencies:
