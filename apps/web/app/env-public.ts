@@ -6,5 +6,5 @@
 // NOTE: CloudFlare Pages does not support multiple environments (like dev, stg, prd), only supports preview and production environments
 export type CLOUD_FLARE_PAGES_MODE = 'preview' | 'production'
 
-const viteMode = import.meta.env.mode.production // ref: https://ja.vitejs.dev/guide/env-and-mode
-export const PUBLIC_CLOUDFLARE_PAGES_MODE: CLOUD_FLARE_PAGES_MODE = viteMode ? 'production' : 'preview'
+const viteMode = import.meta.env.MODE as 'development' | 'production' // ref: https://ja.vitejs.dev/guide/env-and-mode
+export const PUBLIC_CLOUDFLARE_PAGES_MODE: CLOUD_FLARE_PAGES_MODE = viteMode === 'production' ? 'production' : 'preview'
