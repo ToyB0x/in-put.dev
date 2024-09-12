@@ -1,5 +1,5 @@
 import { createCookie } from '@remix-run/cloudflare'
-import { cloudFlarePagesMode } from '@/env'
+import { PUBLIC_CLOUDFLARE_PAGES_MODE } from '@/env-public'
 
 export type AuthCookieValues = {
   sessionCookie: string
@@ -9,7 +9,7 @@ export type AuthCookieValues = {
 export const cookieOption = {
   httpOnly: true,
   sameSite: 'lax' as const,
-  secure: cloudFlarePagesMode === 'production',
+  secure: PUBLIC_CLOUDFLARE_PAGES_MODE === 'production',
 }
 
 export const authCookie = createCookie('auth')
