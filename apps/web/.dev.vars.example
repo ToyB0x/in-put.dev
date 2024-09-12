@@ -1,0 +1,5 @@
+# ref: https://developers.cloudflare.com/workers/configuration/secrets/
+SECRETS_SERVICE_ACCOUNT_JSON_STRING='{ "type": "service_account", "project_id": "xxx", .....}'
+
+# DEV
+SECRETS_DATABASE_URL="postgresql://xxx"
