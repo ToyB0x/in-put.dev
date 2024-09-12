@@ -1,33 +1,47 @@
 import { useState } from 'react'
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData, useParams, useSearchParams } from '@remix-run/react'
-import { drizzle } from 'drizzle-orm/d1'
-import { urls } from '@repo/database'
+import { drizzle } from 'drizzle-orm/neon-http'
+import { neon } from '@neondatabase/serverless'
+import { url, user } from '@repo/database'
+import { eq } from 'drizzle-orm'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
 }
 
-export const loader = async ({ context }: LoaderFunctionArgs) => {
-  const db = drizzle(context.cloudflare.env.DB_TEST1)
-  const result = await db.select().from(urls).all()
+export const loader = async ({ context, params }: LoaderFunctionArgs) => {
+  if (!params.userId) throw Error('no user exist')
 
-  const message = 'Hello from the loader'
-  return json({ message, result })
+  const exactUserId = params.userId.split('@')[1]
+  if (!exactUserId) throw Error('no user exist')
+
+  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
+  const db = drizzle(sql, { schema: { user, url } })
+
+  const result = await db
+    .select()
+    .from(user)
+    .innerJoin(url, eq(user.id, url.userId))
+    .where(eq(user.userName, exactUserId))
+
+  if (!result) throw Error('no user exist')
+
+  return json({ result, exactUserId })
 }
 
 export default function Index() {
-  const { result } = useLoaderData<typeof loader>()
+  const { result, exactUserId } = useLoaderData<typeof loader>()
   const [searchParams] = useSearchParams()
   const { userId } = useParams()
 
   if (!userId) return <>no user exist</>
   const bookmakingUrl = searchParams.get('url')
   const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
-  const uniqueHosts = [...new Set(result.map((url) => new URL(url.url).host))]
+  const uniqueHosts = [...new Set(result.map(({ urls }) => new URL(urls.url).host))]
   const uniqueHostsWithUrls = uniqueHosts.map((host) => {
-    const matchedUrls = result.filter((url) => new URL(url.url).host === host)
-    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.url.localeCompare(b.url))
+    const matchedUrls = result.filter(({ urls }) => new URL(urls.url).host === host)
+    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.urls.url.localeCompare(b.urls.url)).map(({ urls }) => urls)
     return { host, urls: matchedUrlsSorted }
   })
 
@@ -41,13 +55,8 @@ export default function Index() {
 
   return (
     <div className='font-sans px-8'>
-      <h1 className='text-4xl pt-4 pb-2'>Toyb0x&apos;s Knowledge</h1>
-      {/* Other header example 1 */}
-      {/*<h1 className='text-4xl pt-4 pb-2'>Input.dev</h1>*/}
-      {/* Other header example 2 */}
-      {/*<div className='flex'>*/}
-      {/*  <h1 className='text-4xl pt-4 pb-2'>Toyb0x's input</h1>*/}
-      {/*</div>*/}
+      {/*<h1 className='text-4xl pt-4 pb-2'>Toyb0x&apos;s Knowledge</h1>*/}
+      <h1 className='text-4xl pt-4 pb-2'>{exactUserId}&apos;s input</h1>
       {uniqueHostsWithUrls
         .sort((a, b) => {
           const diffBookmark = b.urls.length - a.urls.length

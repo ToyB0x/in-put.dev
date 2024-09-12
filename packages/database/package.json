@@ -5,29 +5,28 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "generate": "drizzle-kit generate",
-    "status:local": "wrangler d1 migrations list test1 --local --persist-to ../../cf-local-worker",
-    "apply:local": "wrangler d1 migrations apply test1 --local --persist-to ../../cf-local-worker",
-    "potentialy-danger-command //destroy:local": "rm -rf ../../cf-local-worker/v3/d1",
-    "status:preview": "wrangler d1 migrations list test1 --preview --remote",
-    "apply:preview": "wrangler d1 migrations apply test1 --preview --remote",
-    "status:prd": "wrangler d1 migrations list test1 --remote",
-    "apply:prd": "wrangler d1 migrations apply test1 --remote",
-    "backup:prd": "wrangler d1 export test1 --remote --output ./backup.sql",
+    "db:generate": "drizzle-kit generate",
+    "db:check:branch-local": "NEON_BRANCH=LOCAL echo 'check issue: https://github.com/drizzle-team/drizzle-orm/issues/2284' && drizzle-kit check",
+    "db:check:branch-main":  "NEON_BRANCH=MAIN echo 'check issue: https://github.com/drizzle-team/drizzle-orm/issues/2284' && drizzle-kit check",
+    "db:migrate:branch-local": "NEON_BRANCH=LOCAL drizzle-kit migrate",
+    "db:migrate:branch-main":  "NEON_BRANCH=MAIN drizzle-kit migrate",
     "lint": "eslint --max-warnings=0",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "drizzle-orm": "0.33.0",
-    "drizzle-zod": "0.5.1"
+    "drizzle-zod": "0.5.1",
+    "zod": "3.23.8"
   },
   "devDependencies": {
+    "dotenv": "16.4.5",
+    "postgres": "3.4.4",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "0.24.2",
     "typescript": "5.5.4",
-    "wrangler": "3.75.0"
+    "vite": "5.4.3"
   },
   "volta": {
     "extends": "../../package.json"

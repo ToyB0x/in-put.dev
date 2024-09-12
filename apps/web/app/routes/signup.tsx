@@ -1,10 +1,16 @@
 import { unstable_defineAction, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
-import { drizzle } from 'drizzle-orm/d1'
-import { authCookie, verifyJWT } from '@/.server'
+import {
+  authCookie,
+  AuthCookieValues,
+  cookieOption,
+  firebaseSessionCookieExpiresIn,
+  getOrInitializeAuth,
+} from '@/.server'
 import { SignupFromBrowser } from '@/components'
-import { insertUserSchema, users } from '@repo/database'
-import { cloudFlarePagesMode } from '@/env'
+import { insertUserSchema, user } from '@repo/database'
+import { drizzle } from 'drizzle-orm/neon-http'
+import { neon } from '@neondatabase/serverless'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
@@ -22,10 +28,12 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
 
   // validate token
-  const verifiedResult = await verifyJWT(idToken, context.cloudflare.env)
+  const auth = await getOrInitializeAuth(context.cloudflare.env)
+  const verifiedResult = await auth.verifyIdToken(idToken)
 
   // insert user to db
-  const db = drizzle(context.cloudflare.env.DB_TEST1)
+  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
+  const db = drizzle(sql)
   const parseUserResult = insertUserSchema.safeParse({
     userName,
     displayName: userName,
@@ -35,23 +43,18 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
 
   if (!parseUserResult.success) throw { message: 'Invalid user info given', status: 400 }
 
-  // TODO: handle intermediate state (created in firebase but not in db)
-  await db.insert(users).values(parseUserResult.data)
+  await db.insert(user).values(parseUserResult.data)
 
-  // TODO: use remix-auth package
+  const generatedSessionCookie = await auth.createSessionCookie(idToken, { expiresIn: firebaseSessionCookieExpiresIn })
+  const cookieValues = {
+    sessionCookie: generatedSessionCookie,
+    refreshToken,
+  } satisfies AuthCookieValues
+
   // set to cookie and redirect user page
   return redirect(`/@${userName}`, {
     headers: {
-      'Set-Cookie': await authCookie.serialize(
-        {
-          idToken,
-          refreshToken,
-        },
-        {
-          httpOnly: true,
-          secure: cloudFlarePagesMode === 'production',
-        },
-      ),
+      'Set-Cookie': await authCookie.serialize(cookieValues, cookieOption),
     },
   })
 })

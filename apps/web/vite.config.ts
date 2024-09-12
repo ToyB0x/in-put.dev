@@ -11,11 +11,19 @@ export default defineConfig({
         v3_fetcherPersist: true,
         v3_relativeSplatPath: true,
         v3_throwAbortReason: true,
+        unstable_singleFetch: true,
       },
     }),
     tsconfigPaths(),
   ],
 })
+
+// https://remix.run/docs/en/main/guides/single-fetch#enable-single-fetch-types
+declare module '@remix-run/cloudflare' {
+  interface Future {
+    unstable_singleFetch: true
+  }
+}
 
 // Vite React "use client" sourcemap warning
 // https://stackoverflow.com/a/78751258

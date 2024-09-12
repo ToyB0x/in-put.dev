@@ -13,12 +13,12 @@ cpu_ms = 100 # To prevent accidental runaway bills or denial-of-wallet attacks (
 # Specify cache key to store and get public jwk.
 PUBLIC_JWK_CACHE_KEY = "public-jwk-cache-key"
 
-[[ d1_databases ]]
-binding = "DB_TEST1"
-database_name = "test1" # used by "wrangler d1 migrations [database_name]"
-database_id = "51efb21a-1364-4b84-af15-b7e2b1c02f25" # db=test1
-preview_database_id = "acec2005-f2e7-4d79-97cf-dee89d03012d" # db=test1-preview
-migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
+# [[ d1_databases ]]
+# binding = "DB_TEST1"
+# database_name = "test1" # used by "wrangler d1 migrations [database_name]"
+# database_id = "51efb21a-1364-4b84-af15-b7e2b1c02f25" # db=test1
+# preview_database_id = "acec2005-f2e7-4d79-97cf-dee89d03012d" # db=test1-preview
+# migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
 
 [[kv_namespaces]]
 binding = "PUBLIC_JWK_CACHE_KV"
