@@ -58,7 +58,11 @@ export const fetchNewTokenWithRefreshToken = async (
     },
   )
 
-  const result = (await res.json()) as any
+  const result = await res.json<{
+    id_token: string
+    refresh_token: string
+    expires_in: number
+  }>()
 
   return {
     idToken: result.id_token,
