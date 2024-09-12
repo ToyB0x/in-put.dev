@@ -8,3 +8,7 @@ export type CLOUD_FLARE_PAGES_MODE = 'preview' | 'production'
 
 const viteMode = import.meta.env.MODE as 'development' | 'production' // ref: https://ja.vitejs.dev/guide/env-and-mode
 export const PUBLIC_CLOUDFLARE_PAGES_MODE: CLOUD_FLARE_PAGES_MODE = viteMode === 'production' ? 'production' : 'preview'
+
+export const PUBLIC_FIREBASE_BROWSER_API_KEY_PREVIEW = import.meta.env.VITE_PUBLIC_FIREBASE_BROWSER_API_KEY_PREVIEW
+export const PUBLIC_FIREBASE_BROWSER_API_KEY_PRODUCTION = import.meta.env
+  .VITE_PUBLIC_FIREBASE_BROWSER_API_KEY_PRODUCTION
