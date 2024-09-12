@@ -20,9 +20,8 @@ resource "google_identity_platform_config" "default" {
   ]
 }
 
-# NOTE: currently, we don't use firebase auth
-# resource "google_firebase_web_app" "default" {
-#   provider     = google-beta
-#   project      = data.google_project.current.project_id
-#   display_name = "default"
-# }
+resource "google_firebase_web_app" "default" {
+  provider     = google-beta
+  project      = data.google_project.current.project_id
+  display_name = "default"
+}

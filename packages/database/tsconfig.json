@@ -2,8 +2,9 @@
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
     "skipLibCheck": true,
-    "moduleResolution": "Bundler"
+    "moduleResolution": "Bundler",
+    "types": ["vite/client"]
   },
-  "include": ["src"],
+  "include": ["**/*.ts"],
   "exclude": ["dist", "node_modules", "src/**/*.test.ts"]
 }
