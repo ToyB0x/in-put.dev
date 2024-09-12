@@ -5,7 +5,10 @@ node_modules
 
 # Environment variables (Cloudflare)
 # https://remix.run/docs/en/main/guides/envvars
-.dev.vars
+
+# currentry just symlinked to root .dev.vars
+!.dev.vars
+
 .wrangler
 
 # Environment variables (Vite)
