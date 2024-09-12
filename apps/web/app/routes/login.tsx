@@ -29,7 +29,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   const auth = await getOrInitializeAuth(context.cloudflare.env)
   const verifiedResult = await auth.verifyIdToken(idToken)
 
-  const sql = neon(context.cloudflare.env.DATABASE_URL)
+  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
   const db = drizzle(sql, { schema: { user } })
 
   const userInDb = await db.query.user.findFirst({

@@ -16,7 +16,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const exactUserId = params.userId.split('@')[1]
   if (!exactUserId) throw Error('no user exist')
 
-  const sql = neon(context.cloudflare.env.DATABASE_URL)
+  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
   const db = drizzle(sql, { schema: { user, url } })
 
   const result = await db

@@ -32,7 +32,7 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   const verifiedResult = await auth.verifyIdToken(idToken)
 
   // insert user to db
-  const sql = neon(context.cloudflare.env.DATABASE_URL)
+  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
   const db = drizzle(sql)
   const parseUserResult = insertUserSchema.safeParse({
     userName,

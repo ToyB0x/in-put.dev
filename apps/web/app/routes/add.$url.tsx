@@ -42,7 +42,7 @@ export const loader = async ({ context, request, params }: LoaderFunctionArgs) =
   const pageTitle = html.querySelector('title')?.text
 
   // insert url to db and redirect user page
-  const sql = neon(context.cloudflare.env.DATABASE_URL)
+  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
   const db = drizzle(sql, { schema: { user } })
 
   const userInDb = await db.query.user.findFirst({
