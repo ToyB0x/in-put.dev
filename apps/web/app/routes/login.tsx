@@ -1,11 +1,17 @@
 import { unstable_defineAction, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { redirect } from '@remix-run/react'
-import { drizzle } from 'drizzle-orm/d1'
-import { authCookie } from '@/.server'
+import {
+  authCookie,
+  AuthCookieValues,
+  cookieOption,
+  firebaseSessionCookieExpiresIn,
+  getOrInitializeAuth,
+} from '@/.server'
 import { LoginFromBrowser } from '@/components'
-import { urls, users } from '@repo/database'
-import { cloudFlarePagesMode } from '@/env'
+import { user } from '@repo/database'
 import { eq } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/neon-http'
+import { neon } from '@neondatabase/serverless'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Input.dev' }]
@@ -20,31 +26,30 @@ export const action = unstable_defineAction(async ({ context, request }: LoaderF
   const refreshToken = formData.get('refreshToken')
   if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
 
-  // const verifiedResult = await verifyJWT(idToken, context.cloudflare.env)
+  const auth = await getOrInitializeAuth(context.cloudflare.env)
+  const verifiedResult = await auth.verifyIdToken(idToken)
 
-  const db = drizzle(context.cloudflare.env.DB_TEST1, { schema: { users, urls } })
-  const userInDb = await db.query.users.findFirst({
-    where: eq(users.firebaseUid, verifiedResult.uid),
+  const sql = neon(context.cloudflare.env.DATABASE_URL)
+  const db = drizzle(sql, { schema: { user } })
+
+  const userInDb = await db.query.user.findFirst({
+    where: eq(user.firebaseUid, verifiedResult.uid),
     columns: { userName: true },
   })
 
-  if (!userInDb) throw Error('User not found')
+  // NOTE: handle intermediate state (created in firebase but not in db)
+  if (!userInDb) return redirect('/signup-continue') // need human-readable unique userName, but firebase token has only email, so redirect to signup-continue (input userName)
 
-  // TODO: use remix-auth package
+  const generatedSessionCookie = await auth.createSessionCookie(idToken, { expiresIn: firebaseSessionCookieExpiresIn })
+  const cookieValues = {
+    sessionCookie: generatedSessionCookie,
+    refreshToken,
+  } satisfies AuthCookieValues
+
   // set to cookie and redirect user page
   return redirect(`/@${userInDb.userName}`, {
     headers: {
-      'Set-Cookie': await authCookie.serialize(
-        {
-          idToken,
-          refreshToken,
-        },
-        {
-          httpOnly: true,
-          sameSite: 'lax',
-          secure: cloudFlarePagesMode === 'production',
-        },
-      ),
+      'Set-Cookie': await authCookie.serialize(cookieValues, cookieOption),
     },
   })
 })
