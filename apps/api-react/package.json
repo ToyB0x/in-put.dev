@@ -1,0 +1,24 @@
+{
+  "name": "@repo/api-react",
+  "scripts": {
+    "dev": "wrangler dev src/index.ts --persist-to ../../cf-local-worker",
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types"
+  },
+  "dependencies": {
+    "@hono/zod-validator": "0.2.2",
+    "@repo/database-d1": "workspace:*",
+    "drizzle-orm": "0.33.0",
+    "hono": "4.5.11",
+    "node-html-parser": "6.1.13",
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "4.20240903.0",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "wrangler": "3.75.0"
+  }
+}

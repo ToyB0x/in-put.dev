@@ -1,9 +1,11 @@
 {
   "extends": "@repo/typescript-config/base.json",
   "compilerOptions": {
+    "baseUrl": ".",
     "skipLibCheck": true,
     "moduleResolution": "Bundler",
+    "types": [
+      "@cloudflare/workers-types/2023-07-01"
+    ],
   },
-  "include": ["**/*.ts"],
-  "exclude": ["dist", "node_modules", "src/**/*.test.ts"]
 }

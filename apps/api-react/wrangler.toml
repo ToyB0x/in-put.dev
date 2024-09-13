@@ -1,0 +1,12 @@
+name = "api-react-test1"
+compatibility_date = "2024-05-24"
+
+[limits]
+cpu_ms = 100 # To prevent accidental runaway bills or denial-of-wallet attacks (maybe ignored on free-plan)
+
+[[ d1_databases ]]
+binding = "DB_TEST_API_REACT_1"
+database_name = "db_test_api_react_1" # used by "wrangler d1 migrations [database_name] as local alias(no need to use real db name)"
+database_id = "c9cabda0-9e9a-469e-a974-074487244c3b" # db=db_test_api_react_1
+# preview_database_id = "xxxxx"
+migrations_dir = "../../packages/database-d1/drizzle"
