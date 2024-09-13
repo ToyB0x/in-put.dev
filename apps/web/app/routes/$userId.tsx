@@ -38,10 +38,10 @@ export default function Index() {
   if (!userId) return <>no user exist</>
   const bookmakingUrl = searchParams.get('url')
   const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
-  const uniqueHosts = [...new Set(result.map(({ urls }) => new URL(urls.url).host))]
+  const uniqueHosts = [...new Set(result.map(({ url }) => new URL(url.url).host))]
   const uniqueHostsWithUrls = uniqueHosts.map((host) => {
-    const matchedUrls = result.filter(({ urls }) => new URL(urls.url).host === host)
-    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.urls.url.localeCompare(b.urls.url)).map(({ urls }) => urls)
+    const matchedUrls = result.filter(({ url }) => new URL(url.url).host === host)
+    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.url.url.localeCompare(b.url.url)).map(({ url }) => url)
     return { host, urls: matchedUrlsSorted }
   })
 
