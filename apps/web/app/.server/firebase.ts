@@ -33,10 +33,10 @@ const firebaseConfigsServer = {
 const firebaseConfigServer = firebaseConfigsServer[PUBLIC_CLOUDFLARE_PAGES_MODE]
 
 // NOTE: Avoid wrong kid error
-const dummyStore = {
-  get: async () => null,
-  put: async () => undefined,
-}
+// const dummyStore = {
+//   get: async () => null,
+//   put: async () => undefined,
+// }
 
 export const getOrInitializeAuth = async (env: Env) =>
   Auth.getOrInitialize(
