@@ -3,7 +3,7 @@ import { pgTable, integer, serial, uniqueIndex, timestamp, varchar } from 'drizz
 import { user } from './user'
 
 export const url = pgTable(
-  'urls',
+  'url',
   {
     id: serial('id').primaryKey(),
     url: varchar('url', { length: 256 * 4 }).notNull(),

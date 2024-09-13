@@ -32,10 +32,17 @@ const firebaseConfigsServer = {
 
 const firebaseConfigServer = firebaseConfigsServer[PUBLIC_CLOUDFLARE_PAGES_MODE]
 
+// NOTE: Avoid wrong kid error
+const dummyStore = {
+  get: async () => null,
+  put: async () => undefined,
+}
+
 export const getOrInitializeAuth = async (env: Env) =>
   Auth.getOrInitialize(
     firebaseConfigServer.projectId,
     WorkersKVStoreSingle.getOrInitialize(env.PUBLIC_JWK_CACHE_KEY, env.PUBLIC_JWK_CACHE_KV),
+    // dummyStore,
     new ServiceAccountCredential(env.SECRETS_SERVICE_ACCOUNT_JSON_STRING),
   )
 
@@ -88,11 +95,15 @@ export const verifyAndUpdateSessionCookieWithTokenRefreshIfExpired = async (
       newRefreshToken: refreshToken,
     }
   } catch (e) {
+    // NOTE: handle session-cookie-expired error
     // https://firebase.google.com/docs/auth/admin/errors
-    if (e instanceof Error && 'code' in e && typeof e.code === 'string' && e.code === 'auth/session-cookie-expired') {
+    //   errorInfo: {
+    //     code: 'auth/argument-error', // NOTE: Caution! not 'auth/session-cookie-expired'
+    //         message: 'Decoding Firebase session cookie failed. Make sure you passed the entire string JWT which represents a session cookie. See https://firebase.google.com/docs/auth/admin/manage-cookies for details on how to retrieve a session cookie. err: Error: Incorrect "exp" (expiration time) claim must be a newer than "1726194876" (exp: "1726194492")'
+    if (e instanceof Error && 'code' in e && typeof e.code === 'string' && e.code === 'auth/argument-error') {
       const { idToken, refreshToken: newRefreshToken } = await fetchNewTokenWithRefreshToken(refreshToken)
-      const user = await auth.verifySessionCookie(idToken)
       const newSessionCookie = await auth.createSessionCookie(idToken, { expiresIn: firebaseSessionCookieExpiresIn })
+      const user = await auth.verifySessionCookie(newSessionCookie)
 
       return {
         user,

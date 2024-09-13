@@ -15,6 +15,13 @@
       "when": 1726105131306,
       "tag": "0001_lyrical_nico_minoru",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1726192815445,
+      "tag": "0002_cute_vanisher",
+      "breakpoints": true
     }
   ]
 }
