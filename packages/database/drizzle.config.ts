@@ -1,12 +1,10 @@
 import { defineConfig } from 'drizzle-kit'
 import * as dotenv from 'dotenv'
 
-dotenv.config()
+if (process.env.NEON_BRANCH === 'MAIN') dotenv.config({ path: '../../.env.production.local' })
+else dotenv.config({ path: '../../.env.development.local' })
 
-const dbUrl =
-  process.env.NEON_BRANCH === 'MAIN'
-    ? process.env.NEON_DATABASE_URL_BRANCH_MAIN
-    : process.env.NEON_DATABASE_URL_BRANCH_LOCAL
+const dbUrl = process.env.NEON_DATABASE_URL
 if (!dbUrl) throw Error('Database URL not found')
 
 export default defineConfig({
