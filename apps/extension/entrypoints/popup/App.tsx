@@ -4,10 +4,11 @@ import wxtLogo from '/wxt.svg'
 import './App.css'
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth/web-extension'
 import { initializeApp } from 'firebase/app'
+import { sharedPublicViteEnv } from '@repo/env/shared'
 
 const firebaseAppBrowser = initializeApp({
-  projectId: 'xxx', // map cloudflare local develop env / preview env to firebase local project
-  apiKey: 'yyy', // public browser endpoint
+  projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
+  apiKey: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_BROWSER_API_KEY,
 })
 
 const auth = getAuth(firebaseAppBrowser)
