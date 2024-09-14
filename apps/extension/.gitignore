@@ -27,3 +27,7 @@ web-ext.config.ts
 
 # browser-personal-data
 chrome-data
+
+# Environment variables symlink (Vite)
+!.env.development.local
+!.env.production.local

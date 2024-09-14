@@ -91,6 +91,9 @@ importers:
 
   apps/extension:
     dependencies:
+      '@repo/env':
+        specifier: workspace:*
+        version: link:../../packages/env
       firebase:
         specifier: 10.13.1
         version: 10.13.1
