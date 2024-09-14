@@ -1,5 +1,5 @@
 import { createCookie } from '@remix-run/cloudflare'
-import { VITE_MODE } from '@/env-public'
+import { sharedPublicViteEnv } from '@repo/env/shared'
 
 export type AuthCookieValues = {
   sessionCookie: string
@@ -9,7 +9,7 @@ export type AuthCookieValues = {
 export const cookieOption = {
   httpOnly: true,
   sameSite: 'lax' as const,
-  secure: VITE_MODE === 'production',
+  secure: sharedPublicViteEnv.MODE === 'production',
 }
 
 export const authCookie = createCookie('auth')
