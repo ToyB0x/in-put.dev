@@ -11,5 +11,6 @@ node_modules
 
 .wrangler
 
-# Environment variables (Vite)
-.env
+# Environment variables symlink (Vite)
+!.env.development.local
+!.env.production.local
