@@ -1,13 +1,16 @@
 {
-  "name": "@repo/constants",
+  "name": "@repo/env",
   "private": true,
   "exports": {
-    ".": "./src/index.ts"
+    "./shared": "./src/shared.ts"
   },
   "scripts": {
     "lint": "eslint --max-warnings=0",
     "lint:fix": "eslint --fix",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "valibot": "0.41.0"
   },
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
