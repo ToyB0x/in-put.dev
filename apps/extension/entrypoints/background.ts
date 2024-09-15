@@ -2,6 +2,7 @@ import { getAuth, signInWithEmailAndPassword } from 'firebase/auth/web-extension
 import { initializeApp } from 'firebase/app'
 import { sharedPublicViteEnv } from '@repo/env/shared'
 import { Message, Response } from '@/entrypoints/types/message.ts'
+import client from '@/entrypoints/libs/client.ts'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -11,6 +12,41 @@ const firebaseAppBrowser = initializeApp({
 const auth = getAuth(firebaseAppBrowser)
 
 export default defineBackground(() => {
+  // onActivated
+  // > Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to tabs.onUpdated events to be notified when a URL is set.
+  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/onActivated
+  browser.tabs.onActivated.addListener(async (activeInfo) => {
+    console.log('onActivated', activeInfo)
+    const tab = await browser.tabs.get(activeInfo.tabId)
+    console.log('tab', tab.url)
+
+    if (!tab.url) return
+
+    const res = await client.urls.exist.$post({
+      json: { url: tab.url },
+    })
+    const data = await res.json()
+    console.log('isBookmarked', data.exists)
+
+    await browser.action.setBadgeText({ text: data.exists ? '✅' : null })
+  })
+
+  // handle tab update event (eg: url change)
+  browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+    const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
+    if (tabId !== activeTab.id) return
+
+    if (!tab.url) return
+
+    const res = await client.urls.exist.$post({
+      json: { url: tab.url },
+    })
+    const data = await res.json()
+    console.log('isBookmarked', data.exists)
+
+    await browser.action.setBadgeText({ text: data.exists ? '✅' : null })
+  })
+
   // Register icon click event
   browser.action.onClicked.addListener(async () => {
     await browser.action.setBadgeText({ text: auth.currentUser?.email || 'X' })

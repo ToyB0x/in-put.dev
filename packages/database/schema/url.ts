@@ -19,6 +19,7 @@ export const url = pgTable(
   },
   (url) => ({
     urlIdx: uniqueIndex('urlIdx').on(url.userId, url.url),
+    // urlHashIdx: index('urlHashIdx').using('hash', url.url), // 必要に応じてハッシュインデックスを追加し高速化する
   }),
 )
 

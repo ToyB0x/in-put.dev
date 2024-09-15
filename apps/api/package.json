@@ -1,5 +1,6 @@
 {
   "name": "@repo/api",
+  "types": "./src/index.ts",
   "scripts": {
     "dev": "wrangler dev src/index.ts --persist-to ../../cf-local-worker",
     "deploy": "wrangler deploy --minify src/index.ts",
