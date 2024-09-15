@@ -20,7 +20,7 @@ export default defineConfig({
     //   https://www.gstatic.com
     //   https://www.googleapis.com
     //   https://securetoken.googleapis.com`,
-    host_permissions: ['http://localhost:8787', 'https://api-test1.xxxxxxxxxxxxxxxxx.workers.dev'],
+    host_permissions: ['*://localhost:*/*', '*://api-test1.xxxxxxxxxxxxxxxxx.workers.dev/*'],
   },
 })
 
