@@ -69,7 +69,29 @@ export default defineBackground(() => {
 
   // Register icon click event
   browser.action.onClicked.addListener(async () => {
-    await browser.action.setBadgeText({ text: auth.currentUser?.email || 'X' })
+    // TODO: open popup if not logged in
+    if (!auth.currentUser) return
+
+    const token = await auth.currentUser?.getIdToken()
+    if (!token) throw Error('no token')
+
+    const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
+    const activeUrl = activeTab.url
+    if (!activeUrl) return
+
+    const res = await client.urls.add.$post(
+      {
+        json: { url: activeUrl },
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
+    const data = await res.json()
+
+    if (data.success) await browser.action.setBadgeText({ text: '✅' })
   })
 
   // Register extension icon context menu
