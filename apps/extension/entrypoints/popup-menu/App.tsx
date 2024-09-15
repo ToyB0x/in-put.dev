@@ -2,9 +2,10 @@ import { FormEventHandler, useState } from 'react'
 import reactLogo from '@/assets/react.svg'
 import wxtLogo from '/wxt.svg'
 import './App.css'
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth/web-extension'
+import { getAuth, type User } from 'firebase/auth'
 import { initializeApp } from 'firebase/app'
 import { sharedPublicViteEnv } from '@repo/env/shared'
+import { Message, Response } from '@/entrypoints/types/message.ts'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -15,21 +16,36 @@ const auth = getAuth(firebaseAppBrowser)
 
 function App() {
   const [count, setCount] = useState(0)
+  const [user, setUser] = useState<User | null>(null)
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = async (event) => {
     event.preventDefault()
     const form = new FormData(event.currentTarget)
     const email = form.get('email')
     const password = form.get('password')
-    const result = await signInWithEmailAndPassword(auth, email as string, password as string)
-    alert(email + ' ' + password)
-    alert(result.user.email)
+
+    if (typeof email !== 'string' || typeof password !== 'string') throw Error('invalid inputs')
+
+    const message: Message = {
+      type: 'login',
+      data: {
+        email,
+        password,
+      },
+    }
+
+    const response: Response = await browser.runtime.sendMessage(message)
+    if (!response.success) throw Error('failed to login')
+
+    setUser(response.data.user)
   }
 
-  const handleConfirmCurrentUser = async () => {
-    alert(auth.currentUser?.email)
+  // Logged in UI
+  if (user) {
+    return <p>current user: {user.email}</p>
   }
 
+  // Logged out UI
   return (
     <>
       <div>
@@ -54,8 +70,6 @@ function App() {
         <input type='password' name='password' placeholder='Password' />
         <input type='submit' value='Submit' />
       </form>
-
-      <button onClick={handleConfirmCurrentUser}>Confirm Current User</button>
     </>
   )
 }
