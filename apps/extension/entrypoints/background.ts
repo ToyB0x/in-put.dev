@@ -22,9 +22,19 @@ export default defineBackground(() => {
 
     if (!tab.url) return
 
-    const res = await client.urls.exist.$post({
-      json: { url: tab.url },
-    })
+    const token = await auth.currentUser?.getIdToken()
+    if (!token) throw Error('no token')
+
+    const res = await client.urls.exist.$post(
+      {
+        json: { url: tab.url },
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
     const data = await res.json()
     console.log('isBookmarked', data.exists)
 
@@ -38,9 +48,19 @@ export default defineBackground(() => {
 
     if (!tab.url) return
 
-    const res = await client.urls.exist.$post({
-      json: { url: tab.url },
-    })
+    const token = await auth.currentUser?.getIdToken()
+    if (!token) throw Error('no token')
+
+    const res = await client.urls.exist.$post(
+      {
+        json: { url: tab.url },
+      },
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
     const data = await res.json()
     console.log('isBookmarked', data.exists)
 
