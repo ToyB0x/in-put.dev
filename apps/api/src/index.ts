@@ -1,7 +1,7 @@
 import { Hono } from 'hono'
 import { urlRoute } from './url'
 import { exampleRoute } from './example'
-import '../worker-configuration' // for avoiding @repo/extension package type check error
+import '../worker-configuration.d.ts' // for avoiding @repo/extension package type check error
 
 const app = new Hono()
 
