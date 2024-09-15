@@ -20,6 +20,11 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       const { url: jsonUrl } = c.req.valid('json')
 
+      const authHeader = c.req.header('Authorization')
+      if (!authHeader) throw Error('no auth header')
+      const token = authHeader.replace('Bearer ', '')
+      console.log('token', token)
+
       // TODO: use real user_id with authentication
       const userId = 1
 
