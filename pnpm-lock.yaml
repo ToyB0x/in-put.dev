@@ -32,6 +32,9 @@ importers:
       drizzle-orm:
         specifier: 0.33.0
         version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.5)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+      firebase-auth-cloudflare-workers:
+        specifier: 2.0.4
+        version: 2.0.4
       hono:
         specifier: 4.6.1
         version: 4.6.1
