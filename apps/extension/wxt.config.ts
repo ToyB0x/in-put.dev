@@ -12,7 +12,7 @@ export default defineConfig({
       default_title: 'add bookmark',
       default_popup: undefined,
     },
-    permissions: ['contextMenus'],
+    permissions: ['contextMenus', 'activeTab', 'tabs'],
     // TODO: confirm valid content_security_policy
     // ref: https://firebase.google.com/docs/auth/web/chrome-extension?hl=ja#federated-sign-in
     // content_security_policy: `
@@ -20,6 +20,7 @@ export default defineConfig({
     //   https://www.gstatic.com
     //   https://www.googleapis.com
     //   https://securetoken.googleapis.com`,
+    host_permissions: ['http://localhost:8787', 'https://api-test1.xxxxxxxxxxxxxxxxx.workers.dev'],
   },
 })
 
