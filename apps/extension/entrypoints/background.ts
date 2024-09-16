@@ -17,9 +17,7 @@ export default defineBackground(() => {
   // > Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to tabs.onUpdated events to be notified when a URL is set.
   // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/onActivated
   browser.tabs.onActivated.addListener(async (activeInfo) => {
-    console.log('onActivated', activeInfo)
     const tab = await browser.tabs.get(activeInfo.tabId)
-    console.log('tab', tab.url)
 
     if (!tab.url) return
 
@@ -38,7 +36,6 @@ export default defineBackground(() => {
       },
     )
     const data = await res.json()
-    console.log('isBookmarked', data.exists)
 
     await browser.action.setBadgeText({ text: data.exists ? '✅' : null })
   })
@@ -64,7 +61,6 @@ export default defineBackground(() => {
       },
     )
     const data = await res.json()
-    console.log('isBookmarked', data.exists)
 
     await browser.action.setBadgeText({ text: data.exists ? '✅' : null })
   })
@@ -111,7 +107,6 @@ export default defineBackground(() => {
       },
     )
     const dataBookmarks = await resBookmarks.json()
-    console.log('dataBookmarks', dataBookmarks)
 
     await storageBookmarkV1.setValue(dataBookmarks.urls)
 
@@ -137,7 +132,6 @@ export default defineBackground(() => {
 
   // Register Login event
   browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
-    console.log('onMessage', message + 'catch')
     // TODO: validate message by valibot
     const messageTyped: Message = message
     const result = await signInWithEmailAndPassword(auth, messageTyped.data.email, messageTyped.data.password)
