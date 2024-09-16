@@ -108,10 +108,6 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       const parseUrlResult = insertUrlRequestSchema.safeParse({ url: jsonUrl })
       if (!parseUrlResult.success) throw Error('Invalid url given')
 
-      // const res = await fetch(parseUrlResult.data.url)
-      // const html = parse(await res.text())
-      // const pageTitle = html.querySelector('title')?.text
-
       await db
         .insert(url)
         .values({ url: parseUrlResult.data.url, pageTitle, userId: userInDb.id })
