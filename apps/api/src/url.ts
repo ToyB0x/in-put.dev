@@ -5,9 +5,30 @@ import { zValidator } from '@hono/zod-validator'
 import { neon } from '@neondatabase/serverless'
 import { and, eq } from 'drizzle-orm'
 import { getOrInitializeAuth } from './clients'
-import { parse } from 'node-html-parser'
 
 export const urlRoute = new Hono<{ Bindings: Env }>()
+  // Get bookmarked urls
+  .get('/', async (c) => {
+    const sql = neon(c.env.SECRETS_DATABASE_URL)
+    const db = drizzle(sql, { schema: { user } })
+
+    const authHeader = c.req.header('Authorization')
+    if (!authHeader) throw Error('no auth header')
+    const token = authHeader.replace('Bearer ', '')
+
+    const authAdmin = await getOrInitializeAuth(c.env)
+    const firebaseUser = await authAdmin.verifyIdToken(token)
+
+    const userInDb = await db.query.user.findFirst({
+      where: eq(user.firebaseUid, firebaseUser.uid),
+      columns: { id: true, userName: true },
+    })
+
+    if (!userInDb) throw Error('User not found')
+
+    const result = await db.select({ url: url.url }).from(url).where(eq(url.userId, userInDb.id))
+    return c.json({ urls: result.map((r) => r.url) })
+  })
   // Get Url Register status
   .post(
     '/exist',
@@ -20,7 +41,7 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       const sql = neon(c.env.SECRETS_DATABASE_URL)
       const db = drizzle(sql, { schema: { user } })
 
-      const { url: jsonUrl } = c.req.valid('json')
+      const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
       const authHeader = c.req.header('Authorization')
       if (!authHeader) throw Error('no auth header')
@@ -40,11 +61,21 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
         .select({
           url: url.url,
           userId: url.userId,
+          pageTitle: url.pageTitle,
         })
         .from(url)
         .where(and(eq(url.userId, userInDb.id), eq(url.url, jsonUrl)))
 
-      return c.json({ exists: result.length > 0 })
+      const isExistAndSameTitle = result.filter((r) => r.pageTitle === pageTitle).length > 0
+      if (isExistAndSameTitle) return c.json({ exists: true })
+
+      const isExsitButDifferentTitle = result.length > 0 && result.filter((r) => r.pageTitle !== pageTitle).length === 0
+      if (isExsitButDifferentTitle) {
+        await db.update(url).set({ pageTitle, updatedAt: new Date() })
+        return c.json({ exists: true })
+      }
+
+      return c.json({ exists: false })
     },
   )
   .post(
@@ -58,7 +89,7 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       const sql = neon(c.env.SECRETS_DATABASE_URL)
       const db = drizzle(sql, { schema: { user } })
 
-      const { url: jsonUrl } = c.req.valid('json')
+      const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
       const authHeader = c.req.header('Authorization')
       if (!authHeader) throw Error('no auth header')
@@ -76,10 +107,6 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       const parseUrlResult = insertUrlRequestSchema.safeParse({ url: jsonUrl })
       if (!parseUrlResult.success) throw Error('Invalid url given')
-
-      const res = await fetch(parseUrlResult.data.url)
-      const html = parse(await res.text())
-      const pageTitle = html.querySelector('title')?.text
 
       await db
         .insert(url)
