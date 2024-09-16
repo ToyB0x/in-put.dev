@@ -95,7 +95,7 @@ const Details = ({
         ))}
       </summary>
       <ol className='ml-8'>
-        {urls.map((url, i) => (
+        {urls.map((url) => (
           <li key={url.url}>{showTitle ? url.pageTitle : new URL(decodeURIComponent(url.url)).pathname}</li>
         ))}
         <li>
