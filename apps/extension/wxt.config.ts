@@ -12,7 +12,7 @@ export default defineConfig({
       default_title: 'add bookmark',
       default_popup: undefined,
     },
-    permissions: ['contextMenus', 'activeTab', 'tabs'],
+    permissions: ['contextMenus', 'activeTab', 'tabs', 'storage'],
     // TODO: confirm valid content_security_policy
     // ref: https://firebase.google.com/docs/auth/web/chrome-extension?hl=ja#federated-sign-in
     // content_security_policy: `
