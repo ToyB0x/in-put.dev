@@ -119,3 +119,34 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       return c.json({ success: true })
     },
   )
+  .post(
+    '/delete',
+    zValidator('json', insertUrlRequestSchema.pick({ url: true }), (result, c) => {
+      if (!result.success) {
+        return c.json({ message: 'invalid data given' }, 400)
+      }
+    }),
+    async (c) => {
+      const sql = neon(c.env.SECRETS_DATABASE_URL)
+      const db = drizzle(sql, { schema: { user } })
+
+      const { url: jsonUrl } = c.req.valid('json')
+
+      const authHeader = c.req.header('Authorization')
+      if (!authHeader) throw Error('no auth header')
+      const token = authHeader.replace('Bearer ', '')
+
+      const authAdmin = await getOrInitializeAuth(c.env)
+      const firebaseUser = await authAdmin.verifyIdToken(token)
+
+      const userInDb = await db.query.user.findFirst({
+        where: eq(user.firebaseUid, firebaseUser.uid),
+        columns: { id: true, userName: true },
+      })
+
+      if (!userInDb) throw Error('User not found')
+
+      await db.delete(url).where(and(eq(url.userId, userInDb.id), eq(url.url, jsonUrl)))
+      return c.json({ success: true })
+    },
+  )
