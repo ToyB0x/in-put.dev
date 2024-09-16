@@ -13,56 +13,28 @@ const firebaseAppBrowser = initializeApp({
 const auth = getAuth(firebaseAppBrowser)
 
 export default defineBackground(() => {
-  // onActivated
+  // onActivated: Handle tab change event
   // > Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to tabs.onUpdated events to be notified when a URL is set.
   // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/onActivated
   browser.tabs.onActivated.addListener(async (activeInfo) => {
     const tab = await browser.tabs.get(activeInfo.tabId)
+    const activeUrl = tab.url
+    if (!activeUrl) return
 
-    if (!tab.url) return
-
-    const token = await auth.currentUser?.getIdToken()
-    if (!token) throw Error('no token')
-
-    // TODO: rewrite with storage api
-    const res = await client.urls.exist.$post(
-      {
-        json: { url: tab.url },
-      },
-      {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      },
-    )
-    const data = await res.json()
-
-    await browser.action.setBadgeText({ text: data.exists ? '✅' : null })
+    const hasBookmarked = (await storageBookmarkV1.getValue()).includes(activeUrl)
+    await browser.action.setBadgeText({ text: hasBookmarked ? '✅' : null })
   })
 
-  // handle tab update event (eg: url change)
+  // onUpdated: Handle tab update event (eg: url change)
   browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
     if (tabId !== activeTab.id) return
 
-    if (!tab.url) return
+    const activeUrl = tab.url
+    if (!activeUrl) return
 
-    const token = await auth.currentUser?.getIdToken()
-    if (!token) throw Error('no token')
-
-    const res = await client.urls.exist.$post(
-      {
-        json: { url: tab.url },
-      },
-      {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      },
-    )
-    const data = await res.json()
-
-    await browser.action.setBadgeText({ text: data.exists ? '✅' : null })
+    const hasBookmarked = (await storageBookmarkV1.getValue()).includes(activeUrl)
+    await browser.action.setBadgeText({ text: hasBookmarked ? '✅' : null })
   })
 
   // Register icon click event
@@ -80,24 +52,47 @@ export default defineBackground(() => {
     const activeTitle = activeTab.title
     if (!activeTitle) return
 
+    // TODO: refactor (split code)
+    const clickIconAction: 'ADD' | 'REMOVE' = (await storageBookmarkV1.getValue()).includes(activeUrl)
+      ? 'REMOVE'
+      : 'ADD'
+
     // optimistic update
-    await browser.action.setBadgeText({ text: '✅' })
+    await browser.action.setBadgeText({ text: clickIconAction === 'ADD' ? '✅' : null })
 
-    const resAdd = await client.urls.add.$post(
-      {
-        json: { url: activeUrl, pageTitle: activeTitle },
-      },
-      {
-        headers: {
-          Authorization: 'Bearer ' + token,
+    if (clickIconAction === 'ADD') {
+      const resAdd = await client.urls.add.$post(
+        {
+          json: { url: activeUrl, pageTitle: activeTitle },
         },
-      },
-    )
-    const dataAdd = await resAdd.json()
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        },
+      )
+      const dataAdd = await resAdd.json()
 
-    // fallback optimistic update
-    await browser.action.setBadgeText({ text: dataAdd.success ? '✅' : null })
+      // fallback optimistic update
+      await browser.action.setBadgeText({ text: dataAdd.success ? '✅' : null })
+    } else {
+      const resDelete = await client.urls.delete.$post(
+        {
+          json: { url: activeUrl },
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        },
+      )
+      const dataDelete = await resDelete.json()
 
+      // fallback optimistic update
+      await browser.action.setBadgeText({ text: dataDelete.success ? null : '✅' })
+    }
+
+    // update storage with updated bookmarks
     const resBookmarks = await client.urls.$get(
       {},
       {
