@@ -31,7 +31,7 @@ export const insertUrlSchema = createInsertSchema(url, {
       .startsWith('http'), // allow only http(s) urls (not ftp, etc.)
 })
 
-export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true })
+export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true, pageTitle: true })
 
 // Example of relations
 // export const urlsRelations = relations(url, ({ one }) => ({
