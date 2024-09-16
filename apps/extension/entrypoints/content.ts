@@ -5,7 +5,9 @@ export default defineContentScript({
   matches: ['https://*/*', 'http://localhost/*'],
   async main() {
     // NOTE: Initialization (Mark bookmarked links)
-    await updateLinkIcon()
+    // await updateLinkIcon()
+    // wait document rendering (like react hydration etc.) // if this run immediately, remix official cite sometime throw console error and content script not work
+    setTimeout(updateLinkIcon, 1000)
 
     // NOTE: Message listener (Fire when bookmark list update)
     browser.runtime.onMessage.addListener(async () => {
@@ -33,10 +35,22 @@ const updateLinkIcon = async () => {
     if (storeUrls.includes(aTags[i].href)) {
       if (aTags[i].textContent?.includes(' ✅')) continue
 
+      // aTags[i].textContent += ' ✅' // NOTE: this syntax is some time break original dom structure
+      // from // <a href="/kit-docs/overview"><div class="button selected"> <div class="icon layers" > <svg>...</svg> </div> <div class="text">Drizzle Kit</div> </div> </a>
+      // to   // <a href="/kit-docs/overview">     Drizzle Kit   ✅</a> // inner div structure is removed!
+
       const span = document.createElement('span')
       span.textContent = ' ✅'
       span.style.fontSize = '0.76rem'
-      aTags[i].appendChild(span)
+      span.style.paddingLeft = '3px'
+
+      const lastElementChild = aTags[i].lastElementChild
+      if (lastElementChild) {
+        lastElementChild.appendChild(span)
+      } else {
+        // NOTE: append span element to keep original dom structure, but some time span treat as new line (as this code simply append the tag)
+        aTags[i].appendChild(span)
+      }
     }
   }
 }
