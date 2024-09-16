@@ -95,21 +95,18 @@ const Details = ({
         ))}
       </summary>
       <ol className='ml-8'>
-        {urls.map((url, i) => (
-          <li key={url.url}>
-            {showTitle ? url.pageTitle : new URL(decodeURIComponent(url.url)).pathname}
-            {i === urls.length - 1 && (
-              <button
-                className='ml-2'
-                onClick={() => {
-                  setShowTitle(!showTitle)
-                }}
-              >
-                {showTitle ? '(show url)' : ' (show title)'}
-              </button>
-            )}
-          </li>
+        {urls.map((url) => (
+          <li key={url.url}>{showTitle ? url.pageTitle : new URL(decodeURIComponent(url.url)).pathname}</li>
         ))}
+        <li>
+          <button
+            onClick={() => {
+              setShowTitle(!showTitle)
+            }}
+          >
+            {showTitle ? '(show url)' : ' (show title)'}
+          </button>
+        </li>
       </ol>
     </details>
   )
