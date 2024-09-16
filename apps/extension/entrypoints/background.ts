@@ -3,6 +3,7 @@ import { initializeApp } from 'firebase/app'
 import { sharedPublicViteEnv } from '@repo/env/shared'
 import { Message, Response } from '@/entrypoints/types/message.ts'
 import client from '@/entrypoints/libs/client.ts'
+import { storageBookmarkV1 } from '@/entrypoints/sotrage/bookmark.ts'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -25,6 +26,7 @@ export default defineBackground(() => {
     const token = await auth.currentUser?.getIdToken()
     if (!token) throw Error('no token')
 
+    // TODO: rewrite with storage api
     const res = await client.urls.exist.$post(
       {
         json: { url: tab.url },
@@ -79,9 +81,15 @@ export default defineBackground(() => {
     const activeUrl = activeTab.url
     if (!activeUrl) return
 
-    const res = await client.urls.add.$post(
+    const activeTitle = activeTab.title
+    if (!activeTitle) return
+
+    // optimistic update
+    await browser.action.setBadgeText({ text: '✅' })
+
+    const resAdd = await client.urls.add.$post(
       {
-        json: { url: activeUrl },
+        json: { url: activeUrl, pageTitle: activeTitle },
       },
       {
         headers: {
@@ -89,9 +97,27 @@ export default defineBackground(() => {
         },
       },
     )
-    const data = await res.json()
+    const dataAdd = await resAdd.json()
 
-    if (data.success) await browser.action.setBadgeText({ text: '✅' })
+    // fallback optimistic update
+    await browser.action.setBadgeText({ text: dataAdd.success ? '✅' : null })
+
+    const resBookmarks = await client.urls.$get(
+      {},
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
+    const dataBookmarks = await resBookmarks.json()
+    console.log('dataBookmarks', dataBookmarks)
+
+    await storageBookmarkV1.setValue(dataBookmarks.urls)
+
+    if (!activeTab.id) throw Error('no active tab id')
+
+    await browser.tabs.sendMessage(activeTab.id, { type: 'store-updated' })
   })
 
   // Register extension icon context menu
