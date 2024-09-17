@@ -105,9 +105,11 @@ export default defineBackground(() => {
 
     await storageBookmarkV1.setValue(dataBookmarks.urls)
 
-    if (!activeTab.id) throw Error('no active tab id')
-
-    await browser.tabs.sendMessage(activeTab.id, { type: 'store-updated' })
+    const activeTabHost = new URL(activeUrl).host
+    const relatedTabs = await browser.tabs.query({ url: `*://${activeTabHost}/*` })
+    for (const tab of relatedTabs) {
+      tab.id && (await browser.tabs.sendMessage(tab.id, { type: 'store-updated' }))
+    }
   })
 
   // Register extension icon context menu
