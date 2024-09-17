@@ -28,7 +28,14 @@ export const insertUrlSchema = createInsertSchema(url, {
     schema.url
       .url()
       .max(500) // limit url length
-      .startsWith('http'), // allow only http(s) urls (not ftp, etc.)
+      .startsWith('http') // allow only http(s) urls (not ftp, etc.)
+      .transform((url) => {
+        // normalize url
+        const u = new URL(url)
+        u.hash = '' // remove hash
+        u.search = '' // remove query
+        return u.toString()
+      }),
 })
 
 export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true, pageTitle: true })

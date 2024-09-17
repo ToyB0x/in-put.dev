@@ -71,7 +71,10 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       const isExsitButDifferentTitle = result.length > 0 && result.filter((r) => r.pageTitle !== pageTitle).length === 0
       if (isExsitButDifferentTitle) {
-        await db.update(url).set({ pageTitle, updatedAt: new Date() })
+        await db
+          .update(url)
+          .set({ pageTitle, updatedAt: new Date() })
+          .where(and(eq(url.userId, userInDb.id), eq(url.url, jsonUrl)))
         return c.json({ exists: true })
       }
 

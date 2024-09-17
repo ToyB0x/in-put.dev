@@ -12,7 +12,8 @@
     "db:migrate:branch-main":  "NEON_BRANCH=MAIN drizzle-kit migrate",
     "lint": "eslint --max-warnings=0",
     "lint:fix": "eslint --fix",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "normalize": "npx tsx scripts/normalizeUrl.ts"
   },
   "dependencies": {
     "drizzle-orm": "0.33.0",
@@ -20,6 +21,7 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
+    "@neondatabase/serverless": "0.9.5",
     "dotenv": "16.4.5",
     "postgres": "3.4.4",
     "@repo/eslint-config": "workspace:*",
