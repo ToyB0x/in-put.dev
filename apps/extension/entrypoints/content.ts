@@ -10,7 +10,7 @@ export default defineContentScript({
     // NOTE: Initialization (Mark bookmarked links)
     // await updateLinkIcon()
     // wait document rendering (like react hydration etc.) // if this run immediately, remix official cite sometime throw console error and content script not work
-    setTimeout(addIconToLink, 1000)
+    setTimeout(addIconToLink, 100)
 
     // Message listener (Fire when bookmark list updated)
     browser.runtime.onMessage.addListener(async () => {
