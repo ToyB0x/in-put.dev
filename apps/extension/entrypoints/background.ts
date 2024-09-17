@@ -4,6 +4,7 @@ import { sharedPublicViteEnv } from '@repo/env/shared'
 import { Message, Response } from '@/entrypoints/types/message.ts'
 import client from '@/entrypoints/libs/client.ts'
 import { storageBookmarkV1 } from '@/entrypoints/sotrage/bookmark.ts'
+import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -154,10 +155,3 @@ export default defineBackground(() => {
     await browser.action.setBadgeText({ text: null })
   })
 })
-
-const getPureUrl = (url: string) => {
-  const u = new URL(url)
-  u.hash = ''
-  u.search = ''
-  return u.toString()
-}

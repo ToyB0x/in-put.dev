@@ -1,4 +1,5 @@
 import { storageBookmarkV1 } from '@/entrypoints/sotrage/bookmark.ts'
+import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
 
 const READX_BOOKMARK_ICON_CLASS = 'readx-bookmark-icon-class'
 const DATA_SET_NAME = 'readx'
@@ -35,9 +36,17 @@ const addIconToLink = async () => {
   const storeUrls = await storageBookmarkV1.getValue()
   const aTags = document.getElementsByTagName('a')
   for (const aTag of aTags) {
-    // TODO: improve performance with check related domains only
-    if (storeUrls.includes(aTag.href)) {
-      if (aTag.textContent?.includes(' ✅')) continue
+    // like a menu for accessibility (user can access keyboard tab to navigate): eg "href='#'" or "href='/path#'"
+    const isATagHasBlankHash = aTag.href.includes('#') && aTag.hash === ''
+    if (isATagHasBlankHash) continue
+
+    // a tag is full url or just only path from root
+    const isATagFullUrl = aTag.href.startsWith('http://') || aTag.href.startsWith('https://')
+    const browserLinkUrl = isATagFullUrl ? aTag.href : window.location.origin + aTag.href
+    const pureBrowserLinkUrl = getPureUrl(browserLinkUrl)
+
+    if (storeUrls.includes(pureBrowserLinkUrl)) {
+      if (aTag.textContent?.endsWith(' ✅')) continue
 
       // aTags[i].textContent += ' ✅' // NOTE: this syntax is some time break original dom structure
       // from // <a href="/kit-docs/overview"><div class="button selected"> <div class="icon layers" > <svg>...</svg> </div> <div class="text">Drizzle Kit</div> </div> </a>
@@ -46,7 +55,7 @@ const addIconToLink = async () => {
       const span = document.createElement('span')
       span.id = window.crypto.randomUUID()
       span.className = READX_BOOKMARK_ICON_CLASS
-      span.dataset[DATA_SET_NAME] = aTag.href
+      span.dataset[DATA_SET_NAME] = browserLinkUrl
       span.textContent = ' ✅'
       span.style.fontSize = '0.76rem'
       span.style.paddingLeft = '3px'
