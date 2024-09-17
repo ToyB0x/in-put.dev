@@ -105,18 +105,23 @@ export default defineBackground(() => {
 
     await storageBookmarkV1.setValue(dataBookmarks.urls)
 
+    // for debugging
+    // await browser.tabs.sendMessage(activeTab.id!, { type: 'store-updated' })
+
     const activeTabHost = new URL(activeUrl).host
     const relatedTabs = await browser.tabs.query({ url: `*://${activeTabHost}/*` })
-    for (const tab of relatedTabs) {
-      tab.id && (await browser.tabs.sendMessage(tab.id, { type: 'store-updated' }))
-    }
+
+    // NOTE: Caution! This ignores error message
+    await Promise.allSettled(
+      relatedTabs.map((tab) => tab.id && browser.tabs.sendMessage(tab.id, { type: 'store-updated' })),
+    )
   })
 
   // Register extension icon context menu
   const contextMenuId = browser.contextMenus.create({
     title: 'sign out',
     type: 'normal',
-    id: 'sign-out',
+    id: 'sign-out' + crypto.randomUUID(),
     contexts: ['action'],
   })
 
