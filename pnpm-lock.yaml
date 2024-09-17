@@ -250,6 +250,9 @@ importers:
         specifier: 3.23.8
         version: 3.23.8
     devDependencies:
+      '@neondatabase/serverless':
+        specifier: 0.9.5
+        version: 0.9.5
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
