@@ -3,19 +3,15 @@ import { insertUrlRequestSchema, url, user } from '@repo/database'
 import { zValidator } from '@hono/zod-validator'
 import { and, eq } from 'drizzle-orm'
 import { getDB, verifyIdToken } from './libs'
+import { getUserFromDB } from './libs/getUserFromDB'
 
 export const urlRoute = new Hono<{ Bindings: Env }>()
   // Get bookmarked urls
   .get('/', async (c) => {
     const db = await getDB(c)
-    const firebaseUser = await verifyIdToken(c)
 
-    const userInDb = await db.query.user.findFirst({
-      where: eq(user.firebaseUid, firebaseUser.uid),
-      columns: { id: true, userName: true },
-    })
-
-    if (!userInDb) throw Error('User not found')
+    const { uid } = await verifyIdToken(c)
+    const userInDb = await getUserFromDB(uid, db)
 
     const result = await db.select({ url: url.url }).from(url).where(eq(url.userId, userInDb.id))
     return c.json({ urls: result.map((r) => r.url) })
@@ -30,15 +26,10 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
     }),
     async (c) => {
       const db = await getDB(c)
-      const firebaseUser = await verifyIdToken(c)
       const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
-      const userInDb = await db.query.user.findFirst({
-        where: eq(user.firebaseUid, firebaseUser.uid),
-        columns: { id: true, userName: true },
-      })
-
-      if (!userInDb) throw Error('User not found')
+      const { uid } = await verifyIdToken(c)
+      const userInDb = await getUserFromDB(uid, db)
 
       const result = await db
         .select({
@@ -73,15 +64,10 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
     }),
     async (c) => {
       const db = await getDB(c)
-      const firebaseUser = await verifyIdToken(c)
       const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
-      const userInDb = await db.query.user.findFirst({
-        where: eq(user.firebaseUid, firebaseUser.uid),
-        columns: { id: true, userName: true },
-      })
-
-      if (!userInDb) throw Error('User not found')
+      const { uid } = await verifyIdToken(c)
+      const userInDb = await getUserFromDB(uid, db)
 
       await db
         .insert(url)
@@ -103,15 +89,10 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
     }),
     async (c) => {
       const db = await getDB(c)
-      const firebaseUser = await verifyIdToken(c)
       const { url: jsonUrl } = c.req.valid('json')
 
-      const userInDb = await db.query.user.findFirst({
-        where: eq(user.firebaseUid, firebaseUser.uid),
-        columns: { id: true, userName: true },
-      })
-
-      if (!userInDb) throw Error('User not found')
+      const { uid } = await verifyIdToken(c)
+      const userInDb = await getUserFromDB(uid, db)
 
       await db.delete(url).where(and(eq(url.userId, userInDb.id), eq(url.url, jsonUrl)))
       return c.json({ success: true })
