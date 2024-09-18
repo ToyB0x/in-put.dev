@@ -1,6 +1,5 @@
-import { useState } from 'react'
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { useLoaderData, useParams, useSearchParams } from '@remix-run/react'
+import { useLoaderData, useParams } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { neon } from '@neondatabase/serverless'
 import { url, user } from '@repo/database'
@@ -32,12 +31,12 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
 
 export default function Index() {
   const { result, exactUserId } = useLoaderData<typeof loader>()
-  const [searchParams] = useSearchParams()
+  // const [searchParams] = useSearchParams()
   const { userId } = useParams()
 
   if (!userId) return <>no user exist</>
-  const bookmakingUrl = searchParams.get('url')
-  const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
+  // const bookmakingUrl = searchParams.get('url')
+  // const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
   const uniqueHosts = [...new Set(result.map(({ url }) => new URL(url.url).host))]
   const uniqueHostsWithUrls = uniqueHosts.map((host) => {
     const matchedUrls = result.filter(({ url }) => new URL(url.url).host === host)
@@ -54,9 +53,15 @@ export default function Index() {
     )
 
   return (
-    <div className='font-sans px-8'>
-      {/*<h1 className='text-4xl pt-4 pb-2'>Toyb0x&apos;s Knowledge</h1>*/}
-      <h1 className='text-4xl pt-4 pb-2'>{exactUserId}&apos;s input</h1>
+    <div className='font-sans px-4'>
+      <h1 className='font-medium text-[1.5rem] text-xl pt-6 pb-2'>{exactUserId} read</h1>
+      <div className='flex justify-end gap-2 text-[14px] text-gray-500 underline underline-offset-1 mb-4'>
+        <div>Tech</div>
+        <div>Life</div>
+        <div>Art</div>
+        <div>About</div>
+      </div>
+      {/*<h1 className='text-4xl pt-4 pb-2'>read</h1>*/}
       {uniqueHostsWithUrls
         .sort((a, b) => {
           const diffBookmark = b.urls.length - a.urls.length
@@ -64,51 +69,19 @@ export default function Index() {
           return a.host.length - b.host.length
         })
         .map(({ host, urls }) => (
-          <Details host={host} urls={urls} bookMarkingHost={bookMarkingHost} key={host} />
+          <Details2 host={host} urls={urls} key={host} />
         ))}
     </div>
   )
 }
 
-const Details = ({
-  host,
-  bookMarkingHost,
-  urls,
-}: {
-  host: string
-  bookMarkingHost: string | null
-  urls: { url: string; pageTitle: string | null }[]
-}) => {
-  const [showTitle, setShowTitle] = useState(false)
-
+const Details2 = ({ host, urls }: { host: string; urls: { url: string; pageTitle: string | null }[] }) => {
   return (
-    <details className='my-2'>
-      <summary>
-        {host}{' '}
-        {urls.map((url, i) => (
-          <span key={i}>
-            {/* show + on bookmarked host's last star */}
-            {bookMarkingHost === host && i === urls.length - 1 && <span>+</span>}
-            {/* color bookmarked host's last star */}
-            <span className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>★</span>
-          </span>
-        ))}
-      </summary>
-      <ol className='ml-8'>
-        {urls.map((url) => (
-          <li key={url.url}>{showTitle ? url.pageTitle : new URL(decodeURIComponent(url.url)).pathname}</li>
-        ))}
-        <li>
-          <button
-            onClick={() => {
-              setShowTitle(!showTitle)
-            }}
-          >
-            {showTitle ? '(show url)' : ' (show title)'}
-          </button>
-        </li>
-      </ol>
-    </details>
+    <>
+      <div>{host}</div>
+      <p className='text-sm text-gray-500'>{urls.length} read</p>
+      <hr className='my-2' />
+    </>
   )
 }
 
