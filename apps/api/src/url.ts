@@ -1,18 +1,13 @@
 import { Hono } from 'hono'
-import { drizzle } from 'drizzle-orm/neon-http'
 import { insertUrlRequestSchema, url, user } from '@repo/database'
 import { zValidator } from '@hono/zod-validator'
-import { neon } from '@neondatabase/serverless'
 import { and, eq } from 'drizzle-orm'
-import { getOrInitializeAuth } from './clients'
-import { verifyIdToken } from './libs'
+import { getDB, verifyIdToken } from './libs'
 
 export const urlRoute = new Hono<{ Bindings: Env }>()
   // Get bookmarked urls
   .get('/', async (c) => {
-    const sql = neon(c.env.SECRETS_DATABASE_URL)
-    const db = drizzle(sql, { schema: { user } })
-
+    const db = await getDB(c)
     const firebaseUser = await verifyIdToken(c)
 
     const userInDb = await db.query.user.findFirst({
@@ -34,12 +29,9 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       }
     }),
     async (c) => {
-      const sql = neon(c.env.SECRETS_DATABASE_URL)
-      const db = drizzle(sql, { schema: { user } })
-
-      const { url: jsonUrl, pageTitle } = c.req.valid('json')
-
+      const db = await getDB(c)
       const firebaseUser = await verifyIdToken(c)
+      const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
       const userInDb = await db.query.user.findFirst({
         where: eq(user.firebaseUid, firebaseUser.uid),
@@ -80,12 +72,9 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       }
     }),
     async (c) => {
-      const sql = neon(c.env.SECRETS_DATABASE_URL)
-      const db = drizzle(sql, { schema: { user } })
-
-      const { url: jsonUrl, pageTitle } = c.req.valid('json')
-
+      const db = await getDB(c)
       const firebaseUser = await verifyIdToken(c)
+      const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
       const userInDb = await db.query.user.findFirst({
         where: eq(user.firebaseUid, firebaseUser.uid),
@@ -113,12 +102,9 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
       }
     }),
     async (c) => {
-      const sql = neon(c.env.SECRETS_DATABASE_URL)
-      const db = drizzle(sql, { schema: { user } })
-
-      const { url: jsonUrl } = c.req.valid('json')
-
+      const db = await getDB(c)
       const firebaseUser = await verifyIdToken(c)
+      const { url: jsonUrl } = c.req.valid('json')
 
       const userInDb = await db.query.user.findFirst({
         where: eq(user.firebaseUid, firebaseUser.uid),
