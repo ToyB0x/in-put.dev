@@ -108,12 +108,9 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       if (!userInDb) throw Error('User not found')
 
-      const parseUrlResult = insertUrlRequestSchema.safeParse({ url: jsonUrl })
-      if (!parseUrlResult.success) throw Error('Invalid url given')
-
       await db
         .insert(url)
-        .values({ url: parseUrlResult.data.url, pageTitle, userId: userInDb.id })
+        .values({ url: jsonUrl, pageTitle, userId: userInDb.id })
         .onConflictDoUpdate({
           target: [url.userId, url.url],
           set: { pageTitle, updatedAt: new Date() },
