@@ -11,8 +11,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className='font-light'>
+        <div className='w-full flex justify-center'>
+          <div className='w-[460px] bg-[#FCFCFC]'>{children}</div>
+        </div>
         <ScrollRestoration />
         <Scripts />
       </body>
