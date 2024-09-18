@@ -79,7 +79,7 @@ const Details2 = ({ host, urls }: { host: string; urls: { url: string; pageTitle
   return (
     <>
       <div>{host}</div>
-      <p className='text-sm text-gray-500'>{urls.length} read</p>
+      <p className='text-sm text-gray-500'>1{urls.length} read / 28 docs</p>
       <hr className='my-2' />
     </>
   )
