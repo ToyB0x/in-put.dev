@@ -6,7 +6,7 @@ import { url, user } from '@repo/database'
 import { eq } from 'drizzle-orm'
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Input.dev' }]
+  return [{ title: 'Readx' }]
 }
 
 export const loader = async ({ context, params }: LoaderFunctionArgs) => {
