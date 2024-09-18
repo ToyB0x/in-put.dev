@@ -111,3 +111,45 @@ const Details = ({
     </details>
   )
 }
+
+// const Details = ({
+//   host,
+//   bookMarkingHost,
+//   urls,
+// }: {
+//   host: string
+//   bookMarkingHost: string | null
+//   urls: { url: string; pageTitle: string | null }[]
+// }) => {
+//   const [showTitle, setShowTitle] = useState(false)
+//
+//   return (
+//     <details className='my-2'>
+//       <summary>
+//         {host}{' '}
+//         {urls.map((url, i) => (
+//           <span key={i}>
+//             {/* show + on bookmarked host's last star */}
+//             {bookMarkingHost === host && i === urls.length - 1 && <span>+</span>}
+//             {/* color bookmarked host's last star */}
+//             <span className={bookMarkingHost === host && i === urls.length - 1 ? 'text-amber-300' : ''}>★</span>
+//           </span>
+//         ))}
+//       </summary>
+//       <ol className='ml-8'>
+//         {urls.map((url) => (
+//           <li key={url.url}>{showTitle ? url.pageTitle : new URL(decodeURIComponent(url.url)).pathname}</li>
+//         ))}
+//         <li>
+//           <button
+//             onClick={() => {
+//               setShowTitle(!showTitle)
+//             }}
+//           >
+//             {showTitle ? '(show url)' : ' (show title)'}
+//           </button>
+//         </li>
+//       </ol>
+//     </details>
+//   )
+// }
