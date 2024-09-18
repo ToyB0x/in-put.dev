@@ -37,7 +37,7 @@ const addIconToLink = async () => {
   const aTags = document.getElementsByTagName('a')
   for (const aTag of aTags) {
     // like a menu for accessibility (user can access keyboard tab to navigate): eg "href='#'" or "href='/path#'"
-    const isATagHasBlankHash = aTag.href.includes('#') && aTag.hash === ''
+    const isATagHasBlankHash = aTag.href.includes('#')
     if (isATagHasBlankHash) continue
 
     // a tag is full url or just only path from root
