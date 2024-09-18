@@ -5,6 +5,7 @@ import { zValidator } from '@hono/zod-validator'
 import { neon } from '@neondatabase/serverless'
 import { and, eq } from 'drizzle-orm'
 import { getOrInitializeAuth } from './clients'
+import { verifyIdToken } from './libs'
 
 export const urlRoute = new Hono<{ Bindings: Env }>()
   // Get bookmarked urls
@@ -12,12 +13,7 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
     const sql = neon(c.env.SECRETS_DATABASE_URL)
     const db = drizzle(sql, { schema: { user } })
 
-    const authHeader = c.req.header('Authorization')
-    if (!authHeader) throw Error('no auth header')
-    const token = authHeader.replace('Bearer ', '')
-
-    const authAdmin = await getOrInitializeAuth(c.env)
-    const firebaseUser = await authAdmin.verifyIdToken(token)
+    const firebaseUser = await verifyIdToken(c)
 
     const userInDb = await db.query.user.findFirst({
       where: eq(user.firebaseUid, firebaseUser.uid),
@@ -43,12 +39,7 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
-      const authHeader = c.req.header('Authorization')
-      if (!authHeader) throw Error('no auth header')
-      const token = authHeader.replace('Bearer ', '')
-
-      const authAdmin = await getOrInitializeAuth(c.env)
-      const firebaseUser = await authAdmin.verifyIdToken(token)
+      const firebaseUser = await verifyIdToken(c)
 
       const userInDb = await db.query.user.findFirst({
         where: eq(user.firebaseUid, firebaseUser.uid),
@@ -94,12 +85,7 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       const { url: jsonUrl, pageTitle } = c.req.valid('json')
 
-      const authHeader = c.req.header('Authorization')
-      if (!authHeader) throw Error('no auth header')
-      const token = authHeader.replace('Bearer ', '')
-
-      const authAdmin = await getOrInitializeAuth(c.env)
-      const firebaseUser = await authAdmin.verifyIdToken(token)
+      const firebaseUser = await verifyIdToken(c)
 
       const userInDb = await db.query.user.findFirst({
         where: eq(user.firebaseUid, firebaseUser.uid),
@@ -108,12 +94,9 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       if (!userInDb) throw Error('User not found')
 
-      const parseUrlResult = insertUrlRequestSchema.safeParse({ url: jsonUrl })
-      if (!parseUrlResult.success) throw Error('Invalid url given')
-
       await db
         .insert(url)
-        .values({ url: parseUrlResult.data.url, pageTitle, userId: userInDb.id })
+        .values({ url: jsonUrl, pageTitle, userId: userInDb.id })
         .onConflictDoUpdate({
           target: [url.userId, url.url],
           set: { pageTitle, updatedAt: new Date() },
@@ -135,12 +118,7 @@ export const urlRoute = new Hono<{ Bindings: Env }>()
 
       const { url: jsonUrl } = c.req.valid('json')
 
-      const authHeader = c.req.header('Authorization')
-      if (!authHeader) throw Error('no auth header')
-      const token = authHeader.replace('Bearer ', '')
-
-      const authAdmin = await getOrInitializeAuth(c.env)
-      const firebaseUser = await authAdmin.verifyIdToken(token)
+      const firebaseUser = await verifyIdToken(c)
 
       const userInDb = await db.query.user.findFirst({
         where: eq(user.firebaseUid, firebaseUser.uid),
