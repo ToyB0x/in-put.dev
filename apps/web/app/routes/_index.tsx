@@ -5,7 +5,7 @@ import { neon } from '@neondatabase/serverless'
 import { user } from '@repo/database'
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Input.dev' }]
+  return [{ title: 'Readx' }]
 }
 
 export const loader = async ({ context }: LoaderFunctionArgs) => {

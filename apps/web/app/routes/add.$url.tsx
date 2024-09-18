@@ -14,7 +14,7 @@ import {
 } from '@/.server'
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Input.dev' }]
+  return [{ title: 'Readx' }]
 }
 
 export const loader = async ({ context, request, params }: LoaderFunctionArgs) => {

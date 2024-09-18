@@ -14,7 +14,7 @@ import { drizzle } from 'drizzle-orm/neon-http'
 import { neon } from '@neondatabase/serverless'
 
 export const meta: MetaFunction = () => {
-  return [{ title: 'Input.dev' }]
+  return [{ title: 'Readx' }]
 }
 
 export const action = async ({ context, request }: LoaderFunctionArgs) => {

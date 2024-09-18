@@ -7,7 +7,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet='utf-8' />
         <meta name='viewport' content='width=device-width, initial-scale=1' />
-        <link rel='icon' href='/star.svg' sizes='any' type='image/svg+xml' />
+        <link rel='icon' href='/bookmark.svg' sizes='any' type='image/svg+xml' />
         <Meta />
         <Links />
       </head>
