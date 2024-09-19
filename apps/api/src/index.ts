@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import { urlRoute } from './url'
+import { urlRoute } from './routes'
 import { exampleRoute } from './example'
 import '../worker-configuration.d.ts' // for avoiding @repo/extension package type check error
 
