@@ -1,11 +1,10 @@
 import { Hono } from 'hono'
-import { urlRoute } from './url'
-import { exampleRoute } from './example'
+import { urlRoute } from './routes'
 import '../worker-configuration.d.ts' // for avoiding @repo/extension package type check error
 
 const app = new Hono()
 
-const routes = app.route('/urls', urlRoute).route('/examples', exampleRoute)
+const routes = app.route('/urls', urlRoute)
 
 export default app
 export type AppType = typeof routes
