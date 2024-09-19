@@ -13,7 +13,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className='font-light'>
         <div className='w-full flex justify-center'>
-          <div className='w-[460px] bg-[#FCFCFC]'>{children}</div>
+          <div className='w-[480px] bg-[#FCFCFC]'>{children}</div>
         </div>
         <ScrollRestoration />
         <Scripts />
