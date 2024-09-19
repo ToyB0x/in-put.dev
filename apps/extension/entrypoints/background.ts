@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app'
 import { sharedPublicViteEnv } from '@repo/env/shared'
 import type { LoginMessage, LoginResponse } from '@/entrypoints/messages'
 import client from '@/entrypoints/libs/client.ts'
-import { storageBookmarkV1 } from '@/entrypoints/sotrage/bookmark.ts'
+import { storageBookmarkV1 } from '@/entrypoints/storage'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
 
 const firebaseAppBrowser = initializeApp({

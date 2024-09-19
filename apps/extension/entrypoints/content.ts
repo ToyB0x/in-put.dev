@@ -1,4 +1,4 @@
-import { storageBookmarkV1 } from '@/entrypoints/sotrage/bookmark.ts'
+import { storageBookmarkV1 } from '@/entrypoints/storage'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
 
 const READX_BOOKMARK_ICON_CLASS = 'readx-bookmark-icon-class'
