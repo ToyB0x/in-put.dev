@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth/web-extension'
 import { sharedPublicViteEnv } from '@repo/env/shared'
-import { handleIconClick, handleMessage, handleTabChange, handleTabUpdate } from './handlers'
+import { handleIconClick, handleMessage, handleTabChange, handleTabUpdate, registerIconMenu } from './handlers'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -15,6 +15,7 @@ export default defineBackground(() => {
   handleTabUpdate()
   handleIconClick(auth)
   handleMessage(auth)
+  registerIconMenu(auth)
 
   // Register Auth state change event
   auth.onAuthStateChanged(async (user) => {
