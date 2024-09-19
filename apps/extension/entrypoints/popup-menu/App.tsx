@@ -3,7 +3,7 @@ import reactLogo from '@/assets/react.svg'
 import wxtLogo from '/wxt.svg'
 import './App.css'
 import type { User } from 'firebase/auth'
-import type { LoginMessage, LoginResponse } from '@/entrypoints/messages'
+import type { LoginMessage, LoginResponse } from '@/entrypoints/messages/login'
 
 function App() {
   const [count, setCount] = useState(0)
