@@ -31,7 +31,7 @@ importers:
         version: link:../../packages/database
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       firebase-auth-cloudflare-workers:
         specifier: 2.0.4
         version: 2.0.4
@@ -55,8 +55,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       wrangler:
-        specifier: 3.78.5
-        version: 3.78.5(@cloudflare/workers-types@4.20240909.0)
+        specifier: 3.78.6
+        version: 3.78.6(@cloudflare/workers-types@4.20240909.0)
 
   apps/api-react:
     dependencies:
@@ -68,7 +68,7 @@ importers:
         version: link:../../packages/database-d1
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       hono:
         specifier: 4.6.2
         version: 4.6.2
@@ -89,8 +89,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       wrangler:
-        specifier: 3.78.5
-        version: 3.78.5(@cloudflare/workers-types@4.20240909.0)
+        specifier: 3.78.6
+        version: 3.78.6(@cloudflare/workers-types@4.20240909.0)
 
   apps/extension:
     dependencies:
@@ -117,8 +117,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/eslint-config
       '@types/react':
-        specifier: 18.3.7
-        version: 18.3.7
+        specifier: 18.3.8
+        version: 18.3.8
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
@@ -138,14 +138,14 @@ importers:
         specifier: 0.9.5
         version: 0.9.5
       '@remix-run/cloudflare':
-        specifier: 2.12.0
-        version: 2.12.0(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)
+        specifier: 2.12.1
+        version: 2.12.1(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)
       '@remix-run/cloudflare-pages':
-        specifier: 2.12.0
-        version: 2.12.0(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)
+        specifier: 2.12.1
+        version: 2.12.1(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)
       '@remix-run/react':
-        specifier: 2.12.0
-        version: 2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
+        specifier: 2.12.1
+        version: 2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -157,7 +157,7 @@ importers:
         version: link:../../packages/ui
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       firebase:
         specifier: 10.13.2
         version: 10.13.2
@@ -184,8 +184,8 @@ importers:
         specifier: 4.20240909.0
         version: 4.20240909.0
       '@remix-run/dev':
-        specifier: 2.12.0
-        version: 2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))(wrangler@3.78.5(@cloudflare/workers-types@4.20240909.0))
+        specifier: 2.12.1
+        version: 2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))(wrangler@3.78.6(@cloudflare/workers-types@4.20240909.0))
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -193,8 +193,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/react':
-        specifier: 18.3.7
-        version: 18.3.7
+        specifier: 18.3.8
+        version: 18.3.8
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
@@ -235,17 +235,17 @@ importers:
         specifier: 5.0.1
         version: 5.0.1(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))
       wrangler:
-        specifier: 3.78.5
-        version: 3.78.5(@cloudflare/workers-types@4.20240909.0)
+        specifier: 3.78.6
+        version: 3.78.6(@cloudflare/workers-types@4.20240909.0)
 
   packages/database:
     dependencies:
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       drizzle-zod:
         specifier: 0.5.1
-        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
+        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -279,10 +279,10 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       drizzle-zod:
         specifier: 0.5.1
-        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
+        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -297,8 +297,8 @@ importers:
         specifier: 5.6.2
         version: 5.6.2
       wrangler:
-        specifier: 3.78.5
-        version: 3.78.5(@cloudflare/workers-types@4.20240909.0)
+        specifier: 3.78.6
+        version: 3.78.6(@cloudflare/workers-types@4.20240909.0)
 
   packages/env:
     dependencies:
@@ -352,8 +352,8 @@ importers:
         specifier: 20.16.5
         version: 20.16.5
       '@types/react':
-        specifier: 18.3.7
-        version: 18.3.7
+        specifier: 18.3.8
+        version: 18.3.8
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
@@ -1829,8 +1829,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@remix-run/cloudflare-pages@2.12.0':
-    resolution: {integrity: sha512-hzrEAiSM4VAANeSMrK7T6lpeblRjZhdgyaMGvAdsbE94JmfLWd1KMrzZO+m27cwmhgUCLRCY4SKzJWuLZR4ulw==}
+  '@remix-run/cloudflare-pages@2.12.1':
+    resolution: {integrity: sha512-czwkmZ1Y424XkKXRgTspOVOrkiq0kq7PMkpiE/v7gRZZMleB1+TOCcfIXao0UYwqNmmJmi3OV09Z+Q/A/dGIxg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@cloudflare/workers-types': ^4.0.0
@@ -1839,8 +1839,8 @@ packages:
       typescript:
         optional: true
 
-  '@remix-run/cloudflare@2.12.0':
-    resolution: {integrity: sha512-6bW1Zd4VmKWfRBro2ab06fO/wGauiLM1/Euhy87XnrPgmfDRW65q/HgAyJvt6/ldhaDyTk1NHQN8bxQOr1vdAg==}
+  '@remix-run/cloudflare@2.12.1':
+    resolution: {integrity: sha512-1LdzU+cT7duaLX5CwUKzcwEcBYADv1x8bxu8ffPcboAcIyqZhdLzNtbid+lh+WtzYS5hqUuwf73/orbpkroLOg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       '@cloudflare/workers-types': ^4.0.0
@@ -1849,13 +1849,13 @@ packages:
       typescript:
         optional: true
 
-  '@remix-run/dev@2.12.0':
-    resolution: {integrity: sha512-/87YQORdlJg5YChd7nVBM/hRXHZA4GfUjhKbZyNrh03bazCQBF+6EsXbzpJ6cCFOpZgecsN0Xv648Qw0VuJjwg==}
+  '@remix-run/dev@2.12.1':
+    resolution: {integrity: sha512-XjvpQZDvPL5L2NPUL9suwn0eo/WCHSewivpEEm2G1Ke06xL7LenIc8HzwkgsJqDrfvxePAFPj+RCcrygQvtMzA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
-      '@remix-run/react': ^2.12.0
-      '@remix-run/serve': ^2.12.0
+      '@remix-run/react': ^2.12.1
+      '@remix-run/serve': ^2.12.1
       typescript: ^5.1.0
       vite: ^5.1.0
       wrangler: ^3.28.2
@@ -1869,8 +1869,8 @@ packages:
       wrangler:
         optional: true
 
-  '@remix-run/node@2.12.0':
-    resolution: {integrity: sha512-83Jaoc6gpSuD4e6rCk7N5ZHAXNmDw4fJC+kPeDCsd6+wLtTLSi7u9Zo9/Q7moLZ3oyH+aR+LGdkxLULYv+Q6Og==}
+  '@remix-run/node@2.12.1':
+    resolution: {integrity: sha512-d+IHvEEU3qziporgpEyKFvKdmNaDu+a/9pIxBkNKVWdKx2JR0VRFIaUxxpxISWtkJcoNuERhW2xYa6YvtFp4ig==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       typescript: ^5.1.0
@@ -1878,8 +1878,8 @@ packages:
       typescript:
         optional: true
 
-  '@remix-run/react@2.12.0':
-    resolution: {integrity: sha512-Y109tI37Icr0BSU8sWSo8jDPkXaErJ/e1h0fkPvq6LZ0DrlcmHWBxzWJKID431I/KJvhVvBgVCuDamZTRVOZ5Q==}
+  '@remix-run/react@2.12.1':
+    resolution: {integrity: sha512-+AFR6oCcAndlUZvr42dNrY2zprhf5Yo5Wl7TBocO3YPmwLkdrzJz+e8Sezk25qgHBB9cCTigt+yyliXmsZ1mpg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^18.0.0
@@ -1893,8 +1893,8 @@ packages:
     resolution: {integrity: sha512-baiMx18+IMuD1yyvOGaHM9QrVUPGGG0jC+z+IPHnRJWUAUvaKuWKyE8gjDj2rzv3sz9zOGoRSPgeBVHRhZnBlA==}
     engines: {node: '>=14.0.0'}
 
-  '@remix-run/server-runtime@2.12.0':
-    resolution: {integrity: sha512-o9ukOr3XKmyY8UufTrDdkgD3fiy+z+f4qEzvCQnvC0+EasCyN9hb1Vbui6Koo/5HKvahC4Ga8RcWyvhykKrG3g==}
+  '@remix-run/server-runtime@2.12.1':
+    resolution: {integrity: sha512-iuj9ju34f0LztPpd5dVuTXgt4x/MJeRsBiLuEx02nDSMGoNCAIx2LdeNYvE+XXdsf1Ht2NMlpRU+HBPCz3QLZg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       typescript: ^5.1.0
@@ -2135,8 +2135,8 @@ packages:
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
 
-  '@types/react@18.3.7':
-    resolution: {integrity: sha512-KUnDCJF5+AiZd8owLIeVHqmW9yM4sqmDVf2JRJiBMFkGvkoZ4/WyV2lL4zVsoinmRS/W3FeEdZLEWFRofnT2FQ==}
+  '@types/react@18.3.8':
+    resolution: {integrity: sha512-syBUrW3/XpnW4WJ41Pft+I+aPoDVbrBVQGEnbD7NijDGlVC+8gV/XKRY+7vMDlfPpbwYt0l1vd/Sj8bJGMbs9Q==}
 
   '@types/through@0.0.33':
     resolution: {integrity: sha512-HsJ+z3QuETzP3cswwtzt2vEIiHBk/dCcHGhbmG5X3ecnwFD/lPrMpliGXxSCg03L9AhrdwA4Oz/qfspkDW+xGQ==}
@@ -4668,8 +4668,8 @@ packages:
     resolution: {integrity: sha512-e5ISH9xMYU0DzrT+jl8q2ze9D6eWBto+I8CNpe+VI+K2J/F/k3PdkdTdz4wvGVH4NTpo+NRYTVIuMQEMMcsLqg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  miniflare@3.20240909.3:
-    resolution: {integrity: sha512-HsWMexA4m0Ti8wTjqRdg50otufgoQ/I/rL3AHxf3dI/TN8zJC/5aMApqspW6I88Lzm24C+SRKnW0nm465PStIw==}
+  miniflare@3.20240909.4:
+    resolution: {integrity: sha512-uiMjmv9vYIMgUn5PovS/2XzvnSgm04GxtoreNb7qiaDdp1YMhPPtnmV+EKOKyPSlVc7fCt/glzqSX9atUBXa2A==}
     engines: {node: '>=16.13'}
     hasBin: true
 
@@ -6490,8 +6490,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.78.5:
-    resolution: {integrity: sha512-EqCQOuuxHCBHLSjWw7kWT/1PDSw38XUhSxPC3VnDcL7F6TukVBfHHyLFO4NYGTDDoH+G8KVK1bL1q8LXY2Rcbg==}
+  wrangler@3.78.6:
+    resolution: {integrity: sha512-1PaN9FB2D5sTlse15adhMIhm33rCJYCPxeN71h/6siW45F0QjDrv+BxInwy9LBg8gfEqm71eI1iIlTGyV3l+1A==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -7749,7 +7749,7 @@ snapshots:
   '@jridgewell/trace-mapping@0.3.25':
     dependencies:
       '@jridgewell/resolve-uri': 3.1.1
-      '@jridgewell/sourcemap-codec': 1.4.15
+      '@jridgewell/sourcemap-codec': 1.5.0
 
   '@jridgewell/trace-mapping@0.3.9':
     dependencies:
@@ -7903,22 +7903,22 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@remix-run/cloudflare-pages@2.12.0(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)':
+  '@remix-run/cloudflare-pages@2.12.1(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)':
     dependencies:
       '@cloudflare/workers-types': 4.20240909.0
-      '@remix-run/cloudflare': 2.12.0(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)
+      '@remix-run/cloudflare': 2.12.1(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)
     optionalDependencies:
       typescript: 5.6.2
 
-  '@remix-run/cloudflare@2.12.0(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)':
+  '@remix-run/cloudflare@2.12.1(@cloudflare/workers-types@4.20240909.0)(typescript@5.6.2)':
     dependencies:
       '@cloudflare/kv-asset-handler': 0.1.3
       '@cloudflare/workers-types': 4.20240909.0
-      '@remix-run/server-runtime': 2.12.0(typescript@5.6.2)
+      '@remix-run/server-runtime': 2.12.1(typescript@5.6.2)
     optionalDependencies:
       typescript: 5.6.2
 
-  '@remix-run/dev@2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))(wrangler@3.78.5(@cloudflare/workers-types@4.20240909.0))':
+  '@remix-run/dev@2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))(wrangler@3.78.6(@cloudflare/workers-types@4.20240909.0))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/generator': 7.25.6
@@ -7930,10 +7930,10 @@ snapshots:
       '@babel/types': 7.25.6
       '@mdx-js/mdx': 2.3.0
       '@npmcli/package-json': 4.0.1
-      '@remix-run/node': 2.12.0(typescript@5.6.2)
-      '@remix-run/react': 2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
+      '@remix-run/node': 2.12.1(typescript@5.6.2)
+      '@remix-run/react': 2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)
       '@remix-run/router': 1.19.2
-      '@remix-run/server-runtime': 2.12.0(typescript@5.6.2)
+      '@remix-run/server-runtime': 2.12.1(typescript@5.6.2)
       '@types/mdx': 2.0.13
       '@vanilla-extract/integration': 6.5.0(@types/node@22.5.4)
       arg: 5.0.2
@@ -7957,7 +7957,7 @@ snapshots:
       lodash.debounce: 4.0.8
       minimatch: 9.0.5
       ora: 5.4.1
-      picocolors: 1.0.1
+      picocolors: 1.1.0
       picomatch: 2.3.1
       pidtree: 0.6.0
       postcss: 8.4.47
@@ -7977,7 +7977,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.2
       vite: 5.4.6(@types/node@22.5.4)
-      wrangler: 3.78.5(@cloudflare/workers-types@4.20240909.0)
+      wrangler: 3.78.6(@cloudflare/workers-types@4.20240909.0)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -7994,9 +7994,9 @@ snapshots:
       - ts-node
       - utf-8-validate
 
-  '@remix-run/node@2.12.0(typescript@5.6.2)':
+  '@remix-run/node@2.12.1(typescript@5.6.2)':
     dependencies:
-      '@remix-run/server-runtime': 2.12.0(typescript@5.6.2)
+      '@remix-run/server-runtime': 2.12.1(typescript@5.6.2)
       '@remix-run/web-fetch': 4.4.2
       '@web3-storage/multipart-parser': 1.0.0
       cookie-signature: 1.2.1
@@ -8006,10 +8006,10 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.2
 
-  '@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)':
+  '@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2)':
     dependencies:
       '@remix-run/router': 1.19.2
-      '@remix-run/server-runtime': 2.12.0(typescript@5.6.2)
+      '@remix-run/server-runtime': 2.12.1(typescript@5.6.2)
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.26.2(react@18.3.1)
@@ -8020,7 +8020,7 @@ snapshots:
 
   '@remix-run/router@1.19.2': {}
 
-  '@remix-run/server-runtime@2.12.0(typescript@5.6.2)':
+  '@remix-run/server-runtime@2.12.1(typescript@5.6.2)':
     dependencies:
       '@remix-run/router': 1.19.2
       '@types/cookie': 0.6.0
@@ -8276,9 +8276,9 @@ snapshots:
 
   '@types/react-dom@18.3.0':
     dependencies:
-      '@types/react': 18.3.7
+      '@types/react': 18.3.8
 
-  '@types/react@18.3.7':
+  '@types/react@18.3.8':
     dependencies:
       '@types/prop-types': 15.7.5
       csstype: 3.1.2
@@ -9296,22 +9296,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1):
+  drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20240909.0
       '@neondatabase/serverless': 0.9.5
       '@opentelemetry/api': 1.9.0
       '@prisma/client': 5.19.0(prisma@5.19.0)
       '@types/pg': 8.11.6
-      '@types/react': 18.3.7
+      '@types/react': 18.3.8
       pg: 8.12.0
       postgres: 3.4.4
       prisma: 5.19.0
       react: 18.3.1
 
-  drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
+  drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
     dependencies:
-      drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.7)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+      drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20240909.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       zod: 3.23.8
 
   dtrace-provider@0.8.8:
@@ -11397,7 +11397,7 @@ snapshots:
 
   mimic-response@4.0.0: {}
 
-  miniflare@3.20240909.3:
+  miniflare@3.20240909.4:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.12.1
@@ -13502,7 +13502,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20240909.0
       '@cloudflare/workerd-windows-64': 1.20240909.0
 
-  wrangler@3.78.5(@cloudflare/workers-types@4.20240909.0):
+  wrangler@3.78.6(@cloudflare/workers-types@4.20240909.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@cloudflare/workers-shared': 0.5.3
@@ -13512,7 +13512,7 @@ snapshots:
       chokidar: 3.6.0
       date-fns: 3.6.0
       esbuild: 0.17.19
-      miniflare: 3.20240909.3
+      miniflare: 3.20240909.4
       nanoid: 3.3.7
       path-to-regexp: 6.3.0
       resolve: 1.22.8
