@@ -5,6 +5,7 @@ import type { LoginMessage, LoginResponse } from '@/entrypoints/messages/login'
 import client from '@/entrypoints/libs/client.ts'
 import { storageBookmarkV1 } from '@/entrypoints/storage/bookmark'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
+import { handleTabChange, handleTabUpdate } from './handlers'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -14,29 +15,8 @@ const firebaseAppBrowser = initializeApp({
 const auth = getAuth(firebaseAppBrowser)
 
 export default defineBackground(() => {
-  // onActivated: Handle tab change event
-  // > Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to tabs.onUpdated events to be notified when a URL is set.
-  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/tabs/onActivated
-  browser.tabs.onActivated.addListener(async (activeInfo) => {
-    const tab = await browser.tabs.get(activeInfo.tabId)
-    const activeUrl = tab.url
-    if (!activeUrl) return
-
-    const hasBookmarked = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
-    await browser.action.setBadgeText({ text: hasBookmarked ? '✅' : null })
-  })
-
-  // onUpdated: Handle tab update event (eg: url change)
-  browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
-    const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
-    if (tabId !== activeTab.id) return
-
-    const activeUrl = tab.url
-    if (!activeUrl) return
-
-    const hasBookmarked = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
-    await browser.action.setBadgeText({ text: hasBookmarked ? '✅' : null })
-  })
+  handleTabChange()
+  handleTabUpdate()
 
   // Register icon click event
   browser.action.onClicked.addListener(async () => {
