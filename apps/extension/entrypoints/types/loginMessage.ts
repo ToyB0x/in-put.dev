@@ -8,7 +8,7 @@ export type LoginMessage = {
   }
 }
 
-export type Response = {
+export type LoginResponse = {
   type: 'login'
   success: boolean
   data: {
