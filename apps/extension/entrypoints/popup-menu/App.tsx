@@ -3,7 +3,7 @@ import reactLogo from '@/assets/react.svg'
 import wxtLogo from '/wxt.svg'
 import './App.css'
 import type { User } from 'firebase/auth'
-import { LoginMessage, type Response } from '@/entrypoints/types/loginMessage.ts'
+import type { LoginMessage, LoginResponse } from '@/entrypoints/messages'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -25,7 +25,7 @@ function App() {
       },
     }
 
-    const response: Response = await browser.runtime.sendMessage(message)
+    const response: LoginResponse = await browser.runtime.sendMessage(message)
     if (!response.success) throw Error('failed to login')
 
     setUser(response.data.user)
