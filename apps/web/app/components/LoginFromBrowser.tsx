@@ -1,6 +1,6 @@
 'use client' // for firebase browser
 
-import { Form, useFetcher } from '@remix-run/react'
+import { useFetcher } from '@remix-run/react'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { firebaseAuthBrowser, PersistenceNone } from '@/.client/firebase'
 
@@ -27,10 +27,10 @@ export const LoginFromBrowser: React.FC = () => {
   }
 
   return (
-    <Form onSubmit={onSubmit} className='flex flex-col'>
+    <fetcher.Form onSubmit={onSubmit} className='flex flex-col'>
       <input name='email' type='email' placeholder='email' />
       <input name='password' type='password' placeholder='password' />
       <button type='submit'>send</button>
-    </Form>
+    </fetcher.Form>
   )
 }
