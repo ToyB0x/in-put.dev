@@ -16,21 +16,6 @@ export default defineBackground(() => {
   handleTabUpdate()
   handleIconClick(auth)
 
-  // Register extension icon context menu
-  const contextMenuId = browser.contextMenus.create({
-    title: 'sign out',
-    type: 'normal',
-    id: 'sign-out' + crypto.randomUUID(),
-    contexts: ['action'],
-  })
-
-  // Register extension icon context menu click event
-  browser.contextMenus.onClicked.addListener(async (info, tab) => {
-    if (info.menuItemId === contextMenuId) {
-      await auth.signOut()
-    }
-  })
-
   // Register Login event
   browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     // TODO: validate message by valibot
