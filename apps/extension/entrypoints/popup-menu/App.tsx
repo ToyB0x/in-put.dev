@@ -2,17 +2,8 @@ import { FormEventHandler, useState } from 'react'
 import reactLogo from '@/assets/react.svg'
 import wxtLogo from '/wxt.svg'
 import './App.css'
-import { getAuth, type User } from 'firebase/auth'
-import { initializeApp } from 'firebase/app'
-import { sharedPublicViteEnv } from '@repo/env/shared'
-import { Message, Response } from '@/entrypoints/types/message.ts'
-
-const firebaseAppBrowser = initializeApp({
-  projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
-  apiKey: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_BROWSER_API_KEY,
-})
-
-const auth = getAuth(firebaseAppBrowser)
+import type { User } from 'firebase/auth'
+import { Message, type Response } from '@/entrypoints/types/message.ts'
 
 function App() {
   const [count, setCount] = useState(0)
