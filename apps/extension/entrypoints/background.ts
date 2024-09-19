@@ -1,7 +1,7 @@
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth/web-extension'
 import { initializeApp } from 'firebase/app'
 import { sharedPublicViteEnv } from '@repo/env/shared'
-import { Message, Response } from '@/entrypoints/types/message.ts'
+import { LoginMessage, Response } from '@/entrypoints/types/loginMessage.ts'
 import client from '@/entrypoints/libs/client.ts'
 import { storageBookmarkV1 } from '@/entrypoints/sotrage/bookmark.ts'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
@@ -136,7 +136,7 @@ export default defineBackground(() => {
   // Register Login event
   browser.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
     // TODO: validate message by valibot
-    const messageTyped: Message = message
+    const messageTyped: LoginMessage = message
     const result = await signInWithEmailAndPassword(auth, messageTyped.data.email, messageTyped.data.password)
     const response: Response = { type: 'login', success: true, data: { user: result.user } }
     return response

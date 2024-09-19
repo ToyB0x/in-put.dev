@@ -1,6 +1,6 @@
-import { User } from 'firebase/auth'
+import type { User } from 'firebase/auth'
 
-export type Message = {
+export type LoginMessage = {
   type: 'login'
   data: {
     email: string

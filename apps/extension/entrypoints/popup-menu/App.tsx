@@ -3,7 +3,7 @@ import reactLogo from '@/assets/react.svg'
 import wxtLogo from '/wxt.svg'
 import './App.css'
 import type { User } from 'firebase/auth'
-import { Message, type Response } from '@/entrypoints/types/message.ts'
+import { LoginMessage, type Response } from '@/entrypoints/types/loginMessage.ts'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -17,7 +17,7 @@ function App() {
 
     if (typeof email !== 'string' || typeof password !== 'string') throw Error('invalid inputs')
 
-    const message: Message = {
+    const message: LoginMessage = {
       type: 'login',
       data: {
         email,
