@@ -23,7 +23,7 @@ export default defineBackground(() => {
 
     // update icon login status
     await browser.action.setIcon({
-      path: user ? 'icons/green/icon32.png' : 'icons/normal/icon32.png',
+      path: user ? 'icon/green/icon32.png' : 'icon/icon32.png',
     })
 
     // update icon menu
