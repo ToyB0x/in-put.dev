@@ -55,8 +55,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       wrangler:
-        specifier: 3.78.6
-        version: 3.78.6(@cloudflare/workers-types@4.20240919.0)
+        specifier: 3.78.7
+        version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
 
   apps/api-react:
     dependencies:
@@ -89,8 +89,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       wrangler:
-        specifier: 3.78.6
-        version: 3.78.6(@cloudflare/workers-types@4.20240919.0)
+        specifier: 3.78.7
+        version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
 
   apps/extension:
     dependencies:
@@ -124,7 +124,7 @@ importers:
         version: 18.3.0
       '@wxt-dev/module-react':
         specifier: 1.1.1
-        version: 1.1.1(vite@5.4.6(@types/node@22.5.4))(wxt@0.19.9(@types/node@22.5.4)(rollup@4.21.2))
+        version: 1.1.1(vite@5.4.7(@types/node@22.5.4))(wxt@0.19.9(@types/node@22.5.4)(rollup@4.21.2))
       typescript:
         specifier: 5.6.2
         version: 5.6.2
@@ -185,7 +185,7 @@ importers:
         version: 4.20240919.0
       '@remix-run/dev':
         specifier: 2.12.1
-        version: 2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))(wrangler@3.78.6(@cloudflare/workers-types@4.20240919.0))
+        version: 2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.7(@types/node@22.5.4))(wrangler@3.78.7(@cloudflare/workers-types@4.20240919.0))
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -229,14 +229,14 @@ importers:
         specifier: 5.6.2
         version: 5.6.2
       vite:
-        specifier: 5.4.6
-        version: 5.4.6(@types/node@22.5.4)
+        specifier: 5.4.7
+        version: 5.4.7(@types/node@22.5.4)
       vite-tsconfig-paths:
         specifier: 5.0.1
-        version: 5.0.1(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))
+        version: 5.0.1(typescript@5.6.2)(vite@5.4.7(@types/node@22.5.4))
       wrangler:
-        specifier: 3.78.6
-        version: 3.78.6(@cloudflare/workers-types@4.20240919.0)
+        specifier: 3.78.7
+        version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
 
   packages/database:
     dependencies:
@@ -272,8 +272,8 @@ importers:
         specifier: 5.6.2
         version: 5.6.2
       vite:
-        specifier: 5.4.6
-        version: 5.4.6(@types/node@22.5.4)
+        specifier: 5.4.7
+        version: 5.4.7(@types/node@22.5.4)
 
   packages/database-d1:
     dependencies:
@@ -297,14 +297,14 @@ importers:
         specifier: 5.6.2
         version: 5.6.2
       wrangler:
-        specifier: 3.78.6
-        version: 3.78.6(@cloudflare/workers-types@4.20240919.0)
+        specifier: 3.78.7
+        version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
 
   packages/env:
     dependencies:
       valibot:
-        specifier: 0.42.0
-        version: 0.42.0(typescript@5.6.2)
+        specifier: 0.42.1
+        version: 0.42.1(typescript@5.6.2)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -316,8 +316,8 @@ importers:
         specifier: 5.6.2
         version: 5.6.2
       vite:
-        specifier: 5.4.6
-        version: 5.4.6(@types/node@22.5.4)
+        specifier: 5.4.7
+        version: 5.4.7(@types/node@22.5.4)
 
   packages/eslint-config:
     devDependencies:
@@ -4922,6 +4922,9 @@ packages:
   ohash@1.1.3:
     resolution: {integrity: sha512-zuHHiGTYTA1sYJ/wZN+t5HKZaH23i4yI1HMwbuXm24Nid7Dv0KcuRlKoNKS9UNfAVSBlnGLcuQrnOKWOZoEGaw==}
 
+  ohash@1.1.4:
+    resolution: {integrity: sha512-FlDryZAahJmEF3VR3w1KogSEdWX3WhA5GPakFx4J81kEAiHyLMpdLLElS8n8dfNadMgAne/MywcvmogzscVt4g==}
+
   on-finished@2.4.1:
     resolution: {integrity: sha512-oVlzkg3ENAhCk2zdv7IJwd/QUD4z2RxRwpkcGY8psCVcCYZNq4wYnVWALHM+brtuJjePWiYF/ClmuDr8Ch5+kg==}
     engines: {node: '>= 0.8'}
@@ -6192,8 +6195,8 @@ packages:
     resolution: {integrity: sha512-U8uCCl2x9TK3WANvmBavymRzxbfFYG+tAu+fgx3zxQy3qdagQqBLwJVrdyO1TBfUXvfKveMKJZhpvUYoOjM+4g==}
     engines: {node: '>=18.17'}
 
-  unenv-nightly@2.0.0-1726478054.1e87097:
-    resolution: {integrity: sha512-uZso8dCkGlJzWQqkyjOA5L4aUqNJl9E9oKRm03V/d+URrg6rFMJwBonlX9AAq538NxwJpPnCX0gAz0IfTxsbFQ==}
+  unenv-nightly@2.0.0-20240919-125358-9a64854:
+    resolution: {integrity: sha512-XjsgUTrTHR7iw+k/SRTNjh6EQgwpC9voygnoCJo5kh4hKqsSDHUW84MhL9EsHTNfLctvVBHaSw8e2k3R2fKXsQ==}
 
   unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
@@ -6306,8 +6309,8 @@ packages:
   v8-compile-cache-lib@3.0.1:
     resolution: {integrity: sha512-wa7YjyUGfNZngI/vtK0UHAN+lgDCxBPCylVXGp0zu59Fz5aiGtNXaq3DhIov063MorB+VfufLh3JlF2KdTK3xg==}
 
-  valibot@0.42.0:
-    resolution: {integrity: sha512-igMdmHXxDiQY714ssh9bGisMqJ2yg7sko1KOmv/omnrIacGtP6mGrbvVT1IuV1bDrHyG9ybgpHwG1UElDiDCLg==}
+  valibot@0.42.1:
+    resolution: {integrity: sha512-3keXV29Ar5b//Hqi4MbSdV7lfVp6zuYLZuA9V1PvQUsXqogr+u5lvLPLk3A4f74VUXDnf/JfWMN6sB+koJ/FFw==}
     peerDependencies:
       typescript: '>=5'
     peerDependenciesMeta:
@@ -6380,8 +6383,8 @@ packages:
       terser:
         optional: true
 
-  vite@5.4.6:
-    resolution: {integrity: sha512-IeL5f8OO5nylsgzd9tq4qD2QqI0k2CQLGrWD0rCN0EQJZpBK5vJAx0I+GDkMOXxQX/OfFHMuLIx6ddAxGX/k+Q==}
+  vite@5.4.7:
+    resolution: {integrity: sha512-5l2zxqMEPVENgvzTuBpHer2awaetimj2BGkhBPdnwKbPNOlHsODU+oiazEZzLK7KhAnOrO+XGYJYn4ZlUhDtDQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -6490,8 +6493,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.78.6:
-    resolution: {integrity: sha512-1PaN9FB2D5sTlse15adhMIhm33rCJYCPxeN71h/6siW45F0QjDrv+BxInwy9LBg8gfEqm71eI1iIlTGyV3l+1A==}
+  wrangler@3.78.7:
+    resolution: {integrity: sha512-z2ubdgQZ8lh2TEpvihFQOu3HmCNus78sC1LMBiSmgv133i4DeUMuz6SJglles2LayJAKrusjTqFnDYecA2XDDg==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -7918,7 +7921,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.2
 
-  '@remix-run/dev@2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4))(wrangler@3.78.6(@cloudflare/workers-types@4.20240919.0))':
+  '@remix-run/dev@2.12.1(@remix-run/react@2.12.1(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.2))(@types/node@22.5.4)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.2))(typescript@5.6.2)(vite@5.4.7(@types/node@22.5.4))(wrangler@3.78.7(@cloudflare/workers-types@4.20240919.0))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/generator': 7.25.6
@@ -7976,8 +7979,8 @@ snapshots:
       ws: 7.5.10
     optionalDependencies:
       typescript: 5.6.2
-      vite: 5.4.6(@types/node@22.5.4)
-      wrangler: 3.78.6(@cloudflare/workers-types@4.20240919.0)
+      vite: 5.4.7(@types/node@22.5.4)
+      wrangler: 3.78.7(@cloudflare/workers-types@4.20240919.0)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -8417,7 +8420,7 @@ snapshots:
       lodash: 4.17.21
       mlly: 1.7.1
       outdent: 0.8.0
-      vite: 5.4.6(@types/node@22.5.4)
+      vite: 5.4.7(@types/node@22.5.4)
       vite-node: 1.6.0(@types/node@22.5.4)
     transitivePeerDependencies:
       - '@types/node'
@@ -8433,14 +8436,14 @@ snapshots:
 
   '@vanilla-extract/private@1.0.6': {}
 
-  '@vitejs/plugin-react@4.3.1(vite@5.4.6(@types/node@22.5.4))':
+  '@vitejs/plugin-react@4.3.1(vite@5.4.7(@types/node@22.5.4))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.25.2)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.25.2)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 5.4.6(@types/node@22.5.4)
+      vite: 5.4.7(@types/node@22.5.4)
     transitivePeerDependencies:
       - supports-color
 
@@ -8456,9 +8459,9 @@ snapshots:
 
   '@webext-core/match-patterns@1.0.3': {}
 
-  '@wxt-dev/module-react@1.1.1(vite@5.4.6(@types/node@22.5.4))(wxt@0.19.9(@types/node@22.5.4)(rollup@4.21.2))':
+  '@wxt-dev/module-react@1.1.1(vite@5.4.7(@types/node@22.5.4))(wxt@0.19.9(@types/node@22.5.4)(rollup@4.21.2))':
     dependencies:
-      '@vitejs/plugin-react': 4.3.1(vite@5.4.6(@types/node@22.5.4))
+      '@vitejs/plugin-react': 4.3.1(vite@5.4.7(@types/node@22.5.4))
       wxt: 0.19.9(@types/node@22.5.4)(rollup@4.21.2)
     transitivePeerDependencies:
       - supports-color
@@ -11674,6 +11677,8 @@ snapshots:
 
   ohash@1.1.3: {}
 
+  ohash@1.1.4: {}
+
   on-finished@2.4.1:
     dependencies:
       ee-first: 1.1.1
@@ -13128,10 +13133,10 @@ snapshots:
 
   undici@6.19.8: {}
 
-  unenv-nightly@2.0.0-1726478054.1e87097:
+  unenv-nightly@2.0.0-20240919-125358-9a64854:
     dependencies:
       defu: 6.1.4
-      ohash: 1.1.3
+      ohash: 1.1.4
       pathe: 1.1.2
       ufo: 1.5.4
 
@@ -13284,7 +13289,7 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  valibot@0.42.0(typescript@5.6.2):
+  valibot@0.42.1(typescript@5.6.2):
     optionalDependencies:
       typescript: 5.6.2
 
@@ -13315,7 +13320,7 @@ snapshots:
       debug: 4.3.6
       pathe: 1.1.2
       picocolors: 1.1.0
-      vite: 5.4.6(@types/node@22.5.4)
+      vite: 5.4.7(@types/node@22.5.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -13332,7 +13337,7 @@ snapshots:
       cac: 6.7.14
       debug: 4.3.6
       pathe: 1.1.2
-      vite: 5.4.6(@types/node@22.5.4)
+      vite: 5.4.7(@types/node@22.5.4)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -13344,13 +13349,13 @@ snapshots:
       - supports-color
       - terser
 
-  vite-tsconfig-paths@5.0.1(typescript@5.6.2)(vite@5.4.6(@types/node@22.5.4)):
+  vite-tsconfig-paths@5.0.1(typescript@5.6.2)(vite@5.4.7(@types/node@22.5.4)):
     dependencies:
       debug: 4.3.6
       globrex: 0.1.2
       tsconfck: 3.1.3(typescript@5.6.2)
     optionalDependencies:
-      vite: 5.4.6(@types/node@22.5.4)
+      vite: 5.4.7(@types/node@22.5.4)
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -13364,7 +13369,7 @@ snapshots:
       '@types/node': 22.5.4
       fsevents: 2.3.3
 
-  vite@5.4.6(@types/node@22.5.4):
+  vite@5.4.7(@types/node@22.5.4):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.47
@@ -13502,7 +13507,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20240909.0
       '@cloudflare/workerd-windows-64': 1.20240909.0
 
-  wrangler@3.78.6(@cloudflare/workers-types@4.20240919.0):
+  wrangler@3.78.7(@cloudflare/workers-types@4.20240919.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@cloudflare/workers-shared': 0.5.3
@@ -13519,7 +13524,7 @@ snapshots:
       resolve.exports: 2.0.2
       selfsigned: 2.4.1
       source-map: 0.6.1
-      unenv: unenv-nightly@2.0.0-1726478054.1e87097
+      unenv: unenv-nightly@2.0.0-20240919-125358-9a64854
       workerd: 1.20240909.0
       xxhash-wasm: 1.0.2
     optionalDependencies:
