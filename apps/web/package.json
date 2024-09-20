@@ -49,9 +49,9 @@
     "postcss": "8.4.47",
     "tailwindcss": "3.4.12",
     "typescript": "5.6.2",
-    "vite": "5.4.6",
+    "vite": "5.4.7",
     "vite-tsconfig-paths": "5.0.1",
-    "wrangler": "3.78.6"
+    "wrangler": "3.78.7"
   },
   "volta": {
     "extends": "../../package.json"
