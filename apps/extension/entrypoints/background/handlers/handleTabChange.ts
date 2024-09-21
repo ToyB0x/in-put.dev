@@ -1,5 +1,4 @@
-import { storageBookmarkV1 } from '@/entrypoints/storage/bookmark'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
 
 // onActivated: Handle tab change event
 // > Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to tabs.onUpdated events to be notified when a URL is set.
@@ -10,6 +9,6 @@ export const handleTabChange = () =>
     const activeUrl = tab.url
     if (!activeUrl) return
 
-    const hasBookmarked = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
+    const hasBookmarked = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
     await browser.action.setBadgeText({ text: hasBookmarked ? '✅' : null })
   })

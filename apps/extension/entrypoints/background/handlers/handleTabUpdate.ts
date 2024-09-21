@@ -1,5 +1,4 @@
-import { storageBookmarkV1 } from '@/entrypoints/storage/bookmark'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
 
 // onUpdated: Handle tab update event (eg: url change)
 export const handleTabUpdate = () =>
@@ -14,6 +13,6 @@ export const handleTabUpdate = () =>
     const activeUrl = tab.url
     if (!activeUrl) return
 
-    const hasBookmarked = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
+    const hasBookmarked = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
     await browser.action.setBadgeText({ text: hasBookmarked ? '✅' : null })
   })

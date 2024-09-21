@@ -1,7 +1,7 @@
-import { storageBookmarkV1 } from '@/entrypoints/storage/bookmark'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 import client from '@/entrypoints/libs/client'
 import type { Auth } from 'firebase/auth/web-extension'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
 
 // Register icon click event
 export const handleIconClick = (auth: Auth) =>
@@ -34,7 +34,9 @@ export const handleIconClick = (auth: Auth) =>
     }
 
     // TODO: refactor (split code)
-    const clickIconAction: 'ADD' | 'REMOVE' = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
+    const clickIconAction: 'ADD' | 'REMOVE' = (await storageAllowedDomainV1.getValue()).includes(
+      new URL(activeUrl).hostname,
+    )
       ? 'REMOVE'
       : 'ADD'
     console.info('clickIconAction: ', clickIconAction)
@@ -92,8 +94,8 @@ export const handleIconClick = (auth: Auth) =>
       if (!dataResDomainDisable.success) throw Error('failed to disable domain')
     }
 
-    // update storage with updated bookmarks
-    const resBookmarks = await client.urls.$get(
+    // update storage
+    const resDomains = await client.domains.$get(
       {},
       {
         headers: {
@@ -101,9 +103,9 @@ export const handleIconClick = (auth: Auth) =>
         },
       },
     )
-    const dataBookmarks = await resBookmarks.json()
+    const dataDomains = await resDomains.json()
 
-    await storageBookmarkV1.setValue(dataBookmarks.urls.map(getPureUrl))
+    await storageAllowedDomainV1.setValue(dataDomains.domains)
 
     // for debugging
     // await browser.tabs.sendMessage(activeTab.id!, { type: 'store-updated' })
