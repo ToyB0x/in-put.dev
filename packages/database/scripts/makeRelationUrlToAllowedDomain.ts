@@ -1,7 +1,7 @@
 import { neon } from '@neondatabase/serverless'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { allowedDomainTbl, url } from '../schema'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 
 const dbUrl = 'YOUR_DB_URL'
 
@@ -30,15 +30,19 @@ const main = async () => {
     const domain = urlObj.hostname
 
     const allowedDomains = await db
-      .select({ id: allowedDomainTbl.id })
+      .select()
       .from(allowedDomainTbl)
-      .where(eq(allowedDomainTbl.domain, domain))
+      .where(and(eq(allowedDomainTbl.domain, domain), eq(allowedDomainTbl.userId, u.userId)))
 
     if (allowedDomains.length !== 1) throw Error('duplicate domain already exists')
 
-    const matchedDomain = allowedDomains[0]
+    const matchedDomainId = allowedDomains[0]?.id
+    if (!matchedDomainId) throw Error('no domain id found')
 
-    await db.update(url).set({ allowedDomainId: matchedDomain?.id })
+    await db
+      .update(url)
+      .set({ allowedDomainId: matchedDomainId })
+      .where(and(eq(url.id, u.id), eq(url.userId, u.userId)))
   }
 }
 
