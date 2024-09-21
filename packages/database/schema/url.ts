@@ -1,5 +1,5 @@
 import { createInsertSchema } from 'drizzle-zod'
-import { pgTable, integer, serial, uniqueIndex, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { pgTable, boolean, integer, smallint, serial, uniqueIndex, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { user } from './user'
 
 export const url = pgTable(
@@ -8,6 +8,8 @@ export const url = pgTable(
     id: serial('id').primaryKey(),
     url: varchar('url', { length: 256 * 4 }).notNull(),
     pageTitle: varchar('pageTitle', { length: 256 }),
+    count: smallint('count').notNull().default(1), // use small int (max 32767)
+    isDisabled: boolean('isDisabled').notNull().default(false), // logical delete bookmark but not physical delete record for avoid accidental count reset
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
     userId: integer('userId')
@@ -34,6 +36,10 @@ export const insertUrlSchema = createInsertSchema(url, {
         const u = new URL(url)
         u.hash = '' // remove hash
         u.search = '' // remove query
+
+        // TODO: execute more normalize on client side.
+        // eg, remove last slack for treat "path/to/doc/" same as "path/to/doc"
+        // (but database should record same url user bookmarked)
         return u.toString()
       }),
 })

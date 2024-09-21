@@ -43,7 +43,13 @@ const addIconToLink = async () => {
     // a tag is full url or just only path from root
     const isATagFullUrl = aTag.href.startsWith('http://') || aTag.href.startsWith('https://')
     const browserLinkUrl = isATagFullUrl ? aTag.href : window.location.origin + aTag.href
-    const pureBrowserLinkUrl = getPureUrl(browserLinkUrl)
+    let pureBrowserLinkUrl = ''
+    try {
+      pureBrowserLinkUrl = getPureUrl(browserLinkUrl)
+    } catch (e) {
+      // like phone number containing https://nvd.nist.govtel:301-975-2000
+      console.info(e)
+    }
 
     if (storeUrls.includes(pureBrowserLinkUrl)) {
       if (aTag.textContent?.endsWith(' ✅')) continue

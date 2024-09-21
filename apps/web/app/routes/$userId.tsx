@@ -19,7 +19,11 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const db = drizzle(sql, { schema: { user, url } })
 
   const result = await db
-    .select()
+    .select({
+      url: url.url,
+      count: url.count,
+      pageTitle: url.pageTitle,
+    })
     .from(user)
     .innerJoin(url, eq(user.id, url.userId))
     .where(eq(user.userName, exactUserId))
@@ -37,10 +41,10 @@ export default function Index() {
   if (!userId) return <>no user exist</>
   // const bookmakingUrl = searchParams.get('url')
   // const bookMarkingHost = bookmakingUrl ? new URL(bookmakingUrl).host : null
-  const uniqueHosts = [...new Set(result.map(({ url }) => new URL(url.url).host))]
+  const uniqueHosts = [...new Set(result.map(({ url }) => new URL(url).host))]
   const uniqueHostsWithUrls = uniqueHosts.map((host) => {
-    const matchedUrls = result.filter(({ url }) => new URL(url.url).host === host)
-    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.url.url.localeCompare(b.url.url)).map(({ url }) => url)
+    const matchedUrls = result.filter(({ url }) => new URL(url).host === host)
+    const matchedUrlsSorted = matchedUrls.sort((a, b) => a.url.localeCompare(b.url))
     return { host, urls: matchedUrlsSorted }
   })
 
@@ -75,11 +79,19 @@ export default function Index() {
   )
 }
 
-const Details2 = ({ host, urls }: { host: string; urls: { url: string; pageTitle: string | null }[] }) => {
+const Details2 = ({
+  host,
+  urls,
+}: {
+  host: string
+  urls: { url: string; count: number; pageTitle: string | null }[]
+}) => {
   return (
     <>
       <div>{host}</div>
-      <p className='text-sm text-gray-500'>1{urls.length} read / 28 docs</p>
+      <p className='text-sm text-gray-500'>
+        {urls.reduce((acc, url) => acc + url.count, 0)} read / {urls.length} docs
+      </p>
       <hr className='my-2' />
     </>
   )
