@@ -5,6 +5,10 @@ import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 export const handleTabUpdate = () =>
   browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
+
+    const activeTabId = activeTab?.id
+    if (!activeTabId) return
+
     if (tabId !== activeTab.id) return
 
     const activeUrl = tab.url

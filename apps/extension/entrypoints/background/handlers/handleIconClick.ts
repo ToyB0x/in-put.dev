@@ -16,6 +16,8 @@ export const handleIconClick = (auth: Auth) =>
     const activeUrl = activeTab.url
     if (!activeUrl) return
 
+    if (!activeUrl.startsWith('http://') && !activeUrl.startsWith('http://')) return
+
     const activeTitle = activeTab.title
     if (!activeTitle) return
 
@@ -28,7 +30,22 @@ export const handleIconClick = (auth: Auth) =>
     await browser.action.setBadgeText({ text: clickIconAction === 'ADD' ? '✅' : null })
 
     if (clickIconAction === 'ADD') {
-      const resAdd = await client.urls.add.$post(
+      const resDomainAdd = await client.domains.add.$post(
+        {
+          json: { domain: new URL(activeUrl).hostname },
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        },
+      )
+
+      const dataResDomainAdd = await resDomainAdd.json()
+
+      if (!dataResDomainAdd.success) throw Error('failed to add domain')
+
+      const resUrlAdd = await client.urls.add.$post(
         {
           json: { url: getPureUrl(activeUrl), pageTitle: activeTitle },
         },
@@ -38,12 +55,27 @@ export const handleIconClick = (auth: Auth) =>
           },
         },
       )
-      const dataAdd = await resAdd.json()
+      const dataUrlAdd = await resUrlAdd.json()
 
       // fallback optimistic update
-      await browser.action.setBadgeText({ text: dataAdd.success ? '✅' : null })
+      await browser.action.setBadgeText({ text: dataUrlAdd.success ? '✅' : null })
     } else {
-      const resDelete = await client.urls.delete.$post(
+      const resDomainDelete = await client.domains.delete.$post(
+        {
+          json: { domain: new URL(activeUrl).hostname },
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        },
+      )
+
+      const dataResDomainDelete = await resDomainDelete.json()
+
+      if (!dataResDomainDelete.success) throw Error('failed to delete domain')
+
+      const resUrlDelete = await client.urls.delete.$post(
         {
           json: { url: getPureUrl(activeUrl) },
         },
@@ -53,10 +85,10 @@ export const handleIconClick = (auth: Auth) =>
           },
         },
       )
-      const dataDelete = await resDelete.json()
+      const dataUrlDelete = await resUrlDelete.json()
 
       // fallback optimistic update
-      await browser.action.setBadgeText({ text: dataDelete.success ? null : '✅' })
+      await browser.action.setBadgeText({ text: dataUrlDelete.success ? null : '✅' })
     }
 
     // update storage with updated bookmarks
