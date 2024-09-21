@@ -36,6 +36,13 @@
       "when": 1726888924771,
       "tag": "0004_needy_gravity",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1726905993794,
+      "tag": "0005_greedy_famine",
+      "breakpoints": true
     }
   ]
 }

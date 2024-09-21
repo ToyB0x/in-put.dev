@@ -20,7 +20,7 @@ export const url = pgTable(
         onDelete: 'cascade',
       }),
     allowedDomainId: integer('allowedDomainId')
-      // .notNull() // enable after migration
+      .notNull() // enable after migration
       .references(() => allowedDomainTbl.id, {
         onUpdate: 'cascade',
         onDelete: 'cascade',
