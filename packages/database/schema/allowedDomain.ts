@@ -1,5 +1,5 @@
 import { createInsertSchema } from 'drizzle-zod'
-import { pgTable, integer, serial, uniqueIndex, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { pgTable, integer, serial, uniqueIndex, timestamp, varchar, boolean } from 'drizzle-orm/pg-core'
 import { user } from './user'
 
 // allow domain used for auto url view count
@@ -8,6 +8,7 @@ export const allowedDomainTbl = pgTable(
   {
     id: serial('id').primaryKey(),
     domain: varchar('domain', { length: 253 }).notNull(),
+    isDisabled: boolean('isDisabled').notNull().default(false), // logical delete but not physical delete record for avoid accidental count reset
     createdAt: timestamp('created_at').notNull().defaultNow(),
     updatedAt: timestamp('updated_at').notNull().defaultNow(),
     userId: integer('user_id')

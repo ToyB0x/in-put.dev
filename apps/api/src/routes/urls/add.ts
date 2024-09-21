@@ -3,7 +3,7 @@ import { zValidator } from '@hono/zod-validator'
 import { allowedDomainTbl, insertUrlRequestSchema, url } from '@repo/database'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
-import { sql } from 'drizzle-orm'
+import { and, eq, sql } from 'drizzle-orm'
 
 const factory = createFactory()
 
@@ -22,13 +22,15 @@ const handlers = factory.createHandlers(validator, async (c) => {
 
   const domain = new URL(jsonUrl).hostname
 
-  const domainInDb = await db
-    .insert(allowedDomainTbl)
-    .values({ domain, userId: userInDb.id })
-    .onConflictDoNothing()
-    .returning()
-  if (domainInDb.length !== 1) throw Error('domain record invalid')
-  const domainInDbId = domainInDb[0]?.id
+  // TODO: use tx
+  const domainsInDb = await db
+    .select({ id: allowedDomainTbl.id })
+    .from(allowedDomainTbl)
+    .where(and(eq(allowedDomainTbl.userId, userInDb.id), eq(allowedDomainTbl.domain, domain)))
+
+  if (domainsInDb.length !== 1) throw Error('domain record invalid')
+
+  const domainInDbId = domainsInDb[0]?.id
   if (!domainInDbId) throw Error('domain record id invalid')
 
   // TODO: return count and show Store on extension

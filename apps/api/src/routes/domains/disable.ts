@@ -3,6 +3,7 @@ import { zValidator } from '@hono/zod-validator'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
 import { allowedDomainTbl, insertAllowedDomainRequestSchema } from '@repo/database'
+import { and, eq } from 'drizzle-orm'
 
 const factory = createFactory()
 
@@ -20,14 +21,11 @@ const handlers = factory.createHandlers(validator, async (c) => {
   const userInDb = await getUserFromDB(uid, db)
 
   await db
-    .insert(allowedDomainTbl)
-    .values({ domain, userId: userInDb.id })
-    .onConflictDoUpdate({
-      target: [allowedDomainTbl.userId, allowedDomainTbl.domain],
-      set: { isDisabled: false, updatedAt: new Date() },
-    })
+    .update(allowedDomainTbl)
+    .set({ isDisabled: true })
+    .where(and(eq(allowedDomainTbl.userId, userInDb.id), eq(allowedDomainTbl.domain, domain)))
 
-  return c.json({ success: true, message: 'data added successfully' })
+  return c.json({ success: true, message: 'data deleted successfully' })
 })
 
-export const addHandler = handlers
+export const disableHandler = handlers

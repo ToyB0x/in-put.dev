@@ -7,24 +7,37 @@ import type { Auth } from 'firebase/auth/web-extension'
 export const handleIconClick = (auth: Auth) =>
   browser.action.onClicked.addListener(async () => {
     // TODO: open popup if not logged in
-    if (!auth.currentUser) return
+    if (!auth.currentUser) {
+      console.warn('no user logged in')
+      return
+    }
 
     const token = await auth.currentUser?.getIdToken()
     if (!token) throw Error('no token')
 
     const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
     const activeUrl = activeTab.url
-    if (!activeUrl) return
+    if (!activeUrl) {
+      console.warn('no active tab')
+      return
+    }
 
-    if (!activeUrl.startsWith('http://') && !activeUrl.startsWith('http://')) return
+    if (!activeUrl.startsWith('http://') && !activeUrl.startsWith('https://')) {
+      console.warn('not http(s) protocol')
+      return
+    }
 
     const activeTitle = activeTab.title
-    if (!activeTitle) return
+    if (!activeTitle) {
+      console.warn('no active tab title')
+      return
+    }
 
     // TODO: refactor (split code)
     const clickIconAction: 'ADD' | 'REMOVE' = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
       ? 'REMOVE'
       : 'ADD'
+    console.info('clickIconAction: ', clickIconAction)
 
     // optimistic update
     await browser.action.setBadgeText({ text: clickIconAction === 'ADD' ? '✅' : null })
@@ -60,7 +73,7 @@ export const handleIconClick = (auth: Auth) =>
       // fallback optimistic update
       await browser.action.setBadgeText({ text: dataUrlAdd.success ? '✅' : null })
     } else {
-      const resDomainDelete = await client.domains.delete.$post(
+      const resDomainDisable = await client.domains.disable.$post(
         {
           json: { domain: new URL(activeUrl).hostname },
         },
@@ -71,24 +84,12 @@ export const handleIconClick = (auth: Auth) =>
         },
       )
 
-      const dataResDomainDelete = await resDomainDelete.json()
-
-      if (!dataResDomainDelete.success) throw Error('failed to delete domain')
-
-      const resUrlDelete = await client.urls.delete.$post(
-        {
-          json: { url: getPureUrl(activeUrl) },
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        },
-      )
-      const dataUrlDelete = await resUrlDelete.json()
+      const dataResDomainDisable = await resDomainDisable.json()
 
       // fallback optimistic update
-      await browser.action.setBadgeText({ text: dataUrlDelete.success ? null : '✅' })
+      await browser.action.setBadgeText({ text: dataResDomainDisable.success ? null : '✅' })
+
+      if (!dataResDomainDisable.success) throw Error('failed to disable domain')
     }
 
     // update storage with updated bookmarks
