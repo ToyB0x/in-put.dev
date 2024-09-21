@@ -1,11 +1,12 @@
 import { createInsertSchema } from 'drizzle-zod'
 import { pgTable, boolean, integer, smallint, serial, uniqueIndex, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { user } from './user'
+import { allowedDomainTbl } from './allowedDomain'
 
 export const url = pgTable(
   'url',
   {
-    id: serial('id').primaryKey(),
+    id: serial('id').primaryKey(), // not use uuid because cloudflare d1 sqlite doesn't support uuid
     url: varchar('url', { length: 256 * 4 }).notNull(),
     pageTitle: varchar('pageTitle', { length: 256 }),
     count: smallint('count').notNull().default(1), // use small int (max 32767)
@@ -15,6 +16,12 @@ export const url = pgTable(
     userId: integer('userId')
       .notNull()
       .references(() => user.id, {
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
+      }),
+    allowedDomainId: integer('allowedDomainId')
+      .notNull() // enable after migration
+      .references(() => allowedDomainTbl.id, {
         onUpdate: 'cascade',
         onDelete: 'cascade',
       }),
