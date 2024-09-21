@@ -60,7 +60,7 @@ export const handleIconClick = (auth: Auth) =>
       // fallback optimistic update
       await browser.action.setBadgeText({ text: dataUrlAdd.success ? '✅' : null })
     } else {
-      const resDomainDelete = await client.domains.delete.$post(
+      const resDomainDisable = await client.domains.disable.$post(
         {
           json: { domain: new URL(activeUrl).hostname },
         },
@@ -71,24 +71,12 @@ export const handleIconClick = (auth: Auth) =>
         },
       )
 
-      const dataResDomainDelete = await resDomainDelete.json()
-
-      if (!dataResDomainDelete.success) throw Error('failed to delete domain')
-
-      const resUrlDelete = await client.urls.delete.$post(
-        {
-          json: { url: getPureUrl(activeUrl) },
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        },
-      )
-      const dataUrlDelete = await resUrlDelete.json()
+      const dataResDomainDisable = await resDomainDisable.json()
 
       // fallback optimistic update
-      await browser.action.setBadgeText({ text: dataUrlDelete.success ? null : '✅' })
+      await browser.action.setBadgeText({ text: dataResDomainDisable.success ? null : '✅' })
+
+      if (!dataResDomainDisable.success) throw Error('failed to disable domain')
     }
 
     // update storage with updated bookmarks
