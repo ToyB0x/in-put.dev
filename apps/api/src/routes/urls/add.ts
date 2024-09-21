@@ -1,6 +1,6 @@
 import { createFactory } from 'hono/factory'
 import { zValidator } from '@hono/zod-validator'
-import { insertUrlRequestSchema, url } from '@repo/database'
+import { allowedDomainTbl, insertUrlRequestSchema, url } from '@repo/database'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
 import { sql } from 'drizzle-orm'
@@ -20,10 +20,21 @@ const handlers = factory.createHandlers(validator, async (c) => {
   const { uid } = await verifyIdToken(c)
   const userInDb = await getUserFromDB(uid, db)
 
+  const domain = new URL(jsonUrl).hostname
+
+  const domainInDb = await db
+    .insert(allowedDomainTbl)
+    .values({ domain, userId: userInDb.id })
+    .onConflictDoNothing()
+    .returning()
+  if (domainInDb.length !== 1) throw Error('domain record invalid')
+  const domainInDbId = domainInDb[0]?.id
+  if (!domainInDbId) throw Error('domain record id invalid')
+
   // TODO: return count and show Store on extension
   await db
     .insert(url)
-    .values({ url: jsonUrl, pageTitle, userId: userInDb.id })
+    .values({ url: jsonUrl, pageTitle, userId: userInDb.id, allowedDomainId: domainInDbId })
     .onConflictDoUpdate({
       target: [url.userId, url.url],
       set: { pageTitle, updatedAt: new Date(), count: sql`${url.count} + 1` },
