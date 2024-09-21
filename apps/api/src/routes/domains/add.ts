@@ -19,7 +19,13 @@ const handlers = factory.createHandlers(validator, async (c) => {
   const { uid } = await verifyIdToken(c)
   const userInDb = await getUserFromDB(uid, db)
 
-  await db.insert(allowedDomainTbl).values({ domain, userId: userInDb.id })
+  await db
+    .insert(allowedDomainTbl)
+    .values({ domain, userId: userInDb.id })
+    .onConflictDoUpdate({
+      target: [allowedDomainTbl.userId, allowedDomainTbl.domain],
+      set: { isDisabled: false, updatedAt: new Date() },
+    })
 
   return c.json({ success: true, message: 'data added successfully' })
 })
