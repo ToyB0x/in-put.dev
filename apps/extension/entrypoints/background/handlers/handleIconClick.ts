@@ -7,24 +7,37 @@ import type { Auth } from 'firebase/auth/web-extension'
 export const handleIconClick = (auth: Auth) =>
   browser.action.onClicked.addListener(async () => {
     // TODO: open popup if not logged in
-    if (!auth.currentUser) return
+    if (!auth.currentUser) {
+      console.warn('no user logged in')
+      return
+    }
 
     const token = await auth.currentUser?.getIdToken()
     if (!token) throw Error('no token')
 
     const [activeTab] = await browser.tabs.query({ active: true, currentWindow: true })
     const activeUrl = activeTab.url
-    if (!activeUrl) return
+    if (!activeUrl) {
+      console.warn('no active tab')
+      return
+    }
 
-    if (!activeUrl.startsWith('http://') && !activeUrl.startsWith('http://')) return
+    if (!activeUrl.startsWith('http://') && !activeUrl.startsWith('https://')) {
+      console.warn('not http(s) protocol')
+      return
+    }
 
     const activeTitle = activeTab.title
-    if (!activeTitle) return
+    if (!activeTitle) {
+      console.warn('no active tab title')
+      return
+    }
 
     // TODO: refactor (split code)
     const clickIconAction: 'ADD' | 'REMOVE' = (await storageBookmarkV1.getValue()).includes(getPureUrl(activeUrl))
       ? 'REMOVE'
       : 'ADD'
+    console.info('clickIconAction: ', clickIconAction)
 
     // optimistic update
     await browser.action.setBadgeText({ text: clickIconAction === 'ADD' ? '✅' : null })
