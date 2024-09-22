@@ -1,5 +1,5 @@
+import { getAuth } from 'firebase/auth'
 import { initializeApp, type FirebaseOptions } from 'firebase/app'
-import { getAuth, inMemoryPersistence } from 'firebase/auth'
 import { sharedPublicViteEnv } from '@repo/env/shared'
 
 // Your web app's Firebase configuration
@@ -11,5 +11,4 @@ const firebaseConfigsBrowser = {
 
 const firebaseAppBrowser = initializeApp(firebaseConfigsBrowser)
 
-export const PersistenceNone = inMemoryPersistence
 export const firebaseAuthBrowser = getAuth(firebaseAppBrowser)
