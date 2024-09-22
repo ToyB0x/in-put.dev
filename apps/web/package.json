@@ -39,6 +39,7 @@
     "@repo/typescript-config": "workspace:*",
     "@types/react": "18.3.8",
     "@types/react-dom": "18.3.0",
+    "@types/serviceworker": "latest",
     "@typescript-eslint/eslint-plugin": "8.6.0",
     "autoprefixer": "10.4.20",
     "eslint-import-resolver-typescript": "3.6.3",
