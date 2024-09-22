@@ -9,7 +9,10 @@ import { startTransition, StrictMode } from 'react'
 import { hydrateRoot } from 'react-dom/client'
 
 // Install servicerWorker
-navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
+navigator.serviceWorker.register('/service-worker.js', { scope: '/' }).then(async (registration) => {
+  console.info('service worker registered')
+  await registration.update() // https://developer.mozilla.org/ja/docs/Web/API/ServiceWorkerRegistration/update
+})
 
 startTransition(() => {
   hydrateRoot(
