@@ -29,18 +29,10 @@ const getIdTokenPromise = () => {
 self.addEventListener('fetch', (event: FetchEvent) => {
   return event.respondWith(
     getIdTokenPromise().then((idToken) => {
-      if (!idToken) {
-        return fetch(event.request) // send original request
-      }
+      if (!idToken) return fetch(event.request) // send original request
 
-      const isSafeRequest =
-        self.location.origin === new URL(event.request.url).origin && // self url request (load remix loader)
-        (self.location.protocol == 'https:' || self.location.hostname == 'localhost') // safe scheme
-
-      if (!isSafeRequest) {
-        console.warn('not safe self site request')
-        return fetch(event.request) /// send original request
-      }
+      const isSelfSiteRequest = self.location.origin === new URL(event.request.url).origin // self url request (load remix loader)
+      if (!isSelfSiteRequest) return fetch(event.request) /// send original request (like firebase api called to https://identitytoolkit.googleapis.com/v1/...)
 
       const newHeaders = new Headers(event.request.headers)
       newHeaders.set('Authorization', 'Bearer ' + idToken)
