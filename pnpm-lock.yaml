@@ -199,7 +199,7 @@ importers:
         specifier: 18.3.0
         version: 18.3.0
       '@types/serviceworker':
-        specifier: latest
+        specifier: 0.0.95
         version: 0.0.95
       '@typescript-eslint/eslint-plugin':
         specifier: 8.6.0
