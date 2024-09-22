@@ -4,15 +4,18 @@
  * For more information, see https://remix.run/file-conventions/entry.client
  */
 
-import { RemixBrowser } from "@remix-run/react";
-import { startTransition, StrictMode } from "react";
-import { hydrateRoot } from "react-dom/client";
+import { RemixBrowser } from '@remix-run/react'
+import { startTransition, StrictMode } from 'react'
+import { hydrateRoot } from 'react-dom/client'
+
+// Install servicerWorker
+navigator.serviceWorker.register('/service-worker.js', { scope: '/' })
 
 startTransition(() => {
   hydrateRoot(
     document,
     <StrictMode>
       <RemixBrowser />
-    </StrictMode>
-  );
-});
+    </StrictMode>,
+  )
+})
