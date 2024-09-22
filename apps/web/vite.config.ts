@@ -66,7 +66,7 @@ function serviceWorkerBuildPlugin(): PluginOption {
           emptyOutDir: false,
           minify: false,
           rollupOptions: {
-            input: './service-worker/service-worker.ts',
+            input: './service-worker.ts',
             output: {
               format: 'esm',
               esModule: true,
