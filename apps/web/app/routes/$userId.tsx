@@ -2,8 +2,8 @@ import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/clo
 import { useLoaderData, useParams } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { neon } from '@neondatabase/serverless'
-import { url, user } from '@repo/database'
-import { eq } from 'drizzle-orm'
+import { allowedDomainTbl, url, user } from '@repo/database'
+import { and, eq } from 'drizzle-orm'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Readx' }]
@@ -25,8 +25,9 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
       pageTitle: url.pageTitle,
     })
     .from(user)
-    .innerJoin(url, eq(user.id, url.userId))
-    .where(eq(user.userName, exactUserId))
+    .innerJoin(allowedDomainTbl, eq(user.id, allowedDomainTbl.userId))
+    .innerJoin(url, eq(allowedDomainTbl.id, url.allowedDomainId))
+    .where(and(eq(user.userName, exactUserId), eq(allowedDomainTbl.isDisabled, false)))
 
   if (!result) throw Error('no user exist')
 
