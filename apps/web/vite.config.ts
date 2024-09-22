@@ -1,10 +1,11 @@
-import { createFilter, defineConfig } from 'vite'
+import { createFilter, defineConfig, build, type PluginOption } from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 import { vitePlugin as remix, cloudflareDevProxyVitePlugin as remixCloudflareDevProxy } from '@remix-run/dev'
 
 export default defineConfig({
   plugins: [
     removeUseClient(),
+    serviceWorkerBuildPlugin(),
     remixCloudflareDevProxy({ persist: { path: '../../cf-local-worker/v3' } }),
     remix({
       future: {
@@ -27,7 +28,7 @@ declare module '@remix-run/cloudflare' {
 
 // Vite React "use client" sourcemap warning
 // https://stackoverflow.com/a/78751258
-function removeUseClient() {
+function removeUseClient(): PluginOption {
   const filter = createFilter(/.*\.(js|ts|jsx|tsx)$/)
 
   return {
@@ -41,6 +42,39 @@ function removeUseClient() {
       const newCode = code.replace(/['"]use client['"];\s*/g, '')
 
       return { code: newCode, map: null }
+    },
+  }
+}
+
+// NOTE: this plugin build service-worker.ts to public dir (currently don't watch file change)
+function serviceWorkerBuildPlugin(): PluginOption {
+  return {
+    name: 'build-service-worker',
+    enforce: 'pre',
+    async buildStart() {
+      console.info('Building service worker')
+      await build({
+        logLevel: 'error',
+        configFile: false,
+        appType: undefined,
+        publicDir: false,
+        build: {
+          target: 'modules',
+          copyPublicDir: false,
+          write: true,
+          outDir: 'public',
+          emptyOutDir: false,
+          minify: false,
+          rollupOptions: {
+            input: './service-worker/service-worker.ts',
+            output: {
+              format: 'esm',
+              esModule: true,
+              entryFileNames: 'service-worker.js',
+            },
+          },
+        },
+      })
     },
   }
 }
