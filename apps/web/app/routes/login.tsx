@@ -1,60 +1,47 @@
-import { type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { redirect } from '@remix-run/react'
-import {
-  authCookie,
-  AuthCookieValues,
-  cookieOption,
-  firebaseSessionCookieExpiresIn,
-  getOrInitializeAuth,
-} from '@/.server'
-import { LoginFromBrowser } from '@/components'
-import { user } from '@repo/database'
-import { eq } from 'drizzle-orm'
-import { drizzle } from 'drizzle-orm/neon-http'
-import { neon } from '@neondatabase/serverless'
+import { useEffect, useState } from 'react'
+import type { MetaFunction } from '@remix-run/cloudflare'
+import { useFetcher } from '@remix-run/react'
+import { firebaseAuthBrowser } from '@/.client/firebase'
+import { onAuthStateChanged, signInWithEmailAndPassword, type User } from 'firebase/auth'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Readx' }]
 }
 
-export const action = async ({ context, request }: LoaderFunctionArgs) => {
-  const formData = await request.formData()
-
-  const idToken = formData.get('idToken')
-  if (typeof idToken !== 'string') throw Error('idToken is invalid')
-
-  const refreshToken = formData.get('refreshToken')
-  if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
-
-  const auth = await getOrInitializeAuth(context.cloudflare.env)
-  const verifiedResult = await auth.verifyIdToken(idToken)
-
-  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
-  const db = drizzle(sql, { schema: { user } })
-
-  const userInDb = await db.query.user.findFirst({
-    where: eq(user.firebaseUid, verifiedResult.uid),
-    columns: { userName: true },
-  })
-
-  // NOTE: handle intermediate state (created in firebase but not in db)
-  if (!userInDb) return redirect('/signup-continue') // need human-readable unique userName, but firebase token has only email, so redirect to signup-continue (input userName)
-
-  const generatedSessionCookie = await auth.createSessionCookie(idToken, { expiresIn: firebaseSessionCookieExpiresIn })
-  const cookieValues = {
-    sessionCookie: generatedSessionCookie,
-    refreshToken,
-  } satisfies AuthCookieValues
-
-  // set to cookie and redirect user page
-  return redirect(`/@${userInDb.userName}`, {
-    headers: {
-      'Set-Cookie': await authCookie.serialize(cookieValues, cookieOption),
-    },
-  })
-}
-
-// TODO: refactor / add ui component
 export default function Page() {
-  return <LoginFromBrowser />
+  const fetcher = useFetcher()
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(firebaseAuthBrowser, async (user) => {
+      setUser(user)
+    })
+    return unsubscribe
+  }, [])
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.target as HTMLFormElement)
+
+    const email = formData.get('email')
+    if (typeof email !== 'string') throw Error('email is invalid')
+
+    const password = formData.get('password')
+    if (typeof password !== 'string') throw Error('password is invalid')
+
+    await signInWithEmailAndPassword(firebaseAuthBrowser, email, password)
+    console.info('logged in successfully')
+    location.href = '/'
+  }
+
+  return (
+    <>
+      <fetcher.Form onSubmit={onSubmit} className='flex flex-col'>
+        <input name='email' type='email' placeholder='email' />
+        <input name='password' type='password' placeholder='password' />
+        <button type='submit'>send</button>
+      </fetcher.Form>
+
+      <div>current user: {user && user.email}</div>
+    </>
+  )
 }
