@@ -1,16 +1,11 @@
-import { type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
-import { redirect } from '@remix-run/react'
-import {
-  authCookie,
-  AuthCookieValues,
-  cookieOption,
-  firebaseSessionCookieExpiresIn,
-  getOrInitializeAuth,
-} from '@/.server'
-import { SignupFromBrowser } from '@/components'
-import { insertUserSchema, user } from '@repo/database'
+import { redirect, useFetcher } from '@remix-run/react'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { getOrInitializeAuth } from '@/.server'
+import { firebaseAuthBrowser } from '@/.client'
 import { drizzle } from 'drizzle-orm/neon-http'
 import { neon } from '@neondatabase/serverless'
+import { insertUserSchema, user } from '@repo/database'
+import type { MetaFunction, LoaderFunctionArgs } from '@remix-run/cloudflare'
 
 export const meta: MetaFunction = () => {
   return [{ title: 'Readx' }]
@@ -21,11 +16,9 @@ export const action = async ({ context, request }: LoaderFunctionArgs) => {
   const userName = formData.get('userName')
   if (typeof userName !== 'string') throw Error('userName is invalid')
 
-  const idToken = formData.get('idToken')
-  if (typeof idToken !== 'string') throw Error('idToken is invalid')
-
-  const refreshToken = formData.get('refreshToken')
-  if (typeof refreshToken !== 'string') throw Error('refreshToken is invalid')
+  const authHeader = request.headers.get('Authorization')
+  if (!authHeader) throw Error('Authorization header is missing')
+  const idToken = authHeader.replace('Bearer ', '')
 
   // validate token
   const auth = await getOrInitializeAuth(context.cloudflare.env)
@@ -34,6 +27,7 @@ export const action = async ({ context, request }: LoaderFunctionArgs) => {
   // insert user to db
   const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
   const db = drizzle(sql)
+
   const parseUserResult = insertUserSchema.safeParse({
     userName,
     displayName: userName,
@@ -41,25 +35,41 @@ export const action = async ({ context, request }: LoaderFunctionArgs) => {
     firebaseUid: verifiedResult.uid,
   })
 
-  if (!parseUserResult.success) throw { message: 'Invalid user info given', status: 400 }
+  if (!parseUserResult.success) throw Error('Invalid user info given')
 
   await db.insert(user).values(parseUserResult.data)
 
-  const generatedSessionCookie = await auth.createSessionCookie(idToken, { expiresIn: firebaseSessionCookieExpiresIn })
-  const cookieValues = {
-    sessionCookie: generatedSessionCookie,
-    refreshToken,
-  } satisfies AuthCookieValues
-
-  // set to cookie and redirect user page
-  return redirect(`/@${userName}`, {
-    headers: {
-      'Set-Cookie': await authCookie.serialize(cookieValues, cookieOption),
-    },
-  })
+  return redirect(`/@${userName}`)
 }
 
-// TODO: refactor / add ui component
 export default function Page() {
-  return <SignupFromBrowser />
+  const fetcher = useFetcher()
+
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const formData = new FormData(e.target as HTMLFormElement)
+
+    const userName = formData.get('userName')
+    if (typeof userName !== 'string') throw Error('userName is invalid')
+
+    const email = formData.get('email')
+    if (typeof email !== 'string') throw Error('email is invalid')
+
+    const password = formData.get('password')
+    if (typeof password !== 'string') throw Error('password is invalid')
+
+    await createUserWithEmailAndPassword(firebaseAuthBrowser, email, password)
+    console.info(`User created: ${email}`)
+
+    // Submit key/value JSON as a FormData instance
+    fetcher.submit({ userName }, { method: 'POST' })
+  }
+
+  return (
+    <fetcher.Form onSubmit={onSubmit} className='flex flex-col'>
+      <input name='userName' type='text' placeholder='userName' />
+      <input name='email' type='email' placeholder='email' />
+      <input name='password' type='password' placeholder='password' />
+      <button type='submit'>send</button>
+    </fetcher.Form>
+  )
 }
