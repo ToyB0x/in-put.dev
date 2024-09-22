@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth'
+import { getAuth, onAuthStateChanged } from 'firebase/auth'
 
 initializeApp({
   projectId: import.meta.env.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -13,27 +13,44 @@ self.addEventListener('activate', (event) => {
   event.waitUntil(clients.claim())
 })
 
-// ref: https://firebase.google.com/docs/auth/web/service-worker-sessions?hl=ja#conclusion
-self.addEventListener('fetch', async (event: FetchEvent) => {
-  const auth = getAuth()
-  const currentUser = auth.currentUser
-  if (!currentUser) return // send original request
-
-  const isSafeRequest =
-    self.location.origin === new URL(event.request.url).origin &&
-    (self.location.protocol == 'https:' || self.location.hostname == 'localhost')
-
-  if (!isSafeRequest) return // send original request
-
-  const idToken = await currentUser.getIdToken()
-  const newHeaders = new Headers(event.request.headers)
-  newHeaders.set('Authorization', 'Bearer ' + idToken)
-
-  const newRequest = new Request(event.request, {
-    headers: newHeaders, // ref: https://stackoverflow.com/a/49579746
+const auth = getAuth()
+const getIdTokenPromise = () => {
+  return new Promise((resolve) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      unsubscribe()
+      if (!user) return resolve(null)
+      const idToken = await user.getIdToken()
+      return resolve(idToken)
+    })
   })
+}
 
-  event.respondWith(fetch(newRequest))
+// ref: https://firebase.google.com/docs/auth/web/service-worker-sessions?hl=ja#conclusion
+self.addEventListener('fetch', (event: FetchEvent) => {
+  return event.respondWith(
+    getIdTokenPromise().then((idToken) => {
+      if (!idToken) {
+        return fetch(event.request) // send original request
+      }
+
+      const isSafeRequest =
+        self.location.origin === new URL(event.request.url).origin && // self url request (load remix loader)
+        (self.location.protocol == 'https:' || self.location.hostname == 'localhost') // safe scheme
+
+      if (!isSafeRequest) {
+        console.warn('not safe self site request')
+        return fetch(event.request) /// send original request
+      }
+
+      const newHeaders = new Headers(event.request.headers)
+      newHeaders.set('Authorization', 'Bearer ' + idToken)
+
+      const newRequest = new Request(event.request, {
+        headers: newHeaders, // ref: https://stackoverflow.com/a/49579746
+      })
+      return fetch(newRequest)
+    }),
+  )
 })
 
 console.info('initialize service worker...')
