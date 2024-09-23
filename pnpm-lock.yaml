@@ -20,9 +20,9 @@ importers:
 
   apps/api:
     dependencies:
-      '@hono/valibot-validator':
-        specifier: 0.3.0
-        version: 0.3.0(hono@4.6.2)(valibot@0.42.1(typescript@5.6.2))
+      '@hono/zod-validator':
+        specifier: 0.2.2
+        version: 0.2.2(hono@4.6.2)(zod@3.23.8)
       '@repo/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -38,9 +38,6 @@ importers:
       node-html-parser:
         specifier: 6.1.13
         version: 6.1.13
-      valibot:
-        specifier: 0.42.1
-        version: 0.42.1(typescript@5.6.2)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: 4.20240919.0
@@ -1593,11 +1590,11 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@hono/valibot-validator@0.3.0':
-    resolution: {integrity: sha512-EcGJKzLt11SK4K11yKHrhI93ECtKeSHAnnENHw5tCL0ZhyDIx96avc3Ua8/ri4fwVvRPuOzFQ2OBRsVvwZuqeQ==}
+  '@hono/zod-validator@0.2.2':
+    resolution: {integrity: sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==}
     peerDependencies:
       hono: '>=3.9.0'
-      valibot: '>=0.31.0 <1'
+      zod: ^3.19.1
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -7611,10 +7608,10 @@ snapshots:
       protobufjs: 7.4.0
       yargs: 17.7.2
 
-  '@hono/valibot-validator@0.3.0(hono@4.6.2)(valibot@0.42.1(typescript@5.6.2))':
+  '@hono/zod-validator@0.2.2(hono@4.6.2)(zod@3.23.8)':
     dependencies:
       hono: 4.6.2
-      valibot: 0.42.1(typescript@5.6.2)
+      zod: 3.23.8
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
