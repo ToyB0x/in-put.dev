@@ -9,5 +9,8 @@
     },
   ],
   "rangeStrategy": "pin",
-  "reviewers": ["ToyB0x"]
+  "reviewers": ["ToyB0x"],
+  "ignoreDeps": [
+    "@remix-run/**" // avoid https://github.com/remix-run/remix/issues/10014
+  ]
 }
