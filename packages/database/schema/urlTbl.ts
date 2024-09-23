@@ -14,11 +14,11 @@ export const urlTbl = sqliteTable(
     pageTitle: text('page_title', { length: 256 }),
     createdAt: customTimestamp('created_at')
       .notNull()
-      .default(sql`UNIXEPOCH()`),
+      .default(sql`(UNIXEPOCH())`),
     updatedAt: customTimestamp('updated_at')
       .notNull()
-      .default(sql`UNIXEPOCH()`)
-      .$onUpdate(() => sql`UNIXEPOCH()`),
+      .default(sql`(UNIXEPOCH())`)
+      .$onUpdate(() => sql`(UNIXEPOCH())`),
     userId: integer('user_id', { mode: 'number' })
       .notNull()
       .references(() => userTbl.id, {

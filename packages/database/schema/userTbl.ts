@@ -14,11 +14,11 @@ export const userTbl = sqliteTable(
     firebaseUid: text('firebase_uid', { length: 36 }).unique('uq_user_firebase_uid').notNull(),
     createdAt: customTimestamp('created_at')
       .notNull()
-      .default(sql`UNIXEPOCH()`),
+      .default(sql`(UNIXEPOCH())`),
     updatedAt: customTimestamp('updated_at')
       .notNull()
-      .default(sql`UNIXEPOCH()`)
-      .$onUpdate(() => sql`UNIXEPOCH()`),
+      .default(sql`(UNIXEPOCH())`)
+      .$onUpdate(() => sql`(UNIXEPOCH())`),
   },
   (tbl) => ({
     uniqueLowerUserName: uniqueIndex('uq_user_lower_name').on(lower(tbl.name)),
