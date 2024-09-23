@@ -18,14 +18,14 @@
     "normalize": "npx tsx scripts/normalizeUrl.ts"
   },
   "dependencies": {
+    "@neondatabase/serverless": "0.9.5",
     "drizzle-orm": "0.33.0",
     "drizzle-zod": "0.5.1",
+    "postgres": "3.4.4",
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@neondatabase/serverless": "0.9.5",
     "dotenv": "16.4.5",
-    "postgres": "3.4.4",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "0.24.2",
