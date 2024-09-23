@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "1e22533e-fee8-4525-8a8a-690978c9d642",
+  "id": "fab2ab47-25c2-404a-a129-55432ef755e2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "domain": {
@@ -217,6 +217,13 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
+        },
+        "domain_id": {
+          "name": "domain_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
         }
       },
       "indexes": {
@@ -236,6 +243,19 @@
           "tableTo": "user",
           "columnsFrom": [
             "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "cascade"
+        },
+        "url_domain_id_domain_id_fk": {
+          "name": "url_domain_id_domain_id_fk",
+          "tableFrom": "url",
+          "tableTo": "domain",
+          "columnsFrom": [
+            "domain_id"
           ],
           "columnsTo": [
             "id"
