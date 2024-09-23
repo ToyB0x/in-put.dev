@@ -1,7 +1,8 @@
 import { sql } from 'drizzle-orm'
-import { createInsertSchema } from 'drizzle-zod'
 import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
 import { userTbl } from './userTbl'
+import { createInsertSchema } from 'drizzle-valibot'
+import * as v from 'valibot'
 
 export const urlTbl = sqliteTable(
   'url',
@@ -30,11 +31,7 @@ export const urlTbl = sqliteTable(
 )
 
 export const insertUrlSchema = createInsertSchema(urlTbl, {
-  url: (schema) =>
-    schema.url
-      .url()
-      .max(500) // limit url length
-      .startsWith('http'), // allow only http(s) urls (not ftp, etc.)
+  url: v.pipe(v.string(), v.url(), v.maxLength(500)),
 })
 
 export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true })

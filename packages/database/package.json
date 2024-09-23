@@ -20,9 +20,9 @@
   "dependencies": {
     "@neondatabase/serverless": "0.9.5",
     "drizzle-orm": "0.33.0",
-    "drizzle-zod": "0.5.1",
-    "postgres": "3.4.4",
-    "zod": "3.23.8"
+    "drizzle-valibot": "0.2.0",
+    "valibot": "0.42.1",
+    "postgres": "3.4.4"
   },
   "devDependencies": {
     "dotenv": "16.4.5",
