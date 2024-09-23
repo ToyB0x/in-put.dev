@@ -18,7 +18,7 @@ const firebaseConfig = {
 export const getOrInitializeAuth = async (env: Env) =>
   Auth.getOrInitialize(
     firebaseConfig.projectId,
-    WorkersKVStoreSingle.getOrInitialize(env.PUBLIC_JWK_CACHE_KEY, env.PUBLIC_JWK_CACHE_KV),
+    WorkersKVStoreSingle.getOrInitialize(env.KV_INPUTS_PUBLIC_JWK_CACHE_KEY, env.KV_INPUTS_PUBLIC_JWK_CACHE),
     // dummyStore,
     new ServiceAccountCredential(env.SECRETS_SERVICE_ACCOUNT_JSON_STRING),
   )
