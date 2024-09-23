@@ -26,7 +26,6 @@ const handlers = factory.createHandlers(validator, async (c) => {
       target: [domainTbl.userId, domainTbl.domain],
       set: {
         isDisabled: false, // treat as enabled
-        updatedAt: new Date(),
       },
     })
 
