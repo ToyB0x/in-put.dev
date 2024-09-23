@@ -1,4 +1,5 @@
-name = "api-test1"
+name = "inputs-api"
+
 compatibility_date = "2024-05-24"
 
 [limits]
@@ -6,21 +7,20 @@ cpu_ms = 100 # To prevent accidental runaway bills or denial-of-wallet attacks (
 
 [vars]
 # Specify cache key to store and get public jwk.
-PUBLIC_JWK_CACHE_KEY = "public-jwk-cache-key"
-PUBLIC_FIREBASE_PROJECT_ID = "inputs-prd" # override in .dev.vars in local development
+PUBLIC_FIREBASE_PROJECT_ID = "inputs-prd" # override in .dev.vars in local development (need this because this package doesn't use vite env on build step)
+KV_INPUTS_PUBLIC_JWK_CACHE_KEY = "KV_INPUTS_PUBLIC_JWK_CACHE_KEY"
 
-# [[ d1_databases ]]
-# binding = "DB_TEST1"
-# database_name = "test1" # used by "wrangler d1 migrations [database_name]"
-# database_id = "51efb21a-1364-4b84-af15-b7e2b1c02f25" # db=test1
-# preview_database_id = "acec2005-f2e7-4d79-97cf-dee89d03012d" # db=test1-preview
-# migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
+[[ d1_databases ]]
+binding = "DB_INPUTS"
+database_name = "inputs-prd" # used by "wrangler d1 migrations [database_name]"
+database_id = "7a94e6ef-60e5-4084-b839-236633e4dd71" # db=inputs-prd
+preview_database_id = "55a6d530-701d-487b-8f53-4becd7504148" # db=inputs-preview (used by wrangler dev command)
+migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
 
 [[kv_namespaces]]
-binding = "PUBLIC_JWK_CACHE_KV"
-id = "23f9b19117db4a7f87d4fdbe4289e56f"
-preview_id = "0381a09d521d4391bbac019799121655"
-
+binding = "KV_INPUTS_PUBLIC_JWK_CACHE"
+id = "184e53d4ddf641ba9b8069f642fc76f0" # kv_namespace=inputs-prd
+preview_id = "5390c3fd19f3435faa9966988ab9677b" # kv_namespace=inputs-preview (used by wrangler dev command)
 
 #[[ d1_databases ]]
 #binding = "DB_TEST1"

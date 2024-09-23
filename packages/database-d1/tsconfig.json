@@ -1,9 +1,0 @@
-{
-  "extends": "@repo/typescript-config/base.json",
-  "compilerOptions": {
-    "skipLibCheck": true,
-    "moduleResolution": "Bundler",
-  },
-  "include": ["**/*.ts"],
-  "exclude": ["dist", "node_modules", "src/**/*.test.ts"]
-}

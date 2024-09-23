@@ -1,54 +1,12 @@
 {
   "version": "7",
-  "dialect": "postgresql",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
-      "version": "7",
-      "when": 1725934985207,
-      "tag": "0000_useful_ezekiel",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1726105131306,
-      "tag": "0001_lyrical_nico_minoru",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1726192815445,
-      "tag": "0002_cute_vanisher",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1726823990371,
-      "tag": "0003_regular_maximus",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1726888924771,
-      "tag": "0004_needy_gravity",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1726905993794,
-      "tag": "0005_greedy_famine",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "7",
-      "when": 1726916004454,
-      "tag": "0006_low_wallflower",
+      "version": "6",
+      "when": 1727092511968,
+      "tag": "0000_special_firestar",
       "breakpoints": true
     }
   ]

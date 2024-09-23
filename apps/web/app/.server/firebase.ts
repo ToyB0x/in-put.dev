@@ -1,4 +1,4 @@
-import { Auth, ServiceAccountCredential, WorkersKVStoreSingle } from 'firebase-auth-cloudflare-workers'
+import { Auth, WorkersKVStoreSingle } from 'firebase-auth-cloudflare-workers'
 import type { FirebaseOptions } from 'firebase/app'
 import { sharedPublicViteEnv } from '@repo/env/shared'
 
@@ -18,7 +18,5 @@ const firebaseConfig = {
 export const getOrInitializeAuth = async (env: Env) =>
   Auth.getOrInitialize(
     firebaseConfig.projectId,
-    WorkersKVStoreSingle.getOrInitialize(env.PUBLIC_JWK_CACHE_KEY, env.PUBLIC_JWK_CACHE_KV),
-    // dummyStore,
-    new ServiceAccountCredential(env.SECRETS_SERVICE_ACCOUNT_JSON_STRING),
+    WorkersKVStoreSingle.getOrInitialize(env.KV_INPUTS_PUBLIC_JWK_CACHE_KEY, env.KV_INPUTS_PUBLIC_JWK_CACHE),
   )

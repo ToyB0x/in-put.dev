@@ -1,6 +1,6 @@
 import { createFactory } from 'hono/factory'
 import { zValidator } from '@hono/zod-validator'
-import { allowedDomainTbl, insertUrlRequestSchema, url } from '@repo/database'
+import { domainTbl, insertUrlRequestSchema, urlTbl } from '@repo/database'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
 import { and, eq, sql } from 'drizzle-orm'
@@ -15,31 +15,29 @@ const validator = zValidator('json', insertUrlRequestSchema, (result, c) => {
 
 const handlers = factory.createHandlers(validator, async (c) => {
   const db = getDB(c)
-  const { url: jsonUrl, pageTitle } = c.req.valid('json')
+  const { url, pageTitle } = c.req.valid('json')
 
   const { uid } = await verifyIdToken(c)
-  const userInDb = await getUserFromDB(uid, db)
+  const user = await getUserFromDB(uid, db)
 
-  const domain = new URL(jsonUrl).hostname
+  const domain = new URL(url).hostname
 
   // TODO: use tx
-  const domainsInDb = await db
-    .select({ id: allowedDomainTbl.id })
-    .from(allowedDomainTbl)
-    .where(and(eq(allowedDomainTbl.userId, userInDb.id), eq(allowedDomainTbl.domain, domain)))
+  const [domainInDb] = await db
+    .select({ id: domainTbl.id })
+    .from(domainTbl)
+    .where(and(eq(domainTbl.userId, user.id), eq(domainTbl.domain, domain)))
 
-  if (domainsInDb.length !== 1) throw Error('domain record invalid')
-
-  const domainInDbId = domainsInDb[0]?.id
-  if (!domainInDbId) throw Error('domain record id invalid')
+  const domainId = domainInDb?.id
+  if (!domainId) throw Error('domain record id invalid')
 
   // TODO: return count and show Store on extension
   await db
-    .insert(url)
-    .values({ url: jsonUrl, pageTitle, userId: userInDb.id, allowedDomainId: domainInDbId })
+    .insert(urlTbl)
+    .values({ url, pageTitle, domainId, userId: user.id })
     .onConflictDoUpdate({
-      target: [url.userId, url.url],
-      set: { pageTitle, updatedAt: new Date(), count: sql`${url.count} + 1` },
+      target: [urlTbl.userId, urlTbl.url],
+      set: { pageTitle, count: sql`${urlTbl.count} + 1` },
     })
 
   return c.json({ success: true })

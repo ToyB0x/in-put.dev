@@ -1,7 +1,7 @@
 import { and, eq } from 'drizzle-orm'
 import { createFactory } from 'hono/factory'
 import { zValidator } from '@hono/zod-validator'
-import { insertUrlRequestSchema, url } from '@repo/database'
+import { insertUrlRequestSchema, urlTbl } from '@repo/database'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
 
@@ -15,12 +15,12 @@ const validator = zValidator('json', insertUrlRequestSchema.pick({ url: true }),
 
 const handlers = factory.createHandlers(validator, async (c) => {
   const db = getDB(c)
-  const { url: jsonUrl } = c.req.valid('json')
+  const { url } = c.req.valid('json')
 
   const { uid } = await verifyIdToken(c)
-  const userInDb = await getUserFromDB(uid, db)
+  const user = await getUserFromDB(uid, db)
 
-  await db.delete(url).where(and(eq(url.userId, userInDb.id), eq(url.url, jsonUrl)))
+  await db.delete(urlTbl).where(and(eq(urlTbl.userId, user.id), eq(urlTbl.url, url)))
   return c.json({ success: true })
 })
 

@@ -1,9 +1,6 @@
 import type { Context } from 'hono'
-import { neon } from '@neondatabase/serverless'
-import { drizzle } from 'drizzle-orm/neon-http'
-import { url, user } from '@repo/database'
+import { drizzle } from 'drizzle-orm/d1'
 
 export const getDB = (c: Context) => {
-  const sql = neon(c.env.SECRETS_DATABASE_URL)
-  return drizzle(sql, { schema: { user, url } })
+  return drizzle(c.env.DB_INPUTS)
 }
