@@ -2,6 +2,7 @@ import { user } from '../schema'
 import * as dotenv from 'dotenv'
 import { getDB } from '../src/getDB'
 
+// TODO: update
 dotenv.config({ path: '../../.env.development.local' })
 
 const dbUrl = process.env.NEON_DATABASE_URL

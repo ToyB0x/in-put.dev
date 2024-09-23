@@ -20,9 +20,9 @@ importers:
 
   apps/api:
     dependencies:
-      '@hono/zod-validator':
-        specifier: 0.2.2
-        version: 0.2.2(hono@4.6.2)(zod@3.23.8)
+      '@hono/valibot-validator':
+        specifier: latest
+        version: 0.3.0(hono@4.6.2)(valibot@0.42.1(typescript@5.6.2))
       '@neondatabase/serverless':
         specifier: 0.9.5
         version: 0.9.5
@@ -41,9 +41,9 @@ importers:
       node-html-parser:
         specifier: 6.1.13
         version: 6.1.13
-      zod:
-        specifier: 3.23.8
-        version: 3.23.8
+      valibot:
+        specifier: latest
+        version: 0.42.1(typescript@5.6.2)
     devDependencies:
       '@cloudflare/workers-types':
         specifier: 4.20240919.0
@@ -100,9 +100,6 @@ importers:
 
   apps/web:
     dependencies:
-      '@neondatabase/serverless':
-        specifier: 0.9.5
-        version: 0.9.5
       '@remix-run/cloudflare':
         specifier: 2.12.1
         version: 2.12.1(@cloudflare/workers-types@4.20240919.0)(typescript@5.6.2)
@@ -215,15 +212,15 @@ importers:
       drizzle-orm:
         specifier: 0.33.0
         version: 0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
-      drizzle-zod:
-        specifier: 0.5.1
-        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
+      drizzle-valibot:
+        specifier: 0.2.0
+        version: 0.2.0(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(valibot@0.42.1(typescript@5.6.2))
       postgres:
         specifier: 3.4.4
         version: 3.4.4
-      zod:
-        specifier: 3.23.8
-        version: 3.23.8
+      valibot:
+        specifier: 0.42.1
+        version: 0.42.1(typescript@5.6.2)
     devDependencies:
       '@repo/eslint-config':
         specifier: workspace:*
@@ -1636,11 +1633,11 @@ packages:
     engines: {node: '>=6'}
     hasBin: true
 
-  '@hono/zod-validator@0.2.2':
-    resolution: {integrity: sha512-dSDxaPV70Py8wuIU2QNpoVEIOSzSXZ/6/B/h4xA7eOMz7+AarKTSGV8E6QwrdcCbBLkpqfJ4Q2TmBO0eP1tCBQ==}
+  '@hono/valibot-validator@0.3.0':
+    resolution: {integrity: sha512-EcGJKzLt11SK4K11yKHrhI93ECtKeSHAnnENHw5tCL0ZhyDIx96avc3Ua8/ri4fwVvRPuOzFQ2OBRsVvwZuqeQ==}
     peerDependencies:
       hono: '>=3.9.0'
-      zod: ^3.19.1
+      valibot: '>=0.31.0 <1'
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -3083,6 +3080,12 @@ packages:
         optional: true
       sqlite3:
         optional: true
+
+  drizzle-valibot@0.2.0:
+    resolution: {integrity: sha512-+JTZZN52fFv20kGTXI1KGpysdCiedaTDpWQ6lqnxX2DD5U5tJfGPB2ROjHFjbLzK4XiH98MOhKZf174orBQAew==}
+    peerDependencies:
+      drizzle-orm: '>=0.23.13'
+      valibot: '>=0.20'
 
   drizzle-zod@0.5.1:
     resolution: {integrity: sha512-C/8bvzUH/zSnVfwdSibOgFjLhtDtbKYmkbPbUCq46QZyZCH6kODIMSOgZ8R7rVjoI+tCj3k06MRJMDqsIeoS4A==}
@@ -7654,10 +7657,10 @@ snapshots:
       protobufjs: 7.4.0
       yargs: 17.7.2
 
-  '@hono/zod-validator@0.2.2(hono@4.6.2)(zod@3.23.8)':
+  '@hono/valibot-validator@0.3.0(hono@4.6.2)(valibot@0.42.1(typescript@5.6.2))':
     dependencies:
       hono: 4.6.2
-      zod: 3.23.8
+      valibot: 0.42.1(typescript@5.6.2)
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:
@@ -9267,6 +9270,11 @@ snapshots:
       postgres: 3.4.4
       prisma: 5.19.0
       react: 18.3.1
+
+  drizzle-valibot@0.2.0(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(valibot@0.42.1(typescript@5.6.2)):
+    dependencies:
+      drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+      valibot: 0.42.1(typescript@5.6.2)
 
   drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
     dependencies:
