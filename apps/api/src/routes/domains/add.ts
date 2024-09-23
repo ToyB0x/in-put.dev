@@ -1,12 +1,12 @@
 import { createFactory } from 'hono/factory'
-import { vValidator } from '@hono/valibot-validator'
+import { zValidator } from '@hono/zod-validator'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
 import { domainTbl, insertDomainRequestSchema } from '@repo/database'
 
 const factory = createFactory()
 
-const validator = vValidator('json', insertDomainRequestSchema, (result, c) => {
+const validator = zValidator('json', insertDomainRequestSchema, (result, c) => {
   if (!result.success) {
     return c.json({ success: false, message: 'invalid data given' }, 400)
   }

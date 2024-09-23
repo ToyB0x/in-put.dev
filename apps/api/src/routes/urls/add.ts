@@ -1,5 +1,5 @@
 import { createFactory } from 'hono/factory'
-import { vValidator } from '@hono/valibot-validator'
+import { zValidator } from '@hono/zod-validator'
 import { domainTbl, insertUrlRequestSchema, urlTbl } from '@repo/database'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
@@ -7,7 +7,7 @@ import { and, eq, sql } from 'drizzle-orm'
 
 const factory = createFactory()
 
-const validator = vValidator('json', insertUrlRequestSchema, (result, c) => {
+const validator = zValidator('json', insertUrlRequestSchema, (result, c) => {
   if (!result.success) {
     return c.json({ message: 'invalid data given' }, 400)
   }
