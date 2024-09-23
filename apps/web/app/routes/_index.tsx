@@ -1,4 +1,4 @@
-import { type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
+import { type MetaFunction, type LoaderFunctionArgs, json } from '@remix-run/cloudflare'
 import { Link, useLoaderData } from '@remix-run/react'
 import { userTbl } from '@repo/database'
 import { drizzle } from 'drizzle-orm/d1'
@@ -11,7 +11,7 @@ export const loader = async ({ context }: LoaderFunctionArgs) => {
   const db = drizzle(context.cloudflare.env.DB_INPUTS)
   const allUser = await db.select().from(userTbl)
 
-  return { allUser }
+  return json({ allUser })
 }
 
 export default function Page() {
