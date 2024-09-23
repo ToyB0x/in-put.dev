@@ -3,6 +3,7 @@ import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
 import { userTbl } from './userTbl'
 import { createInsertSchema } from 'drizzle-valibot'
 import * as v from 'valibot'
+import { domainTbl } from './domainTbl'
 
 export const urlTbl = sqliteTable(
   'url',
@@ -21,6 +22,12 @@ export const urlTbl = sqliteTable(
     userId: integer('user_id', { mode: 'number' })
       .notNull()
       .references(() => userTbl.id, {
+        onUpdate: 'cascade',
+        onDelete: 'cascade',
+      }),
+    domainId: integer('domain_id', { mode: 'number' })
+      .notNull()
+      .references(() => domainTbl.id, {
         onUpdate: 'cascade',
         onDelete: 'cascade',
       }),
