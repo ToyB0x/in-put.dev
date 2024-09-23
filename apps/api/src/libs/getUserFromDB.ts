@@ -1,14 +1,14 @@
-import { user } from '@repo/database'
+import { userTbl } from '@repo/database'
 import { eq } from 'drizzle-orm'
 import type { getDB } from './getDB'
 
 export const getUserFromDB = async (firebaseUid: string, db: ReturnType<typeof getDB>) => {
-  const userInDb = await db.query.user.findFirst({
-    where: eq(user.firebaseUid, firebaseUid),
-    columns: { id: true, userName: true },
-  })
+  const [user] = await db
+    .select({ id: userTbl.id, name: userTbl.name })
+    .from(userTbl)
+    .where(eq(userTbl.firebaseUid, firebaseUid))
 
-  if (!userInDb) throw Error('User not found')
+  if (!user) throw Error('User not found')
 
-  return userInDb
+  return user
 }
