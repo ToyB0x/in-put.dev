@@ -40,7 +40,12 @@ export default function Index() {
       {histories.map(({ url, count, updatedAt }) => (
         <li className='p-4' key={url}>
           <div>
-            {updatedAt.toLocaleDateString()} {updatedAt.toLocaleTimeString()}
+            {new Date(updatedAt).toLocaleDateString('ja-JP', {
+              timeZone: 'Asia/Tokyo',
+            })}{' '}
+            {new Date(updatedAt).toLocaleTimeString('ja-JP', {
+              timeZone: 'Asia/Tokyo',
+            })}
           </div>
           <div>{url}</div>
           <div>count: {count}</div>
