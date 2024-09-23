@@ -27,13 +27,16 @@ export const action = async ({ context, request }: LoaderFunctionArgs) => {
   const db = drizzle(context.cloudflare.env.DB_INPUTS)
 
   const parseUserResult = insertUserTblSchema.safeParse({
-    userName,
+    name: userName,
     displayName: userName,
     email: verifiedResult.email,
     firebaseUid: verifiedResult.uid,
   })
 
-  if (!parseUserResult.success) throw Error('Invalid user info given')
+  if (!parseUserResult.success) {
+    console.error(parseUserResult.error)
+    throw Error('Invalid user info given')
+  }
 
   await db.insert(userTbl).values(parseUserResult.data)
 
@@ -57,6 +60,10 @@ export default function Page() {
 
     await createUserWithEmailAndPassword(firebaseAuthBrowser, email, password)
     console.info(`User created: ${email}`)
+
+    // workaround for wait on-auth-state-change complete on service worker
+    const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+    await sleep(3000)
 
     // Submit key/value JSON as a FormData instance
     fetcher.submit({ userName }, { method: 'POST' })
