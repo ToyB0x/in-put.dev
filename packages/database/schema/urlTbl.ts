@@ -1,8 +1,7 @@
 import { sql } from 'drizzle-orm'
 import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
 import { userTbl } from './userTbl'
-import { createInsertSchema } from 'drizzle-valibot'
-import * as v from 'valibot'
+import { createInsertSchema } from 'drizzle-zod'
 import { domainTbl } from './domainTbl'
 
 export const urlTbl = sqliteTable(
@@ -38,10 +37,25 @@ export const urlTbl = sqliteTable(
 )
 
 export const insertUrlSchema = createInsertSchema(urlTbl, {
-  url: v.pipe(v.string(), v.url(), v.maxLength(500)),
+  url: (schema) =>
+    schema.url
+      .url()
+      .max(500) // limit url length
+      .startsWith('http') // allow only http(s) urls (not ftp, etc.)
+      .transform((url) => {
+        // normalize url
+        const u = new URL(url)
+        u.hash = '' // remove hash
+        u.search = '' // remove query
+
+        // TODO: execute more normalize on client side.
+        // eg, remove last slack for treat "path/to/doc/" same as "path/to/doc"
+        // (but database should record same url user bookmarked)
+        return u.toString()
+      }),
 })
 
-export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true })
+export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true, pageTitle: true })
 
 // Example of relations
 // export const urlsRelations = relations(url, ({ one }) => ({

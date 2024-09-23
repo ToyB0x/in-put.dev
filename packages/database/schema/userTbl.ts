@@ -1,7 +1,7 @@
 import { AnySQLiteColumn, integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core'
 import { SQL, sql } from 'drizzle-orm'
-import { createInsertSchema } from 'drizzle-valibot'
-import * as v from 'valibot'
+import { createInsertSchema } from 'drizzle-zod'
+import { z } from 'zod'
 
 export const userTbl = sqliteTable(
   'user',
@@ -31,10 +31,8 @@ export function lower(email: AnySQLiteColumn): SQL {
 }
 
 export const insertUserTblSchema = createInsertSchema(userTbl, {
-  name: () => v.pipe(v.string(), v.minLength(3), v.maxLength(12)),
-  email: () => v.pipe(v.string(), v.email(), v.toLowerCase()),
+  name: () => z.string().min(3).max(12), // add more constraints because citext can't have length constraint
 })
-
 // Example of relations
 // export const userRelations = relations(userTbl, ({ many }) => ({
 //   urls: many(url),

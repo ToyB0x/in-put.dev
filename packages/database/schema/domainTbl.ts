@@ -1,7 +1,7 @@
 import { sql } from 'drizzle-orm'
 import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
 import { userTbl } from './userTbl'
-import { createInsertSchema } from 'drizzle-valibot'
+import { createInsertSchema } from 'drizzle-zod'
 
 export const domainTbl = sqliteTable(
   'domain',
