@@ -2,9 +2,8 @@ import { redirect, useFetcher } from '@remix-run/react'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { getOrInitializeAuth } from '@/.server/firebase'
 import { firebaseAuthBrowser } from '@/.client/firebase'
-import { drizzle } from 'drizzle-orm/neon-http'
-import { neon } from '@neondatabase/serverless'
-import { insertUserSchema, user } from '@repo/database'
+import { drizzle } from 'drizzle-orm/d1'
+import { insertUserTblSchema, userTbl } from '@repo/database'
 import type { MetaFunction, LoaderFunctionArgs } from '@remix-run/cloudflare'
 
 export const meta: MetaFunction = () => {
@@ -25,10 +24,9 @@ export const action = async ({ context, request }: LoaderFunctionArgs) => {
   const verifiedResult = await auth.verifyIdToken(idToken)
 
   // insert user to db
-  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
-  const db = drizzle(sql)
+  const db = drizzle(context.cloudflare.env.DB_INPUTS)
 
-  const parseUserResult = insertUserSchema.safeParse({
+  const parseUserResult = insertUserTblSchema.safeParse({
     userName,
     displayName: userName,
     email: verifiedResult.email,
@@ -37,7 +35,7 @@ export const action = async ({ context, request }: LoaderFunctionArgs) => {
 
   if (!parseUserResult.success) throw Error('Invalid user info given')
 
-  await db.insert(user).values(parseUserResult.data)
+  await db.insert(userTbl).values(parseUserResult.data)
 
   return redirect(`/@${userName}`)
 }

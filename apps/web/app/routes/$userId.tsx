@@ -1,8 +1,7 @@
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData, useParams } from '@remix-run/react'
-import { drizzle } from 'drizzle-orm/neon-http'
-import { neon } from '@neondatabase/serverless'
-import { allowedDomainTbl, url, user } from '@repo/database'
+import { drizzle } from 'drizzle-orm/d1'
+import { domainTbl, urlTbl, userTbl } from '@repo/database'
 import { and, eq } from 'drizzle-orm'
 
 export const meta: MetaFunction = () => {
@@ -15,19 +14,18 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
   const exactUserId = params.userId.split('@')[1]
   if (!exactUserId) throw Error('no user exist')
 
-  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
-  const db = drizzle(sql, { schema: { user, url } })
+  const db = drizzle(context.cloudflare.env.DB_INPUTS)
 
   const result = await db
     .select({
-      url: url.url,
-      count: url.count,
-      pageTitle: url.pageTitle,
+      url: urlTbl.url,
+      count: urlTbl.count,
+      pageTitle: urlTbl.pageTitle,
     })
-    .from(user)
-    .innerJoin(allowedDomainTbl, eq(user.id, allowedDomainTbl.userId))
-    .innerJoin(url, eq(allowedDomainTbl.id, url.allowedDomainId))
-    .where(and(eq(user.userName, exactUserId), eq(allowedDomainTbl.isDisabled, false)))
+    .from(userTbl)
+    .innerJoin(domainTbl, eq(userTbl.id, domainTbl.userId))
+    .innerJoin(urlTbl, eq(domainTbl.id, urlTbl.domainId))
+    .where(and(eq(userTbl.name, exactUserId), eq(domainTbl.isDisabled, false)))
 
   if (!result) throw Error('no user exist')
 

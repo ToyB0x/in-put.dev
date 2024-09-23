@@ -1,8 +1,7 @@
 import { type LoaderFunctionArgs, type MetaFunction } from '@remix-run/cloudflare'
 import { useLoaderData } from '@remix-run/react'
-import { drizzle } from 'drizzle-orm/neon-http'
-import { neon } from '@neondatabase/serverless'
-import { url, user } from '@repo/database'
+import { drizzle } from 'drizzle-orm/d1'
+import { urlTbl, userTbl } from '@repo/database'
 import { eq, desc } from 'drizzle-orm'
 import { getOrInitializeAuth } from '@/.server'
 
@@ -19,19 +18,18 @@ export const loader = async ({ request, context }: LoaderFunctionArgs) => {
   const idToken = authHeader.replace('Bearer ', '')
   const verifiedResult = await auth.verifyIdToken(idToken)
 
-  const sql = neon(context.cloudflare.env.SECRETS_DATABASE_URL)
-  const db = drizzle(sql)
+  const db = drizzle(context.cloudflare.env.DB_INPUTS)
 
   return await db
     .select({
-      url: url.url,
-      count: url.count,
-      updatedAt: url.updatedAt,
+      url: urlTbl.url,
+      count: urlTbl.count,
+      updatedAt: urlTbl.updatedAt,
     })
-    .from(user)
-    .orderBy(desc(url.updatedAt))
-    .innerJoin(url, eq(user.id, url.userId))
-    .where(eq(user.firebaseUid, verifiedResult.uid))
+    .from(userTbl)
+    .orderBy(desc(urlTbl.updatedAt))
+    .innerJoin(urlTbl, eq(userTbl.id, urlTbl.userId))
+    .where(eq(userTbl.firebaseUid, verifiedResult.uid))
 }
 
 export default function Index() {
