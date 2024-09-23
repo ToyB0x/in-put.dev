@@ -58,40 +58,6 @@ importers:
         specifier: 3.78.7
         version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
 
-  apps/api-react:
-    dependencies:
-      '@hono/zod-validator':
-        specifier: 0.2.2
-        version: 0.2.2(hono@4.6.2)(zod@3.23.8)
-      '@repo/database-d1':
-        specifier: workspace:*
-        version: link:../../packages/database-d1
-      drizzle-orm:
-        specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
-      hono:
-        specifier: 4.6.2
-        version: 4.6.2
-      node-html-parser:
-        specifier: 6.1.13
-        version: 6.1.13
-      zod:
-        specifier: 3.23.8
-        version: 3.23.8
-    devDependencies:
-      '@cloudflare/workers-types':
-        specifier: 4.20240919.0
-        version: 4.20240919.0
-      '@repo/eslint-config':
-        specifier: workspace:*
-        version: link:../../packages/eslint-config
-      '@repo/typescript-config':
-        specifier: workspace:*
-        version: link:../../packages/typescript-config
-      wrangler:
-        specifier: 3.78.7
-        version: 3.78.7(@cloudflare/workers-types@4.20240919.0)
-
   apps/extension:
     dependencies:
       '@repo/env':
@@ -243,19 +209,22 @@ importers:
 
   packages/database:
     dependencies:
+      '@neondatabase/serverless':
+        specifier: 0.9.5
+        version: 0.9.5
       drizzle-orm:
         specifier: 0.33.0
         version: 0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       drizzle-zod:
         specifier: 0.5.1
         version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240919.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.8)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
+      postgres:
+        specifier: 3.4.4
+        version: 3.4.4
       zod:
         specifier: 3.23.8
         version: 3.23.8
     devDependencies:
-      '@neondatabase/serverless':
-        specifier: 0.9.5
-        version: 0.9.5
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -268,9 +237,6 @@ importers:
       drizzle-kit:
         specifier: 0.24.2
         version: 0.24.2
-      postgres:
-        specifier: 3.4.4
-        version: 3.4.4
       typescript:
         specifier: 5.6.2
         version: 5.6.2
