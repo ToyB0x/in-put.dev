@@ -9,7 +9,7 @@ if (!dbUrl) throw Error('Database URL not found')
 
 export default defineConfig({
   schema: './schema',
-  dialect: 'postgresql',
+  dialect: 'sqlite',
   strict: true,
   verbose: true,
   dbCredentials: {
