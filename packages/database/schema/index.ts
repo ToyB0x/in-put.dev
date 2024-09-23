@@ -1,3 +1,3 @@
-export * from './allowedDomain'
-export * from './user'
-export * from './url'
+export * from './domainTbl'
+export * from './userTbl'
+export * from './urlTbl'
