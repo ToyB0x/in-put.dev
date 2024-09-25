@@ -16,7 +16,7 @@ export const domainTbl = sqliteTable(
     updatedAt: customTimestamp('updated_at')
       .notNull()
       .default(sql`(UNIXEPOCH())`)
-      .$onUpdate(() => sql`(UNIXEPOCH())`),
+      .$onUpdate(() => new Date()),
     userId: integer('user_id', { mode: 'number' })
       .notNull()
       .references(() => userTbl.id, {

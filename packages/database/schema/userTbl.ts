@@ -18,7 +18,7 @@ export const userTbl = sqliteTable(
     updatedAt: customTimestamp('updated_at')
       .notNull()
       .default(sql`(UNIXEPOCH())`)
-      .$onUpdate(() => sql`(UNIXEPOCH())`),
+      .$onUpdate(() => new Date()),
   },
   (tbl) => ({
     uniqueLowerUserName: uniqueIndex('uq_user_lower_name').on(lower(tbl.name)),
