@@ -13,8 +13,8 @@ KV_INPUTS_PUBLIC_JWK_CACHE_KEY = "KV_INPUTS_PUBLIC_JWK_CACHE_KEY"
 [[ d1_databases ]]
 binding = "DB_INPUTS"
 database_name = "inputs-prd" # used by "wrangler d1 migrations [database_name]"
-database_id = "7a94e6ef-60e5-4084-b839-236633e4dd71" # db=inputs-prd
-preview_database_id = "55a6d530-701d-487b-8f53-4becd7504148" # db=inputs-preview (used by wrangler dev command)
+database_id = "80741dbc-15dc-4e0b-841e-1717b4d358b2" # db=inputs-prd
+preview_database_id = "93b1104f-2f18-4530-a115-0cfc45f39822" # db=inputs-preview (used by wrangler dev command)
 migrations_dir = "drizzle" # load as symlink from packages/database/wrangler.toml
 
 [[kv_namespaces]]
