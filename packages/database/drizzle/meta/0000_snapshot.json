@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "fab2ab47-25c2-404a-a129-55432ef755e2",
+  "id": "000d8931-d5bf-48ab-9e76-e41b46303f6a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "domain": {
@@ -35,7 +35,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(UNIXEPOCH())"
         },
         "updated_at": {
           "name": "updated_at",
@@ -43,7 +43,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(UNIXEPOCH())"
         },
         "user_id": {
           "name": "user_id",
@@ -125,7 +125,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(UNIXEPOCH())"
         },
         "updated_at": {
           "name": "updated_at",
@@ -133,7 +133,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(UNIXEPOCH())"
         }
       },
       "indexes": {
@@ -201,7 +201,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(UNIXEPOCH())"
         },
         "updated_at": {
           "name": "updated_at",
@@ -209,7 +209,7 @@
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": "CURRENT_TIMESTAMP"
+          "default": "(UNIXEPOCH())"
         },
         "user_id": {
           "name": "user_id",

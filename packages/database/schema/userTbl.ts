@@ -2,6 +2,7 @@ import { AnySQLiteColumn, integer, sqliteTable, text, uniqueIndex } from 'drizzl
 import { SQL, sql } from 'drizzle-orm'
 import { createInsertSchema } from 'drizzle-zod'
 import { z } from 'zod'
+import { customTimestamp } from './customTimestamp'
 
 export const userTbl = sqliteTable(
   'user',
@@ -11,12 +12,12 @@ export const userTbl = sqliteTable(
     displayName: text('display_name', { length: 24 }).notNull(),
     email: text('email', { length: 256 }).notNull(),
     firebaseUid: text('firebase_uid', { length: 36 }).unique('uq_user_firebase_uid').notNull(),
-    createdAt: integer('created_at', { mode: 'timestamp' })
+    createdAt: customTimestamp('created_at')
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: integer('updated_at', { mode: 'timestamp' })
+      .default(sql`(UNIXEPOCH())`),
+    updatedAt: customTimestamp('updated_at')
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`)
+      .default(sql`(UNIXEPOCH())`)
       .$onUpdate(() => new Date()),
   },
   (tbl) => ({

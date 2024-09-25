@@ -3,6 +3,7 @@ import { integer, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core'
 import { userTbl } from './userTbl'
 import { createInsertSchema } from 'drizzle-zod'
 import { domainTbl } from './domainTbl'
+import { customTimestamp } from './customTimestamp'
 
 export const urlTbl = sqliteTable(
   'url',
@@ -11,12 +12,12 @@ export const urlTbl = sqliteTable(
     url: text('url', { length: 256 * 4 }).notNull(),
     count: integer('count', { mode: 'number' }).notNull().default(1),
     pageTitle: text('page_title', { length: 256 }),
-    createdAt: integer('created_at', { mode: 'timestamp' })
+    createdAt: customTimestamp('created_at')
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`),
-    updatedAt: integer('updated_at', { mode: 'timestamp' })
+      .default(sql`(UNIXEPOCH())`),
+    updatedAt: customTimestamp('updated_at')
       .notNull()
-      .default(sql`CURRENT_TIMESTAMP`)
+      .default(sql`(UNIXEPOCH())`)
       .$onUpdate(() => new Date()),
     userId: integer('user_id', { mode: 'number' })
       .notNull()
