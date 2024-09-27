@@ -1,8 +1,7 @@
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
-import client from '@/entrypoints/libs/client.ts'
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
+import { updateIcon } from './updateIcon.ts'
+import { upsertUrl } from './upsertUrl.ts'
 
 // onUpdated: Handle tab update event (eg: url change)
 // on browser Tab's bar url changed, send read score if it allowed domain
@@ -42,17 +41,13 @@ export const handleLoadUrl = (auth: Auth) =>
     const isAllowedDomain = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
     if (!isAllowedDomain) return
 
-    await client.urls.add.$post(
-      {
-        json: { url: getPureUrl(activeUrl) },
-      },
-      {
-        headers: {
-          Authorization: 'Bearer ' + token,
-        },
-      },
-    )
+    const activeTitle = activeTab.title
+    if (!activeTitle) {
+      console.warn('no active tab title')
+      return
+    }
 
+    await upsertUrl({ auth, url: activeUrl, title: activeTitle })
     await updateIcon({ auth, activeUrl })
   })
 
