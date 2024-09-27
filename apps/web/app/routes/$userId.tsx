@@ -63,6 +63,10 @@ export default function Index() {
         <div>Life</div>
         <div>Art</div>
         <div>About</div>
+        {/*<div>Docs</div>*/}
+        {/*<div>Works (eg, github)</div>*/}
+        {/*<div>Articles</div>*/}
+        {/*<div>About</div>*/}
       </div>
       {/*<h1 className='text-4xl pt-4 pb-2'>read</h1>*/}
       {uniqueHostsWithUrls
