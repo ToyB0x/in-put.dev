@@ -2,6 +2,7 @@ import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 import client from '@/entrypoints/libs/client.ts'
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
+import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
 
 // onUpdated: Handle tab update event (eg: url change)
 // on browser Tab's bar url changed, send read score if it allowed domain
@@ -21,9 +22,7 @@ export const handleLoadUrl = (auth: Auth) =>
       const activeUrl = tab.url
       if (!activeUrl) return
 
-      const isAllowedDomain = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
-      await browser.action.setBadgeText({ text: isAllowedDomain ? '✅' : null })
-      return
+      return await updateIcon({ auth, activeUrl })
     }
 
     // NOTE: may below block can refactor / replace with changeInfo.url ?
@@ -43,9 +42,6 @@ export const handleLoadUrl = (auth: Auth) =>
     const isAllowedDomain = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
     if (!isAllowedDomain) return
 
-    await sleep(100) // wait other icon change event completed
-    await browser.action.setBadgeText({ text: '+1' })
-
     await client.urls.add.$post(
       {
         json: { url: getPureUrl(activeUrl) },
@@ -56,8 +52,8 @@ export const handleLoadUrl = (auth: Auth) =>
         },
       },
     )
-    await sleep(1500)
-    await browser.action.setBadgeText({ text: '✅' })
+
+    await updateIcon({ auth, activeUrl })
   })
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

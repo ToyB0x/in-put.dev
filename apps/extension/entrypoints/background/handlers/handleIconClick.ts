@@ -2,6 +2,7 @@ import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 import client from '@/entrypoints/libs/client'
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
+import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
 
 // Register icon click event
 export const handleIconClick = (auth: Auth) =>
@@ -41,9 +42,6 @@ export const handleIconClick = (auth: Auth) =>
       : 'ADD'
     console.info('clickIconAction: ', clickIconAction)
 
-    // optimistic update
-    await browser.action.setBadgeText({ text: clickIconAction === 'ADD' ? '✅' : null })
-
     if (clickIconAction === 'ADD') {
       const resDomainAdd = await client.domains.add.$post(
         {
@@ -70,10 +68,6 @@ export const handleIconClick = (auth: Auth) =>
           },
         },
       )
-      const dataUrlAdd = await resUrlAdd.json()
-
-      // fallback optimistic update
-      await browser.action.setBadgeText({ text: dataUrlAdd.success ? '✅' : null })
     } else {
       const resDomainDisable = await client.domains.disable.$post(
         {
@@ -87,10 +81,6 @@ export const handleIconClick = (auth: Auth) =>
       )
 
       const dataResDomainDisable = await resDomainDisable.json()
-
-      // fallback optimistic update
-      await browser.action.setBadgeText({ text: dataResDomainDisable.success ? null : '✅' })
-
       if (!dataResDomainDisable.success) throw Error('failed to disable domain')
     }
 
@@ -106,6 +96,9 @@ export const handleIconClick = (auth: Auth) =>
     const dataDomains = await resDomains.json()
 
     await storageAllowedDomainV1.setValue(dataDomains.domains)
+
+    // update icon
+    await updateIcon({ auth, activeUrl })
 
     // for debugging
     // await browser.tabs.sendMessage(activeTab.id!, { type: 'store-updated' })

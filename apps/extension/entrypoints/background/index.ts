@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app'
-import { getAuth } from 'firebase/auth/web-extension'
+import { getAuth, onAuthStateChanged } from 'firebase/auth/web-extension'
 import { sharedPublicViteEnv } from '@repo/env/shared'
 import {
   handleIconClick,
@@ -18,14 +18,15 @@ const firebaseAppBrowser = initializeApp({
 const auth = getAuth(firebaseAppBrowser)
 
 export default defineBackground(() => {
-  handleTabChange()
+  handleTabChange(auth)
   handleIconClick(auth)
   handleLoadUrl(auth)
   handleMessage(auth)
   registerIconMenu(auth)
 
+  // TODO: confirm should use unsubscribe on background unmount
   // Register Auth state change event
-  auth.onAuthStateChanged(async (user) => {
+  onAuthStateChanged(auth, async (user) => {
     // initialize icon ui
     await updateIcon({ auth })
 
