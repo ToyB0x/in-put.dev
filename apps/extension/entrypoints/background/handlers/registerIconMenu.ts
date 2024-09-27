@@ -35,7 +35,7 @@ export const registerIconMenu = (auth: Auth) =>
       const token = await auth.currentUser?.getIdToken()
       if (!token) throw Error('no token')
 
-      const resDomains = await client.domains.$get(
+      const resDomains = await client.domains['enabled-domains'].$get(
         {},
         {
           headers: {
