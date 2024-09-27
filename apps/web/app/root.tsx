@@ -1,7 +1,19 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { useEffect, useState } from 'react'
+import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { firebaseAuthBrowser } from '@/.client/firebase'
+import type { User } from 'firebase/auth'
 import './tailwind.css'
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState<User | null>(null)
+
+  useEffect(() => {
+    const unsubscribe = firebaseAuthBrowser.onAuthStateChanged((user) => {
+      setUser(user)
+    })
+    return unsubscribe
+  })
+
   return (
     <html lang='en'>
       <head>
@@ -13,7 +25,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className='font-light'>
         <div className='w-full flex justify-center'>
-          <div className='w-[480px] min-h-screen bg-[#FCFCFC]'>{children}</div>
+          <div className='w-[480px] min-h-screen bg-[#FCFCFC]'>
+            <div className='flex flex-col'>
+              <div className='text-right p-4'>
+                {user ? <Link to='/private/history'>settings</Link> : <Link to='/login'>login</Link>}
+              </div>
+              {children}
+            </div>
+          </div>
         </div>
         <ScrollRestoration />
         <Scripts />
