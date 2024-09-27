@@ -1,7 +1,7 @@
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
-import { upsertUrl } from '@/entrypoints/background/handlers/upsertUrl.ts'
+import { updateIcon } from './updateIcon.ts'
+import { upsertUrl } from './upsertUrl.ts'
 
 // onUpdated: Handle tab update event (eg: url change)
 // on browser Tab's bar url changed, send read score if it allowed domain

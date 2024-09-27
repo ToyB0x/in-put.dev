@@ -1,8 +1,8 @@
 import client from '@/entrypoints/libs/client'
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
-import { upsertUrl } from '@/entrypoints/background/handlers/upsertUrl.ts'
+import { updateIcon } from './updateIcon.ts'
+import { upsertUrl } from './upsertUrl.ts'
 
 // Register icon click event
 export const handleIconClick = (auth: Auth) =>
