@@ -1,7 +1,14 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth/web-extension'
 import { sharedPublicViteEnv } from '@repo/env/shared'
-import { handleIconClick, handleLoadUrl, handleMessage, handleTabChange, registerIconMenu } from './handlers'
+import {
+  handleIconClick,
+  handleLoadUrl,
+  handleMessage,
+  handleTabChange,
+  updateIcon,
+  registerIconMenu,
+} from './handlers'
 
 const firebaseAppBrowser = initializeApp({
   projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
@@ -19,13 +26,8 @@ export default defineBackground(() => {
 
   // Register Auth state change event
   auth.onAuthStateChanged(async (user) => {
-    // reset icon text
-    await browser.action.setBadgeText({ text: null })
-
-    // update icon login status
-    await browser.action.setIcon({
-      path: user ? 'icon/green/icon32.png' : 'icon/icon32.png',
-    })
+    // initialize icon ui
+    await updateIcon({ auth })
 
     // update icon menu
     await browser.action.setPopup({
