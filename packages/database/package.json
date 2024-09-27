@@ -6,7 +6,7 @@
   },
   "scripts": {
     "db:generate": "drizzle-kit generate",
-    "db:seed:local": "npx tsx scripts/seed-local.ts",
+    "db:seed:local": "wrangler d1 execute DB_INPUTS --file=seed-local.sql --local --persist-to ../../cf-local-worker",
     "db:studio:local": "drizzle-kit studio",
     "db:destroy:local": "rm -rf ../../cf-local-worker/v3/d1",
     "//": "migration related commands",
