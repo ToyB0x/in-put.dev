@@ -10,6 +10,7 @@ export const urlTbl = sqliteTable(
   {
     id: integer('id', { mode: 'number' }).primaryKey({ autoIncrement: false }),
     url: text('url', { length: 256 * 4 }).notNull(),
+    isMarked: integer('is_marked', { mode: 'boolean' }).notNull().default(false),
     count: integer('count', { mode: 'number' }).notNull().default(1),
     pageTitle: text('page_title', { length: 256 }),
     createdAt: customTimestamp('created_at')
