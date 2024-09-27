@@ -1,8 +1,8 @@
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 import client from '@/entrypoints/libs/client'
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
 import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
+import { upsertUrl } from '@/entrypoints/background/handlers/upsertUrl.ts'
 
 // Register icon click event
 export const handleIconClick = (auth: Auth) =>
@@ -58,16 +58,7 @@ export const handleIconClick = (auth: Auth) =>
 
       if (!dataResDomainAdd.success) throw Error('failed to add domain')
 
-      const resUrlAdd = await client.urls.add.$post(
-        {
-          json: { url: getPureUrl(activeUrl), pageTitle: activeTitle },
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        },
-      )
+      await upsertUrl({ auth, url: activeUrl, title: activeTitle })
     } else {
       const resDomainDisable = await client.domains.disable.$post(
         {
