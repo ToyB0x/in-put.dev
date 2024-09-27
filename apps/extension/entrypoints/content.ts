@@ -1,7 +1,5 @@
 import { storageBookmarkV1 } from '@/entrypoints/storage/bookmark'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
-import ReactDOM from 'react-dom/client'
-// import App from './App.tsx'
 
 const READX_BOOKMARK_ICON_CLASS = 'readx-bookmark-icon-class'
 const DATA_SET_NAME = 'readx'
@@ -9,46 +7,17 @@ const DATA_SET_NAME = 'readx'
 export default defineContentScript({
   // ref: https://developer.chrome.com/docs/extensions/develop/concepts/match-patterns
   matches: ['https://*/*', 'http://localhost/*'],
-  cssInjectionMode: 'ui',
-  async main(ctx) {
-    // 3. Define your UI
-    const ui = createIntegratedUi(ctx, {
-      // name: 'example-ui',
-      position: 'inline',
-      onMount: (container) => {
-        // alert(1)
-        // Container is a body, and React warns when creating a root on the body, so create a wrapper div
-        const app = document.createElement('div')
-        // container.append(app)
-        container.appendChild(app)
-
-        // Create a root on the UI container and render a component
-        const root = ReactDOM.createRoot(app)
-        root.render(<App />)
-        return root
-      },
-      onRemove: (root) => {
-        // Unmount the root when the UI is removed
-        root?.unmount()
-      },
-    })
-
-    // 4. Mount the UI
-    ui.mount()
-
+  async main() {
     // NOTE: Initialization (Mark bookmarked links)
     // await updateLinkIcon()
     // wait document rendering (like react hydration etc.) // if this run immediately, remix official cite sometime throw console error and content script not work
-    // setTimeout(addIconToLink, 100)
-
-    // alert(1)
-    // showDialog()
+    setTimeout(addIconToLink, 100)
 
     // Message listener (Fire when bookmark list updated)
-    // browser.runtime.onMessage.addListener(async () => {
-    //   await addIconToLink()
-    //   await removeIconFromLink()
-    // })
+    browser.runtime.onMessage.addListener(async () => {
+      await addIconToLink()
+      await removeIconFromLink()
+    })
 
     // NOTE: watcher don't work in content script
     // storageBookmarkV1.watch((newValue) => {
@@ -134,38 +103,4 @@ const removeIconFromLink = async () => {
     }
   }
   shouldRemoveIds.forEach((id) => document.getElementById(id)?.remove())
-}
-
-// const showDialog = () => {
-//   const dialog = document.createElement('div')
-//   dialog.id = 'dialog-x'
-//   dialog.style.height = '100px'
-//   dialog.style.width = '200px'
-//   dialog.style.backgroundColor = 'red'
-//   dialog.style.position = 'absolute'
-//   dialog.style.top = '8px'
-//   dialog.style.right = '8px'
-//   dialog.style.borderRadius = '8px'
-//   dialog.style.zIndex = '999'
-//   document.body.appendChild(dialog)
-// }
-
-const App = () => {
-  return (
-    <div
-      id='react-app'
-      className='absolute bg-amber-500 w-[480px] h-[480px] top-0 left-0 z-50'
-      style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        width: '200px',
-        height: '100px',
-        background: 'black',
-        zIndex: 9999,
-      }}
-    >
-      hello
-    </div>
-  )
 }
