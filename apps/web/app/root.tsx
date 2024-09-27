@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
-import { firebaseAuthBrowser } from '@/.client'
+import { firebaseAuthBrowser } from '@/.client/firebase'
 import type { User } from 'firebase/auth'
 import './tailwind.css'
 
