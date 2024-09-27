@@ -85,7 +85,7 @@ export const handleIconClick = (auth: Auth) =>
     }
 
     // update storage
-    const resDomains = await client.domains.$get(
+    const resDomains = await client.domains['enabled-domains'].$get(
       {},
       {
         headers: {

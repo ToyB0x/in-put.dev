@@ -1,5 +1,5 @@
 import { domainTbl } from '@repo/database'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { createFactory } from 'hono/factory'
 import { getDB, verifyIdToken } from '../../libs'
 import { getUserFromDB } from '../../libs/getUserFromDB'
@@ -12,9 +12,12 @@ const handlers = factory.createHandlers(async (c) => {
   const { uid } = await verifyIdToken(c)
   const user = await getUserFromDB(uid, db)
 
-  const domains = await db.select({ domain: domainTbl.domain }).from(domainTbl).where(eq(domainTbl.userId, user.id))
+  const domains = await db
+    .select({ domain: domainTbl.domain })
+    .from(domainTbl)
+    .where(and(eq(domainTbl.userId, user.id), eq(domainTbl.isDisabled, false)))
 
   return c.json({ domains: domains.map((r) => r.domain) })
 })
 
-export const getHandler = handlers
+export const getEnabledHandler = handlers
