@@ -1,6 +1,7 @@
 import { onAuthStateChanged } from 'firebase/auth/web-extension'
-import { handleIconClick, handleLoadUrl, handleMessage, handleTabChange, updateIcon, registerIconMenu } from './handlers'
-import { auth } from '@/entrypoints/libs/auth.ts'
+import { handleIconClick, handleLoadUrl, handleMessage, handleTabChange, registerIconMenu } from './handlers'
+import { updateIcon } from './actions'
+import { auth } from '@/entrypoints/libs/auth'
 
 export default defineBackground(() => {
   handleTabChange(auth)

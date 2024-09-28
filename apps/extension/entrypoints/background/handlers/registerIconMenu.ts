@@ -1,6 +1,6 @@
 import { disableDomain, syncData } from '@/entrypoints/libs/apiClient'
 import type { Auth } from 'firebase/auth/web-extension'
-import { updateIconAndContentWithStorageData } from './updateIconAndContentWithStorageData.ts'
+import { updateIconAndContentWithStorageData } from '../actions'
 
 const contextMenuId = browser.contextMenus.create({
   title: 'sign out',
