@@ -4,7 +4,7 @@ import { storageURLv1 } from '@/entrypoints/storage/url.ts'
 
 type IconState = 'LOGGED_IN' | 'LOGGED_OUT' | 'ALLOWED_DOMAIN' | 'MARKED_URL'
 
-const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: string }): Promise<IconState> => {
+export const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: string }): Promise<IconState> => {
   const isLoggedIn = auth.currentUser
   if (!isLoggedIn) return 'LOGGED_OUT'
 
@@ -13,7 +13,7 @@ const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: st
   const isMarkedDomain = (await storageURLv1.getValue())
     .filter(({ isMarked }) => isMarked)
     .map(({ url }) => url)
-    .includes(new URL(activeUrl).hostname)
+    .includes(activeUrl)
   if (isMarkedDomain) return 'MARKED_URL'
 
   const isAllowedDomain = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
