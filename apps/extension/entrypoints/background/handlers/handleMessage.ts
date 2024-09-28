@@ -1,5 +1,6 @@
 import { signInWithEmailAndPassword } from 'firebase/auth/web-extension'
 import { auth } from '@/entrypoints/libs/auth'
+import { syncData } from '@/entrypoints/libs/apiClient'
 import type { LoginMessage, LoginResponse } from '@/entrypoints/messages/login'
 
 export const handleMessage = () =>
@@ -9,5 +10,6 @@ export const handleMessage = () =>
     const messageTyped: LoginMessage = message
     const result = await signInWithEmailAndPassword(auth, messageTyped.data.email, messageTyped.data.password)
     const response: LoginResponse = { type: 'login', success: true, data: { user: result.user } }
+    await syncData()
     return response
   })
