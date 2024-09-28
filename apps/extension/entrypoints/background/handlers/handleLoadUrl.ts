@@ -1,11 +1,11 @@
-import type { Auth } from 'firebase/auth/web-extension'
+import { auth } from '@/entrypoints/libs/auth'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
 import { upsertUrl } from '@/entrypoints/libs/apiClient'
 import { updateIcon } from '../actions'
 
 // onUpdated: Handle tab update event (eg: url change)
 // on browser Tab's bar url changed, send read score if it allowed domain
-export const handleLoadUrl = (auth: Auth) =>
+export const handleLoadUrl = () =>
   browser.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
     // assume this event url change
     const isUrlChangeEvent = changeInfo.url
@@ -21,7 +21,7 @@ export const handleLoadUrl = (auth: Auth) =>
       const activeUrl = tab.url
       if (!activeUrl) return
 
-      return await updateIcon({ auth, activeUrl })
+      return await updateIcon({ activeUrl })
     }
 
     // NOTE: may below block can refactor / replace with changeInfo.url ?
@@ -48,7 +48,7 @@ export const handleLoadUrl = (auth: Auth) =>
     }
 
     await upsertUrl({ url: activeUrl, title: activeTitle })
-    await updateIcon({ auth, activeUrl })
+    await updateIcon({ activeUrl })
   })
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))

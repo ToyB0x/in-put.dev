@@ -1,10 +1,10 @@
-import type { Auth } from 'firebase/auth/web-extension'
-import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { storageURLv1 } from '@/entrypoints/storage/url.ts'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
+import { storageURLv1 } from '@/entrypoints/storage/url'
+import { auth } from '@/entrypoints/libs/auth'
 
 type IconState = 'LOGGED_IN' | 'LOGGED_OUT' | 'ALLOWED_DOMAIN' | 'MARKED_URL'
 
-export const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: string }): Promise<IconState> => {
+export const detectIconState = async ({ activeUrl }: { activeUrl?: string }): Promise<IconState> => {
   const isLoggedIn = auth.currentUser
   if (!isLoggedIn) return 'LOGGED_OUT'
 
@@ -22,8 +22,8 @@ export const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeU
 }
 
 // Iconが色々な箇所から、様々な内容で更新されるとバグの元なので、現在の状態から一意なアイコン状態に更新するための処理をまとめた関数
-export const updateIcon = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: string }) => {
-  const iconState = await detectIconState({ auth, activeUrl })
+export const updateIcon = async ({ activeUrl }: { activeUrl?: string }) => {
+  const iconState = await detectIconState({ activeUrl })
   switch (iconState) {
     case 'LOGGED_OUT':
       await browser.action.setBadgeText({ text: null })
