@@ -58,6 +58,7 @@ export const insertUrlSchema = createInsertSchema(urlTbl, {
 })
 
 export const insertUrlRequestSchema = insertUrlSchema.pick({ url: true, pageTitle: true })
+export const updateMarkUrlRequestSchema = insertUrlSchema.pick({ url: true, isMarked: true })
 
 // Example of relations
 // export const urlsRelations = relations(url, ({ one }) => ({
