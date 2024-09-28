@@ -33,7 +33,7 @@ export default defineContentScript({
 })
 
 const addIconToLink = async () => {
-  const storeUrls = await storageURLv1.getValue()
+  const storeUrls = (await storageURLv1.getValue()).filter(({ isMarked }) => isMarked).map(({ url }) => url)
   const aTags = document.getElementsByTagName('a')
   for (const aTag of aTags) {
     // like a menu for accessibility (user can access keyboard tab to navigate): eg "href='#'" or "href='/path#'"
@@ -78,7 +78,7 @@ const addIconToLink = async () => {
 }
 
 const removeIconFromLink = async () => {
-  const storeUrls = await storageURLv1.getValue()
+  const storeUrls = (await storageURLv1.getValue()).filter(({ isMarked }) => isMarked).map(({ url }) => url)
   const iconsWithExtensionClass = document.getElementsByClassName(READX_BOOKMARK_ICON_CLASS)
 
   // NOTE: this code is not work, because have side effect to html document in loop (remove element affect to document)
