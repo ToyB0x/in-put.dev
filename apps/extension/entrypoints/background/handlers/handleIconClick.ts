@@ -1,17 +1,8 @@
 import client from '@/entrypoints/libs/client'
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { detectIconState, updateIcon } from './updateIcon.ts'
+import { updateIcon } from './updateIcon.ts'
 import { upsertUrl } from './upsertUrl.ts'
-import { markUrl } from './markUrl.ts'
-import { syncData } from '@/entrypoints/background/handlers/syncData.ts'
-import { updateIconAndContentWithStorageData } from '@/entrypoints/background/handlers/updateIconAndContentWithStorageData.ts'
-
-// type ClickIconAction =
-//   | 'ALLOW_DOMAIN' // initial state
-//   | 'MARK_URL' // when allowed domain
-//   // | 'DISABLE_DOMAIN' // by context menu (can't provide as icon click action because ui used as mark enable / disable action)
-//   | 'UNMARK_URL' // when marked url
 
 // Register icon click event
 export const handleIconClick = (auth: Auth) =>
@@ -44,10 +35,14 @@ export const handleIconClick = (auth: Auth) =>
     }
 
     // TODO: refactor (split code)
-    const iconState = await detectIconState({ auth, activeUrl })
+    const clickIconAction: 'ADD' | 'REMOVE' = (await storageAllowedDomainV1.getValue()).includes(
+      new URL(activeUrl).hostname,
+    )
+      ? 'REMOVE'
+      : 'ADD'
+    console.info('clickIconAction: ', clickIconAction)
 
-    // allow domain action
-    if (iconState === 'LOGGED_IN') {
+    if (clickIconAction === 'ADD') {
       const resDomainAdd = await client.domains.add.$post(
         {
           json: { domain: new URL(activeUrl).hostname },
@@ -64,23 +59,40 @@ export const handleIconClick = (auth: Auth) =>
       if (!dataResDomainAdd.success) throw Error('failed to add domain')
 
       await upsertUrl({ auth, url: activeUrl, title: activeTitle })
+    } else {
+      const resDomainDisable = await client.domains.disable.$post(
+        {
+          json: { domain: new URL(activeUrl).hostname },
+        },
+        {
+          headers: {
+            Authorization: 'Bearer ' + token,
+          },
+        },
+      )
+
+      const dataResDomainDisable = await resDomainDisable.json()
+      if (!dataResDomainDisable.success) throw Error('failed to disable domain')
     }
 
-    // MARK URL
-    if (iconState === 'ALLOWED_DOMAIN') {
-      console.warn('ALLOWED_DOMAIN')
-      // TODO: refactor to post api once
-      await upsertUrl({ auth, url: activeUrl, title: activeTitle })
-      await markUrl({ url: activeUrl, isMarked: true })
-    }
+    // update storage
+    const resDomains = await client.domains['enabled-domains'].$get(
+      {},
+      {
+        headers: {
+          Authorization: 'Bearer ' + token,
+        },
+      },
+    )
+    const dataDomains = await resDomains.json()
 
-    if (iconState === 'MARKED_URL') {
-      console.warn('MARKED_URL')
-      await markUrl({ url: activeUrl, isMarked: false })
-    }
+    await storageAllowedDomainV1.setValue(dataDomains.domains)
 
-    await syncData()
-    await updateIconAndContentWithStorageData()
+    // update icon
+    await updateIcon({ auth, activeUrl })
+
+    // for debugging
+    // await browser.tabs.sendMessage(activeTab.id!, { type: 'store-updated' })
 
     const activeTabHost = new URL(activeUrl).host
     const relatedTabs = await browser.tabs.query({ url: `*://${activeTabHost}/*` })

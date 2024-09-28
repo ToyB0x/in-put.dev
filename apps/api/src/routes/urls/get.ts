@@ -12,11 +12,8 @@ const handlers = factory.createHandlers(async (c) => {
   const { uid } = await verifyIdToken(c)
   const user = await getUserFromDB(uid, db)
 
-  const urls = await db
-    .select({ url: urlTbl.url, isMarked: urlTbl.isMarked })
-    .from(urlTbl)
-    .where(eq(urlTbl.userId, user.id))
-  return c.json(urls)
+  const urls = await db.select({ url: urlTbl.url }).from(urlTbl).where(eq(urlTbl.userId, user.id))
+  return c.json({ urls: urls.map((r) => r.url) })
 })
 
 export const getUrlsHandler = handlers

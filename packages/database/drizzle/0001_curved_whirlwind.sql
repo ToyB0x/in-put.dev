@@ -1,1 +1,0 @@
-ALTER TABLE `url` ADD `is_marked` integer DEFAULT false NOT NULL;
