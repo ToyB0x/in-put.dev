@@ -2,7 +2,9 @@ name: Purge Cache
 
 on: workflow_dispatch
 
-permissions: write-all
+permissions:
+  contents: write
+
 # Force deleting cache entries
 # ref: https://docs.github.com/ja/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
 jobs:
