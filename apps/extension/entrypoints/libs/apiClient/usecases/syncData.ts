@@ -1,4 +1,4 @@
-import client from '../client'
+import { client } from '../client'
 import { auth } from '@/entrypoints/libs/auth'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
 import { storageURLv1 } from '@/entrypoints/storage/url'

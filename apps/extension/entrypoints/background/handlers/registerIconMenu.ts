@@ -1,7 +1,6 @@
-import client from '@/entrypoints/libs/client'
+import { client, syncData } from '@/entrypoints/libs/apiClient'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
 import type { Auth } from 'firebase/auth/web-extension'
-import { syncData } from '@/entrypoints/libs/apiClient'
 import { updateIconAndContentWithStorageData } from './updateIconAndContentWithStorageData.ts'
 
 const contextMenuId = browser.contextMenus.create({
