@@ -1,5 +1,5 @@
 import { storageURLv1 } from '@/entrypoints/storage/url'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl.ts'
+import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 
 const READX_BOOKMARK_ICON_CLASS = 'readx-bookmark-icon-class'
 const DATA_SET_NAME = 'readx'

@@ -1,5 +1,8 @@
+import autoImports from './.wxt/eslint-auto-imports.mjs'
+
 /** @type {import("eslint").Linter.Config} */
 module.exports = {
+  ...autoImports,
   root: true,
   extends: ['@repo/eslint-config/base.js'],
   env: {
