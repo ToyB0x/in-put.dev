@@ -15,7 +15,7 @@ const firebaseAppBrowser = initializeApp({
   apiKey: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_BROWSER_API_KEY,
 })
 
-const auth = getAuth(firebaseAppBrowser)
+export const auth = getAuth(firebaseAppBrowser)
 
 export default defineBackground(() => {
   handleTabChange(auth)
