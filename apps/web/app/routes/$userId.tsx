@@ -63,6 +63,7 @@ export default function Index() {
         <div>Life</div>
         <div>Art</div>
         <div>About</div>
+        <div>Recruitment</div>
         {/*<div>Docs</div>*/}
         {/*<div>Works (eg, github)</div>*/}
         {/*<div>Articles</div>*/}
@@ -82,13 +83,7 @@ export default function Index() {
   )
 }
 
-const Details2 = ({
-  host,
-  urls,
-}: {
-  host: string
-  urls: { url: string; count: number; pageTitle: string | null }[]
-}) => {
+const Details2 = ({ host, urls }: { host: string; urls: { url: string; count: number; pageTitle: string | null }[] }) => {
   return (
     <>
       <div>{host}</div>
