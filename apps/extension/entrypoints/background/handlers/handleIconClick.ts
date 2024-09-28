@@ -1,10 +1,7 @@
-import client from '@/entrypoints/libs/client'
+import { addDomain, upsertUrl, syncData, markUrl } from '@/entrypoints/libs/apiClient'
 import type { Auth } from 'firebase/auth/web-extension'
-import { detectIconState, updateIcon } from './updateIcon.ts'
-import { upsertUrl } from './upsertUrl.ts'
-import { markUrl } from './markUrl.ts'
-import { syncData } from '@/entrypoints/background/handlers/syncData.ts'
-import { updateIconAndContentWithStorageData } from '@/entrypoints/background/handlers/updateIconAndContentWithStorageData.ts'
+import { detectIconState } from './updateIcon.ts'
+import { updateIconAndContentWithStorageData } from './updateIconAndContentWithStorageData.ts'
 
 // type ClickIconAction =
 //   | 'ALLOW_DOMAIN' // initial state
@@ -47,29 +44,15 @@ export const handleIconClick = (auth: Auth) =>
 
     // allow domain action
     if (iconState === 'LOGGED_IN') {
-      const resDomainAdd = await client.domains.add.$post(
-        {
-          json: { domain: new URL(activeUrl).hostname },
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        },
-      )
-
-      const dataResDomainAdd = await resDomainAdd.json()
-
-      if (!dataResDomainAdd.success) throw Error('failed to add domain')
-
-      await upsertUrl({ auth, url: activeUrl, title: activeTitle })
+      await addDomain(activeUrl)
+      await upsertUrl({ url: activeUrl, title: activeTitle })
     }
 
     // MARK URL
     if (iconState === 'ALLOWED_DOMAIN') {
       console.warn('ALLOWED_DOMAIN')
       // TODO: refactor to post api once
-      await upsertUrl({ auth, url: activeUrl, title: activeTitle })
+      await upsertUrl({ url: activeUrl, title: activeTitle })
       await markUrl({ url: activeUrl, isMarked: true })
     }
 

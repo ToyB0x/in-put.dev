@@ -1,8 +1,8 @@
+import { client } from '../client'
+import { auth } from '@/entrypoints/libs/auth'
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
-import client from '@/entrypoints/libs/client'
-import type { Auth } from 'firebase/auth/web-extension'
 
-export const upsertUrl = async ({ auth, url, title }: { auth: Auth; url: string; title: string }) => {
+export const upsertUrl = async ({ url, title }: { url: string; title: string }) => {
   if (!auth.currentUser) {
     console.warn('no user logged in')
     return

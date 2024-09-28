@@ -1,7 +1,7 @@
-import client from '@/entrypoints/libs/client'
+import { client } from '../client'
 import { auth } from '@/entrypoints/libs/auth'
-import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { storageURLv1 } from '@/entrypoints/storage/url.ts'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
+import { storageURLv1 } from '@/entrypoints/storage/url'
 
 export const syncData = async () => {
   if (!auth.currentUser) {

@@ -1,5 +1,5 @@
-import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { updateIcon } from '@/entrypoints/background/handlers/updateIcon.ts'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
+import { updateIcon } from '@/entrypoints/background/handlers/updateIcon'
 import type { Auth } from 'firebase/auth/web-extension'
 
 // onActivated: Handle tab change event
