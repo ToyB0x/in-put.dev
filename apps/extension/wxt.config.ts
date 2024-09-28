@@ -22,6 +22,11 @@ export default defineConfig({
     //   https://securetoken.googleapis.com`,
     host_permissions: ['*://localhost:*/*', '*://inputs-api.xxxxxxxxxxxxxxxxx.workers.dev/*'],
   },
+  imports: {
+    eslintrc: {
+      enabled: 9, // Generate ESLint v9 compatible config
+    },
+  },
 })
 
 // Chrome 拡張機能のマニフェスト ファイルで、https://apis.google.com URL を content_security_policy 許可リストに必ず追加してください。
