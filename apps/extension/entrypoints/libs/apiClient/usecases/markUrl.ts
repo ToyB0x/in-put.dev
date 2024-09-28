@@ -1,6 +1,6 @@
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
-import { client } from '@/entrypoints/libs/apiClient'
+import { client } from '../client'
 import { auth } from '@/entrypoints/libs/auth'
+import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
 
 export const markUrl = async ({ url, isMarked }: { url: string; isMarked: boolean }) => {
   if (!auth.currentUser) {
