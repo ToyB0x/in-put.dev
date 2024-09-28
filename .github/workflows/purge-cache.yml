@@ -1,0 +1,15 @@
+name: Purge Cache
+
+on: workflow_dispatch
+
+# Force deleting cache entries
+# ref: https://docs.github.com/ja/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cleanup
+        run: gh cache delete --all --repo $REPO
+        env:
+          REPO: ${{ github.repository }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
