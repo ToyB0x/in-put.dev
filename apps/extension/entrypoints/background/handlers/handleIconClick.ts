@@ -1,7 +1,6 @@
 import { addDomain, upsertUrl, syncData, markUrl } from '@/entrypoints/libs/apiClient'
 import type { Auth } from 'firebase/auth/web-extension'
-import { detectIconState } from './updateIcon.ts'
-import { updateIconAndContentWithStorageData } from './updateIconAndContentWithStorageData.ts'
+import { detectIconState, updateIconAndContentWithStorageData } from '../actions'
 
 // type ClickIconAction =
 //   | 'ALLOW_DOMAIN' // initial state
