@@ -55,11 +55,7 @@ export const registerIconMenu = (auth: Auth) =>
       const dataResDomainDisable = await resDomainDisable.json()
       if (!dataResDomainDisable.success) throw Error('failed to disable domain')
 
-      // update domain
-      const resDomains = await client.domains['enabled-domains'].$get({}, { headers: { Authorization: 'Bearer ' + token } })
-      const dataDomains = await resDomains.json()
-
-      await storageAllowedDomainV1.setValue(dataDomains.domains)
+      await syncData()
     }
 
     // Menu: Sync data
