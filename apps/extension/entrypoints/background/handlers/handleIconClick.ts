@@ -1,4 +1,4 @@
-import { client, upsertUrl, syncData } from '@/entrypoints/libs/apiClient'
+import { addDomain, upsertUrl, syncData } from '@/entrypoints/libs/apiClient'
 import type { Auth } from 'firebase/auth/web-extension'
 import { detectIconState } from './updateIcon.ts'
 import { markUrl } from './markUrl.ts'
@@ -45,21 +45,7 @@ export const handleIconClick = (auth: Auth) =>
 
     // allow domain action
     if (iconState === 'LOGGED_IN') {
-      const resDomainAdd = await client.domains.add.$post(
-        {
-          json: { domain: new URL(activeUrl).hostname },
-        },
-        {
-          headers: {
-            Authorization: 'Bearer ' + token,
-          },
-        },
-      )
-
-      const dataResDomainAdd = await resDomainAdd.json()
-
-      if (!dataResDomainAdd.success) throw Error('failed to add domain')
-
+      await addDomain(activeUrl)
       await upsertUrl({ url: activeUrl, title: activeTitle })
     }
 
