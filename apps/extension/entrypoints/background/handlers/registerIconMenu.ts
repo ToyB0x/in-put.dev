@@ -1,6 +1,6 @@
 import { disableDomain, syncData } from '@/entrypoints/libs/apiClient'
-import type { Auth } from 'firebase/auth/web-extension'
 import { updateIconAndContentWithStorageData } from '../actions'
+import { auth } from '@/entrypoints/libs/auth'
 
 const contextMenuId = browser.contextMenus.create({
   title: 'sign out',
@@ -24,7 +24,7 @@ const contextMenuSyncId = browser.contextMenus.create({
 })
 
 // Register extension icon context menu
-export const registerIconMenu = (auth: Auth) =>
+export const registerIconMenu = () =>
   browser.contextMenus.onClicked.addListener(async (info, tab) => {
     if (!auth.currentUser) {
       console.warn('no user logged in')

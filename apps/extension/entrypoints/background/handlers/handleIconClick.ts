@@ -1,6 +1,6 @@
 import { addDomain, upsertUrl, syncData, markUrl } from '@/entrypoints/libs/apiClient'
-import type { Auth } from 'firebase/auth/web-extension'
 import { detectIconState, updateIconAndContentWithStorageData } from '../actions'
+import { auth } from '@/entrypoints/libs/auth'
 
 // type ClickIconAction =
 //   | 'ALLOW_DOMAIN' // initial state
@@ -9,7 +9,7 @@ import { detectIconState, updateIconAndContentWithStorageData } from '../actions
 //   | 'UNMARK_URL' // when marked url
 
 // Register icon click event
-export const handleIconClick = (auth: Auth) =>
+export const handleIconClick = () =>
   browser.action.onClicked.addListener(async () => {
     // TODO: open popup if not logged in
     if (!auth.currentUser) {
@@ -39,7 +39,7 @@ export const handleIconClick = (auth: Auth) =>
     }
 
     // TODO: refactor (split code)
-    const iconState = await detectIconState({ auth, activeUrl })
+    const iconState = await detectIconState({ activeUrl })
 
     // allow domain action
     if (iconState === 'LOGGED_IN') {

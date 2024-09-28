@@ -4,17 +4,17 @@ import { updateIcon } from './actions'
 import { auth } from '@/entrypoints/libs/auth'
 
 export default defineBackground(() => {
-  handleTabChange(auth)
-  handleIconClick(auth)
-  handleLoadUrl(auth)
-  handleMessage(auth)
-  registerIconMenu(auth)
+  handleTabChange()
+  handleIconClick()
+  handleLoadUrl()
+  handleMessage()
+  registerIconMenu()
 
   // TODO: confirm should use unsubscribe on background unmount
   // Register Auth state change event
   onAuthStateChanged(auth, async (user) => {
     // initialize icon ui
-    await updateIcon({ auth })
+    await updateIcon({})
 
     // update icon menu
     await browser.action.setPopup({
