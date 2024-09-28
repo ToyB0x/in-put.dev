@@ -1,4 +1,4 @@
-import { auth } from '@/entrypoints/background'
+import { auth } from '@/entrypoints/libs/auth'
 import { updateIcon } from './updateIcon.ts'
 
 export const updateIconAndContentWithStorageData = async () => {

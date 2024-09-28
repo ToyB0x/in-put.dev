@@ -1,10 +1,8 @@
 import client from '@/entrypoints/libs/client'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
-import { updateIcon } from './updateIcon'
 import type { Auth } from 'firebase/auth/web-extension'
-import { storageURLv1 } from '@/entrypoints/storage/url.ts'
-import { syncData } from '@/entrypoints/background/handlers/syncData.ts'
-import { updateIconAndContentWithStorageData } from '@/entrypoints/background/handlers/updateIconAndContentWithStorageData.ts'
+import { syncData } from './syncData.ts'
+import { updateIconAndContentWithStorageData } from './updateIconAndContentWithStorageData.ts'
 
 const contextMenuId = browser.contextMenus.create({
   title: 'sign out',
@@ -59,10 +57,7 @@ export const registerIconMenu = (auth: Auth) =>
       if (!dataResDomainDisable.success) throw Error('failed to disable domain')
 
       // update domain
-      const resDomains = await client.domains['enabled-domains'].$get(
-        {},
-        { headers: { Authorization: 'Bearer ' + token } },
-      )
+      const resDomains = await client.domains['enabled-domains'].$get({}, { headers: { Authorization: 'Bearer ' + token } })
       const dataDomains = await resDomains.json()
 
       await storageAllowedDomainV1.setValue(dataDomains.domains)
