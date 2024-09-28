@@ -1,5 +1,5 @@
 import client from '@/entrypoints/libs/client'
-import { auth } from '@/entrypoints/background'
+import { auth } from '@/entrypoints/libs/auth'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
 import { storageURLv1 } from '@/entrypoints/storage/url.ts'
 

@@ -1,6 +1,5 @@
 import client from '@/entrypoints/libs/client'
 import type { Auth } from 'firebase/auth/web-extension'
-import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
 import { detectIconState, updateIcon } from './updateIcon.ts'
 import { upsertUrl } from './upsertUrl.ts'
 import { markUrl } from './markUrl.ts'
@@ -86,7 +85,5 @@ export const handleIconClick = (auth: Auth) =>
     const relatedTabs = await browser.tabs.query({ url: `*://${activeTabHost}/*` })
 
     // NOTE: Caution! This ignores error message
-    await Promise.allSettled(
-      relatedTabs.map((tab) => tab.id && browser.tabs.sendMessage(tab.id, { type: 'store-updated' })),
-    )
+    await Promise.allSettled(relatedTabs.map((tab) => tab.id && browser.tabs.sendMessage(tab.id, { type: 'store-updated' })))
   })

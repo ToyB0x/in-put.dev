@@ -1,21 +1,6 @@
-import { initializeApp } from 'firebase/app'
-import { getAuth, onAuthStateChanged } from 'firebase/auth/web-extension'
-import { sharedPublicViteEnv } from '@repo/env/shared'
-import {
-  handleIconClick,
-  handleLoadUrl,
-  handleMessage,
-  handleTabChange,
-  updateIcon,
-  registerIconMenu,
-} from './handlers'
-
-const firebaseAppBrowser = initializeApp({
-  projectId: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_PROJECT_ID,
-  apiKey: sharedPublicViteEnv.VITE_PUBLIC_FIREBASE_BROWSER_API_KEY,
-})
-
-export const auth = getAuth(firebaseAppBrowser)
+import { onAuthStateChanged } from 'firebase/auth/web-extension'
+import { handleIconClick, handleLoadUrl, handleMessage, handleTabChange, updateIcon, registerIconMenu } from './handlers'
+import { auth } from '@/entrypoints/libs/auth.ts'
 
 export default defineBackground(() => {
   handleTabChange(auth)
