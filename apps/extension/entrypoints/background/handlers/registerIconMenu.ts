@@ -1,5 +1,4 @@
-import { client, syncData } from '@/entrypoints/libs/apiClient'
-import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
+import { disableDomain, syncData } from '@/entrypoints/libs/apiClient'
 import type { Auth } from 'firebase/auth/web-extension'
 import { updateIconAndContentWithStorageData } from './updateIconAndContentWithStorageData.ts'
 
@@ -39,22 +38,10 @@ export const registerIconMenu = (auth: Auth) =>
 
     // Menu: Disable domain
     if (info.menuItemId === contextMenuDisableDomainId) {
-      const token = await auth.currentUser?.getIdToken()
-      if (!token) throw Error('no token')
-
       // disable domain
       const activeTabUrl = tab?.url
       if (!activeTabUrl) return
-      const resDomainDisable = await client.domains.disable.$post(
-        {
-          json: { domain: new URL(activeTabUrl).hostname },
-        },
-        { headers: { Authorization: 'Bearer ' + token } },
-      )
-
-      const dataResDomainDisable = await resDomainDisable.json()
-      if (!dataResDomainDisable.success) throw Error('failed to disable domain')
-
+      await disableDomain(activeTabUrl)
       await syncData()
     }
 
