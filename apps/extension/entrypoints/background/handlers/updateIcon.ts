@@ -1,13 +1,20 @@
 import type { Auth } from 'firebase/auth/web-extension'
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
+import { storageURLv1 } from '@/entrypoints/storage/url.ts'
 
-type IconState = 'LOGGED_IN' | 'LOGGED_OUT' | 'ALLOWED_DOMAIN'
+type IconState = 'LOGGED_IN' | 'LOGGED_OUT' | 'ALLOWED_DOMAIN' | 'MARKED_URL'
 
-const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: string }): Promise<IconState> => {
+export const detectIconState = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: string }): Promise<IconState> => {
   const isLoggedIn = auth.currentUser
   if (!isLoggedIn) return 'LOGGED_OUT'
 
   if (!activeUrl) return 'LOGGED_IN'
+
+  const isMarkedDomain = (await storageURLv1.getValue())
+    .filter(({ isMarked }) => isMarked)
+    .map(({ url }) => url)
+    .includes(activeUrl)
+  if (isMarkedDomain) return 'MARKED_URL'
 
   const isAllowedDomain = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)
   if (isAllowedDomain) return 'ALLOWED_DOMAIN'
@@ -24,9 +31,13 @@ export const updateIcon = async ({ auth, activeUrl }: { auth: Auth; activeUrl?: 
       break
     case 'LOGGED_IN':
       await browser.action.setBadgeText({ text: null })
-      await browser.action.setIcon({ path: 'icon/green/icon32.png' })
+      await browser.action.setIcon({ path: 'icon/icon32.png' })
       break
     case 'ALLOWED_DOMAIN':
+      await browser.action.setBadgeText({ text: null })
+      await browser.action.setIcon({ path: 'icon/green/icon32.png' })
+      break
+    case 'MARKED_URL':
       await browser.action.setBadgeText({ text: '✅' })
       await browser.action.setIcon({ path: 'icon/green/icon32.png' })
       break
