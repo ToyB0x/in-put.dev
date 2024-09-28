@@ -1,5 +1,5 @@
 import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
-import client from '@/entrypoints/libs/client'
+import { client } from '@/entrypoints/libs/apiClient'
 import { auth } from '@/entrypoints/libs/auth'
 
 export const markUrl = async ({ url, isMarked }: { url: string; isMarked: boolean }) => {

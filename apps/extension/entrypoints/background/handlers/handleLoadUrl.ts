@@ -1,7 +1,7 @@
 import type { Auth } from 'firebase/auth/web-extension'
-import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain.ts'
-import { updateIcon } from './updateIcon.ts'
-import { upsertUrl } from './upsertUrl.ts'
+import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
+import { upsertUrl } from '@/entrypoints/libs/apiClient'
+import { updateIcon } from './updateIcon'
 
 // onUpdated: Handle tab update event (eg: url change)
 // on browser Tab's bar url changed, send read score if it allowed domain
@@ -47,7 +47,7 @@ export const handleLoadUrl = (auth: Auth) =>
       return
     }
 
-    await upsertUrl({ auth, url: activeUrl, title: activeTitle })
+    await upsertUrl({ url: activeUrl, title: activeTitle })
     await updateIcon({ auth, activeUrl })
   })
 
