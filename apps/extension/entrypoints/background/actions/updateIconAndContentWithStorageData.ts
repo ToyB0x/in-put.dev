@@ -6,7 +6,8 @@ export const updateIconAndContentWithStorageData = async () => {
   const activeUrl = activeTab.url
   await updateIcon({ activeUrl })
 
-  // update content script ui
-  if (!activeTab.id) return
-  await browser.tabs.sendMessage(activeTab.id, { type: 'store-updated' })
+  // NOTE: send message may be called from updateIconAndContentWithStorageData call func itself
+  // // update content script ui
+  // if (!activeTab.id) return
+  // await browser.tabs.sendMessage(activeTab.id, { type: 'store-updated' })
 }
