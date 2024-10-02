@@ -1,5 +1,5 @@
 import { storageURLv1 } from '@/entrypoints/storage/url'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
+import { getNormalizedUrl } from '@/entrypoints/libs/getNormalizedUrl'
 
 const READX_BOOKMARK_ICON_CLASS = 'readx-bookmark-icon-class'
 const DATA_SET_NAME = 'readx'
@@ -45,7 +45,7 @@ const addIconToLink = async () => {
     const browserLinkUrl = isATagFullUrl ? aTag.href : window.location.origin + aTag.href
     let pureBrowserLinkUrl = ''
     try {
-      pureBrowserLinkUrl = getPureUrl(browserLinkUrl)
+      pureBrowserLinkUrl = getNormalizedUrl(browserLinkUrl)
     } catch (e) {
       // like phone number containing https://nvd.nist.govtel:301-975-2000
       console.info(e)

@@ -1,6 +1,6 @@
 import { client } from '../client'
 import { auth } from '@/entrypoints/libs/auth'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
+import { getNormalizedUrl } from '@/entrypoints/libs/getNormalizedUrl'
 
 export const markUrl = async ({ url, isMarked }: { url: string; isMarked: boolean }) => {
   if (!auth.currentUser) {
@@ -11,5 +11,5 @@ export const markUrl = async ({ url, isMarked }: { url: string; isMarked: boolea
   const token = await auth.currentUser.getIdToken()
   if (!token) throw Error('no token')
 
-  await client.urls.mark.$post({ json: { url: getPureUrl(url), isMarked } }, { headers: { Authorization: 'Bearer ' + token } })
+  await client.urls.mark.$post({ json: { url: getNormalizedUrl(url), isMarked } }, { headers: { Authorization: 'Bearer ' + token } })
 }
