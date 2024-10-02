@@ -22,6 +22,8 @@ module.exports = {
   },
 
   ignorePatterns: [
+    'build/',
+    'node_modules/',
     '!**/.server',
     '!**/.client',
     'worker-configuration.d.ts', // Auto-generated file
@@ -32,12 +34,7 @@ module.exports = {
     {
       files: ['**/*.{js,jsx,ts,tsx}'],
       plugins: ['react', 'jsx-a11y'],
-      extends: [
-        'plugin:react/recommended',
-        'plugin:react/jsx-runtime',
-        'plugin:react-hooks/recommended',
-        'plugin:jsx-a11y/recommended',
-      ],
+      extends: ['plugin:react/recommended', 'plugin:react/jsx-runtime', 'plugin:react-hooks/recommended', 'plugin:jsx-a11y/recommended'],
       settings: {
         react: {
           version: 'detect',

@@ -57,7 +57,7 @@ export default function Index() {
 
   return (
     <div className='font-sans px-4'>
-      <h1 className='font-medium text-[1.5rem] text-xl pt-6 pb-2'>{exactUserId} read</h1>
+      <h1 className='font-medium text-[1.5rem] text-xl pt-2 pb-2'>{exactUserId} read</h1>
       <div className='flex justify-end gap-2 text-[14px] text-gray-500 underline underline-offset-1 mb-4'>
         <div>Tech</div>
         <div>Life</div>
