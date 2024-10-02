@@ -28,7 +28,7 @@ importers:
         version: link:../../packages/database
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       firebase-auth-cloudflare-workers:
         specifier: 2.0.4
         version: 2.0.4
@@ -77,20 +77,20 @@ importers:
         specifier: workspace:*
         version: link:../../packages/eslint-config
       '@types/react':
-        specifier: 18.3.10
-        version: 18.3.10
+        specifier: 18.3.11
+        version: 18.3.11
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
       '@wxt-dev/module-react':
         specifier: 1.1.1
-        version: 1.1.1(vite@5.4.8(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.10(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))
+        version: 1.1.1(vite@5.4.8(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.11(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))
       typescript:
         specifier: 5.6.2
         version: 5.6.2
       wxt:
-        specifier: 0.19.10
-        version: 0.19.10(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
+        specifier: 0.19.11
+        version: 0.19.11(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
 
   apps/web:
     dependencies:
@@ -114,7 +114,7 @@ importers:
         version: link:../../packages/ui
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       firebase:
         specifier: 10.14.0
         version: 10.14.0
@@ -147,8 +147,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       '@types/react':
-        specifier: 18.3.10
-        version: 18.3.10
+        specifier: 18.3.11
+        version: 18.3.11
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
@@ -199,10 +199,10 @@ importers:
     dependencies:
       drizzle-orm:
         specifier: 0.33.0
-        version: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        version: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       drizzle-zod:
         specifier: 0.5.1
-        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
+        version: 0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -275,8 +275,8 @@ importers:
         specifier: 20.16.10
         version: 20.16.10
       '@types/react':
-        specifier: 18.3.10
-        version: 18.3.10
+        specifier: 18.3.11
+        version: 18.3.11
       '@types/react-dom':
         specifier: 18.3.0
         version: 18.3.0
@@ -2063,8 +2063,8 @@ packages:
   '@types/react-dom@18.3.0':
     resolution: {integrity: sha512-EhwApuTmMBmXuFOikhQLIBUn6uFg81SwLMOAUgodJF14SOBOCMdU04gDoYi0WOJJHD144TL32z4yDqCW3dnkQg==}
 
-  '@types/react@18.3.10':
-    resolution: {integrity: sha512-02sAAlBnP39JgXwkAq3PeU9DVaaGpZyF3MGcC0MKgQVkZor5IiiDAipVaxQHtDJAmO4GIy/rVBy/LzVj76Cyqg==}
+  '@types/react@18.3.11':
+    resolution: {integrity: sha512-r6QZ069rFTjrEYgFdOck1gK7FLVsgJE7tTz0pQBczlBNUhBNk0MQH4UbnFSwjpQLMkLzgqvBBa+qGpLje16eTQ==}
 
   '@types/serviceworker@0.0.97':
     resolution: {integrity: sha512-SGt2lAQ0PcRR392EFNAnmjdZeWrU9o0y09/4xoY7gOunoHTt4nV/Qs2U9RQZlox8suwQnCtNS7rYqr5lNmdJ5w==}
@@ -6281,37 +6281,6 @@ packages:
       vite:
         optional: true
 
-  vite@5.4.7:
-    resolution: {integrity: sha512-5l2zxqMEPVENgvzTuBpHer2awaetimj2BGkhBPdnwKbPNOlHsODU+oiazEZzLK7KhAnOrO+XGYJYn4ZlUhDtDQ==}
-    engines: {node: ^18.0.0 || >=20.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || >=20.0.0
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      sass-embedded: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      sass-embedded:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-
   vite@5.4.8:
     resolution: {integrity: sha512-FqrItQ4DT1NC4zCUqMB4c4AZORMKIa0m8/URVCZ77OZ/QSNeJ54bU1vrFADbDsuwfIPcgknRkmqakQcgnL4GiQ==}
     engines: {node: ^18.0.0 || >=20.0.0}
@@ -6478,8 +6447,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.19.10:
-    resolution: {integrity: sha512-lX/dzAaau79SDsU7QZKUgxJUf9nBsaQXMiqsDNgGoqZO1wrRpFq0kijcN3/mNjGbXM989VJhEl7B6f3ttxKAnQ==}
+  wxt@0.19.11:
+    resolution: {integrity: sha512-5SthX6H4jwM33VQQtNgLqZc7EzGV5ksz69omnI2kHYv22HfmVl4z7L1o0fgkl9XLyWyIz58nwf4YvQXGJWN5ig==}
     hasBin: true
 
   xdg-basedir@5.1.0:
@@ -8223,9 +8192,9 @@ snapshots:
 
   '@types/react-dom@18.3.0':
     dependencies:
-      '@types/react': 18.3.10
+      '@types/react': 18.3.11
 
-  '@types/react@18.3.10':
+  '@types/react@18.3.11':
     dependencies:
       '@types/prop-types': 15.7.5
       csstype: 3.1.2
@@ -8405,10 +8374,10 @@ snapshots:
 
   '@webext-core/match-patterns@1.0.3': {}
 
-  '@wxt-dev/module-react@1.1.1(vite@5.4.8(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.10(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))':
+  '@wxt-dev/module-react@1.1.1(vite@5.4.8(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.11(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))':
     dependencies:
       '@vitejs/plugin-react': 4.3.1(vite@5.4.8(@types/node@22.5.4)(terser@5.33.0))
-      wxt: 0.19.10(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
+      wxt: 0.19.11(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
     transitivePeerDependencies:
       - supports-color
       - vite
@@ -9246,22 +9215,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1):
+  drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20240925.0
       '@neondatabase/serverless': 0.9.5
       '@opentelemetry/api': 1.9.0
       '@prisma/client': 5.19.0(prisma@5.19.0)
       '@types/pg': 8.11.6
-      '@types/react': 18.3.10
+      '@types/react': 18.3.11
       pg: 8.12.0
       postgres: 3.4.4
       prisma: 5.19.0
       react: 18.3.1
 
-  drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
+  drizzle-zod@0.5.1(drizzle-orm@0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
     dependencies:
-      drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.10)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+      drizzle-orm: 0.33.0(@cloudflare/workers-types@4.20240925.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.11)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       zod: 3.23.8
 
   dtrace-provider@0.8.8:
@@ -9628,7 +9597,7 @@ snapshots:
       debug: 4.3.6
       enhanced-resolve: 5.17.1
       eslint: 8.57.0
-      eslint-module-utils: 2.8.2(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.8.2(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
       fast-glob: 3.3.2
       get-tsconfig: 4.8.0
       is-bun-module: 1.1.0
@@ -9641,7 +9610,7 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-module-utils@2.8.2(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.8.2(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -9651,7 +9620,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.9.0(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0):
+  eslint-module-utils@2.9.0(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -9673,7 +9642,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 8.57.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.9.0(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-plugin-import@2.30.0)(eslint@8.57.0))(eslint@8.57.0)
+      eslint-module-utils: 2.9.0(@typescript-eslint/parser@8.8.0(eslint@8.57.0)(typescript@5.6.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.6.3)(eslint@8.57.0)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -13323,16 +13292,6 @@ snapshots:
       - supports-color
       - typescript
 
-  vite@5.4.7(@types/node@22.5.4)(terser@5.33.0):
-    dependencies:
-      esbuild: 0.21.5
-      postcss: 8.4.47
-      rollup: 4.21.2
-    optionalDependencies:
-      '@types/node': 22.5.4
-      fsevents: 2.3.3
-      terser: 5.33.0
-
   vite@5.4.8(@types/node@22.5.4)(terser@5.33.0):
     dependencies:
       esbuild: 0.21.5
@@ -13536,7 +13495,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  wxt@0.19.10(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0):
+  wxt@0.19.11(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0):
     dependencies:
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.21.2)
       '@types/chrome': 0.0.269
@@ -13580,7 +13539,7 @@ snapshots:
       publish-browser-extension: 2.2.1
       scule: 1.3.0
       unimport: 3.12.0(rollup@4.21.2)
-      vite: 5.4.7(@types/node@22.5.4)(terser@5.33.0)
+      vite: 5.4.8(@types/node@22.5.4)(terser@5.33.0)
       vite-node: 2.1.1(@types/node@22.5.4)(terser@5.33.0)
       web-ext-run: 0.2.1
       webextension-polyfill: 0.12.0
