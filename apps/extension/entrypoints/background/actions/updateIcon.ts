@@ -1,7 +1,7 @@
 import { storageAllowedDomainV1 } from '@/entrypoints/storage/allowedDomain'
 import { storageURLv1 } from '@/entrypoints/storage/url'
 import { auth } from '@/entrypoints/libs/auth'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
+import { getNormalizedUrl } from '@/entrypoints/libs/getNormalizedUrl'
 
 type IconState = 'LOGGED_IN' | 'LOGGED_OUT' | 'ALLOWED_DOMAIN' | 'MARKED_URL'
 
@@ -14,7 +14,7 @@ export const detectIconState = async ({ activeUrl }: { activeUrl?: string }): Pr
   const isMarkedDomain = (await storageURLv1.getValue())
     .filter(({ isMarked }) => isMarked)
     .map(({ url }) => url)
-    .includes(getPureUrl(activeUrl))
+    .includes(getNormalizedUrl(activeUrl))
   if (isMarkedDomain) return 'MARKED_URL'
 
   const isAllowedDomain = (await storageAllowedDomainV1.getValue()).includes(new URL(activeUrl).hostname)

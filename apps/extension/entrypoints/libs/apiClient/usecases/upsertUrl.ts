@@ -1,6 +1,6 @@
 import { client } from '../client'
 import { auth } from '@/entrypoints/libs/auth'
-import { getPureUrl } from '@/entrypoints/libs/getPureUrl'
+import { getNormalizedUrl } from '@/entrypoints/libs/getNormalizedUrl'
 
 export const upsertUrl = async ({ url, title }: { url: string; title: string }) => {
   if (!auth.currentUser) {
@@ -13,7 +13,7 @@ export const upsertUrl = async ({ url, title }: { url: string; title: string }) 
 
   await client.urls.add.$post(
     {
-      json: { url: getPureUrl(url), pageTitle: title },
+      json: { url: getNormalizedUrl(url), pageTitle: title },
     },
     {
       headers: {
