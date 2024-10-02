@@ -27,7 +27,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <div className='w-full flex justify-center'>
           <div className='w-[480px] min-h-screen bg-[#FCFCFC]'>
             <div className='flex flex-col'>
-              <div className='text-right p-4'>
+              <div className='text-right pt-4 px-4'>
                 {user ? <Link to='/private/history'>settings</Link> : <Link to='/login'>login</Link>}
               </div>
               {children}
