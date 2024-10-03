@@ -1,7 +1,7 @@
 import { json, type MetaFunction, type LoaderFunctionArgs } from '@remix-run/cloudflare'
 import { useLoaderData, useParams } from '@remix-run/react'
 import { drizzle } from 'drizzle-orm/d1'
-import { domainTbl, urlTbl, userTbl } from '@repo/database'
+import { domainTbl, lower, urlTbl, userTbl } from '@repo/database'
 import { and, eq } from 'drizzle-orm'
 
 export const meta: MetaFunction = () => {
@@ -25,7 +25,7 @@ export const loader = async ({ context, params }: LoaderFunctionArgs) => {
     .from(userTbl)
     .innerJoin(domainTbl, eq(userTbl.id, domainTbl.userId))
     .innerJoin(urlTbl, eq(domainTbl.id, urlTbl.domainId))
-    .where(and(eq(userTbl.name, exactUserId), eq(domainTbl.isDisabled, false)))
+    .where(and(eq(lower(userTbl.name), exactUserId.toLowerCase()), eq(domainTbl.isDisabled, false)))
 
   if (!result) throw Error('no user exist')
 

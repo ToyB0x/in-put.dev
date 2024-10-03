@@ -27,8 +27,8 @@ export const userTbl = sqliteTable(
 )
 
 // custom lower function
-export function lower(email: AnySQLiteColumn): SQL {
-  return sql`lower(${email})`
+export function lower(column: AnySQLiteColumn): SQL {
+  return sql`lower(${column})`
 }
 
 export const insertUserTblSchema = createInsertSchema(userTbl, {
