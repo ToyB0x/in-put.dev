@@ -15,6 +15,6 @@ export const customTimestamp = customType<{
   },
   // convert number to date (on read)
   fromDriver(value: number): Date {
-    return new Date(value)
+    return new Date(value * 1000)
   },
 })
