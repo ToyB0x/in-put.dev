@@ -38,7 +38,7 @@
     "@types/react": "18.3.11",
     "@types/react-dom": "18.3.0",
     "@types/serviceworker": "0.0.97",
-    "@typescript-eslint/eslint-plugin": "8.8.0",
+    "@typescript-eslint/eslint-plugin": "8.8.1",
     "autoprefixer": "10.4.20",
     "eslint-import-resolver-typescript": "3.6.3",
     "eslint-plugin-import": "2.31.0",
@@ -50,7 +50,7 @@
     "typescript": "5.6.2",
     "vite": "5.4.8",
     "vite-tsconfig-paths": "5.0.1",
-    "wrangler": "3.80.0"
+    "wrangler": "3.80.1"
   },
   "volta": {
     "extends": "../../package.json"
