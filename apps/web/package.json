@@ -22,7 +22,7 @@
     "@repo/env": "workspace:*",
     "@repo/database": "workspace:*",
     "@repo/ui": "workspace:*",
-    "drizzle-orm": "0.35.0",
+    "drizzle-orm": "0.35.1",
     "firebase": "10.14.1",
     "firebase-auth-cloudflare-workers": "2.0.4",
     "isbot": "5.1.17",
@@ -50,7 +50,7 @@
     "typescript": "5.6.3",
     "vite": "5.4.9",
     "vite-tsconfig-paths": "5.0.1",
-    "wrangler": "3.80.4"
+    "wrangler": "3.80.5"
   },
   "volta": {
     "extends": "../../package.json"
