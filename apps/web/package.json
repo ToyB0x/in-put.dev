@@ -22,7 +22,7 @@
     "@repo/env": "workspace:*",
     "@repo/database": "workspace:*",
     "@repo/ui": "workspace:*",
-    "drizzle-orm": "0.35.1",
+    "drizzle-orm": "0.35.2",
     "firebase": "10.14.1",
     "firebase-auth-cloudflare-workers": "2.0.4",
     "isbot": "5.1.17",
