@@ -153,8 +153,8 @@ importers:
         specifier: 18.3.1
         version: 18.3.1
       '@types/serviceworker':
-        specifier: 0.0.100
-        version: 0.0.100
+        specifier: 0.0.101
+        version: 0.0.101
       '@typescript-eslint/eslint-plugin':
         specifier: 8.10.0
         version: 8.10.0(@typescript-eslint/parser@8.10.0(eslint@8.57.0)(typescript@5.6.3))(eslint@8.57.0)(typescript@5.6.3)
@@ -1917,8 +1917,8 @@ packages:
   '@types/react@18.3.11':
     resolution: {integrity: sha512-r6QZ069rFTjrEYgFdOck1gK7FLVsgJE7tTz0pQBczlBNUhBNk0MQH4UbnFSwjpQLMkLzgqvBBa+qGpLje16eTQ==}
 
-  '@types/serviceworker@0.0.100':
-    resolution: {integrity: sha512-5NREuA2mDbw4jnkwcLQcRIRku6uv3D/h60m2screlf4q1i9Iq1MnhhPOPBtkmlKyX9HiJNEy1/iq/7NZG8eulA==}
+  '@types/serviceworker@0.0.101':
+    resolution: {integrity: sha512-ds7Vil7PMGcMYKjV2B0/EL6EldSWqaPVUtgdmjJqiY8Qrv007oBQeoWlh8aNSKikQluoJKKmnUCBNPII6fLhXg==}
 
   '@types/through@0.0.33':
     resolution: {integrity: sha512-HsJ+z3QuETzP3cswwtzt2vEIiHBk/dCcHGhbmG5X3ecnwFD/lPrMpliGXxSCg03L9AhrdwA4Oz/qfspkDW+xGQ==}
@@ -7938,7 +7938,7 @@ snapshots:
       '@types/prop-types': 15.7.5
       csstype: 3.1.2
 
-  '@types/serviceworker@0.0.100': {}
+  '@types/serviceworker@0.0.101': {}
 
   '@types/through@0.0.33':
     dependencies:
