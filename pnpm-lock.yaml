@@ -84,13 +84,13 @@ importers:
         version: 18.3.1
       '@wxt-dev/module-react':
         specifier: 1.1.1
-        version: 1.1.1(vite@5.4.9(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.12(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))
+        version: 1.1.1(vite@5.4.9(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.13(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))
       typescript:
         specifier: 5.6.3
         version: 5.6.3
       wxt:
-        specifier: 0.19.12
-        version: 0.19.12(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
+        specifier: 0.19.13
+        version: 0.19.13(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
 
   apps/web:
     dependencies:
@@ -6273,8 +6273,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.19.12:
-    resolution: {integrity: sha512-2O11MsNNrYOTkDPXoyLGc+KzN9Al0wUh9uGaYtDSr/h6zZYusGolb94pGJQUIQuhoxupCqoNlQET7Q/++VZVWg==}
+  wxt@0.19.13:
+    resolution: {integrity: sha512-iWtMkCo6Puy3UsxQ7x0HQSYqxOz6Vu2vZ/BB/lzKMCrkrmlXj4IUAEqjEcQCdBRTkiGTx0f8qFtrA+o9QtUe7w==}
     hasBin: true
 
   xdg-basedir@5.1.0:
@@ -8129,10 +8129,10 @@ snapshots:
 
   '@webext-core/match-patterns@1.0.3': {}
 
-  '@wxt-dev/module-react@1.1.1(vite@5.4.9(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.12(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))':
+  '@wxt-dev/module-react@1.1.1(vite@5.4.9(@types/node@22.5.4)(terser@5.33.0))(wxt@0.19.13(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0))':
     dependencies:
       '@vitejs/plugin-react': 4.3.1(vite@5.4.9(@types/node@22.5.4)(terser@5.33.0))
-      wxt: 0.19.12(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
+      wxt: 0.19.13(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0)
     transitivePeerDependencies:
       - supports-color
       - vite
@@ -13176,7 +13176,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  wxt@0.19.12(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0):
+  wxt@0.19.13(@types/node@22.5.4)(rollup@4.21.2)(terser@5.33.0):
     dependencies:
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.21.2)
       '@types/chrome': 0.0.269
