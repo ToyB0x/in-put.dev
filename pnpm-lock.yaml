@@ -270,10 +270,10 @@ importers:
         version: link:../typescript-config
       '@turbo/gen':
         specifier: 2.2.3
-        version: 2.2.3(@types/node@20.17.0)(typescript@5.6.3)
+        version: 2.2.3(@types/node@20.17.1)(typescript@5.6.3)
       '@types/node':
-        specifier: 20.17.0
-        version: 20.17.0
+        specifier: 20.17.1
+        version: 20.17.1
       '@types/react':
         specifier: 18.3.12
         version: 18.3.12
@@ -1923,8 +1923,8 @@ packages:
   '@types/node-forge@1.3.11':
     resolution: {integrity: sha512-FQx220y22OKNTqaByeBGqHWYz4cl94tpcxeFdvBo3wjG6XPBuZ0BNgNZRV5J5TFmmcsJ4IzsLkmGRiQbnYsBEQ==}
 
-  '@types/node@20.17.0':
-    resolution: {integrity: sha512-a7zRo0f0eLo9K5X9Wp5cAqTUNGzuFLDG2R7C4HY2BhcMAsxgSPuRvAC1ZB6QkuUQXf0YZAgfOX2ZyrBa2n4nHQ==}
+  '@types/node@20.17.1':
+    resolution: {integrity: sha512-j2VlPv1NnwPJbaCNv69FO/1z4lId0QmGvpT41YxitRtWlg96g/j8qcv2RKsLKe2F6OJgyXhupN1Xo17b2m139Q==}
 
   '@types/node@22.5.4':
     resolution: {integrity: sha512-FDuKUJQm/ju9fT/SeX/6+gBzoPzlVCzfzmGkwKvRHQVxi4BntVbyIwf6a4Xn62mrvndLiml6z/UBXIdEVjQLXg==}
@@ -7394,7 +7394,7 @@ snapshots:
   '@grpc/grpc-js@1.9.15':
     dependencies:
       '@grpc/proto-loader': 0.7.13
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
 
   '@grpc/proto-loader@0.7.13':
     dependencies:
@@ -7845,7 +7845,7 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@turbo/gen@2.2.3(@types/node@20.17.0)(typescript@5.6.3)':
+  '@turbo/gen@2.2.3(@types/node@20.17.1)(typescript@5.6.3)':
     dependencies:
       '@turbo/workspaces': 2.2.3
       commander: 10.0.1
@@ -7855,7 +7855,7 @@ snapshots:
       node-plop: 0.26.3
       picocolors: 1.0.1
       proxy-agent: 6.4.0
-      ts-node: 10.9.2(@types/node@20.17.0)(typescript@5.6.3)
+      ts-node: 10.9.2(@types/node@20.17.1)(typescript@5.6.3)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.1
     transitivePeerDependencies:
@@ -7931,7 +7931,7 @@ snapshots:
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
 
   '@types/har-format@1.2.15': {}
 
@@ -7962,9 +7962,9 @@ snapshots:
 
   '@types/node-forge@1.3.11':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
 
-  '@types/node@20.17.0':
+  '@types/node@20.17.1':
     dependencies:
       undici-types: 6.19.8
 
@@ -7975,7 +7975,7 @@ snapshots:
 
   '@types/pg@8.11.6':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
       pg-protocol: 1.6.1
       pg-types: 4.0.2
     optional: true
@@ -7995,7 +7995,7 @@ snapshots:
 
   '@types/through@0.0.33':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
 
   '@types/tinycolor2@1.4.6': {}
 
@@ -8005,7 +8005,7 @@ snapshots:
 
   '@types/yauzl@2.10.3':
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
     optional: true
 
   '@typescript-eslint/eslint-plugin@8.11.0(@typescript-eslint/parser@8.11.0(eslint@8.57.0)(typescript@5.6.3))(eslint@8.57.0)(typescript@5.6.3)':
@@ -8628,7 +8628,7 @@ snapshots:
 
   chrome-launcher@1.1.0:
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 2.0.1
@@ -9556,7 +9556,7 @@ snapshots:
 
   eval@0.1.8:
     dependencies:
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
       require-like: 0.1.2
 
   event-target-shim@5.0.1: {}
@@ -11785,7 +11785,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
       long: 5.2.3
 
   proxy-addr@2.0.7:
@@ -12592,14 +12592,14 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-node@10.9.2(@types/node@20.17.0)(typescript@5.6.3):
+  ts-node@10.9.2(@types/node@20.17.1)(typescript@5.6.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.17.0
+      '@types/node': 20.17.1
       acorn: 8.12.1
       acorn-walk: 8.3.3
       arg: 4.1.3
