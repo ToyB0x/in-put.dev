@@ -27,8 +27,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/database
       drizzle-orm:
-        specifier: 0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        specifier: 0.36.1
+        version: 0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       firebase-auth-cloudflare-workers:
         specifier: 2.0.4
         version: 2.0.4
@@ -113,8 +113,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       drizzle-orm:
-        specifier: 0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        specifier: 0.36.1
+        version: 0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       firebase:
         specifier: 11.0.1
         version: 11.0.1
@@ -198,11 +198,11 @@ importers:
   packages/database:
     dependencies:
       drizzle-orm:
-        specifier: 0.36.0
-        version: 0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+        specifier: 0.36.1
+        version: 0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       drizzle-zod:
         specifier: 0.5.1
-        version: 0.5.1(drizzle-orm@0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
+        version: 0.5.1(drizzle-orm@0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8)
       zod:
         specifier: 3.23.8
         version: 3.23.8
@@ -2823,8 +2823,8 @@ packages:
     resolution: {integrity: sha512-F6cFZ1wxa9XzFyeeQsp/0/lIzUbDuQjS8/njpYBDWa+wdWmXuY+Z/X2hHFK/9PGHZkv3c9mER+mVWfKlp/B6Vw==}
     hasBin: true
 
-  drizzle-orm@0.36.0:
-    resolution: {integrity: sha512-6BETYPdKSR7cDHC0ZfqZk2VrKJ8n/Rfd3ajFPsAbc69gi87nwZ6oBA2wUGMELHA0tQE4kUKN0Ds00LUZQ6Z69A==}
+  drizzle-orm@0.36.1:
+    resolution: {integrity: sha512-F4hbimnMEhyWzDowQB4xEuVJJWXLHZYD7FYwvo8RImY+N7pStGqsbfmT95jDbec1s4qKmQbiuxEDZY90LRrfIw==}
     peerDependencies:
       '@aws-sdk/client-rds-data': '>=3'
       '@cloudflare/workers-types': '>=3'
@@ -8990,7 +8990,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  drizzle-orm@0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1):
+  drizzle-orm@0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1):
     optionalDependencies:
       '@cloudflare/workers-types': 4.20241022.0
       '@libsql/client-wasm': 0.14.0
@@ -9004,9 +9004,9 @@ snapshots:
       prisma: 5.19.0
       react: 18.3.1
 
-  drizzle-zod@0.5.1(drizzle-orm@0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
+  drizzle-zod@0.5.1(drizzle-orm@0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1))(zod@3.23.8):
     dependencies:
-      drizzle-orm: 0.36.0(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
+      drizzle-orm: 0.36.1(@cloudflare/workers-types@4.20241022.0)(@libsql/client-wasm@0.14.0)(@neondatabase/serverless@0.9.5)(@opentelemetry/api@1.9.0)(@prisma/client@5.19.0(prisma@5.19.0))(@types/pg@8.11.6)(@types/react@18.3.12)(pg@8.12.0)(postgres@3.4.4)(prisma@5.19.0)(react@18.3.1)
       zod: 3.23.8
 
   dtrace-provider@0.8.8:
