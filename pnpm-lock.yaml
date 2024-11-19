@@ -49,8 +49,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       wrangler:
-        specifier: 3.87.0
-        version: 3.87.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: 3.88.0
+        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
 
   apps/extension:
     dependencies:
@@ -139,7 +139,7 @@ importers:
         version: 4.20241112.0
       '@remix-run/dev':
         specifier: 2.12.0
-        version: 2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.87.0(@cloudflare/workers-types@4.20241112.0))
+        version: 2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0))
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -192,8 +192,8 @@ importers:
         specifier: 5.1.2
         version: 5.1.2(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))
       wrangler:
-        specifier: 3.87.0
-        version: 3.87.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: 3.88.0
+        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
 
   packages/database:
     dependencies:
@@ -220,8 +220,8 @@ importers:
         specifier: 5.6.3
         version: 5.6.3
       wrangler:
-        specifier: 3.87.0
-        version: 3.87.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: 3.88.0
+        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
 
   packages/env:
     dependencies:
@@ -5988,8 +5988,8 @@ packages:
     resolution: {integrity: sha512-U8uCCl2x9TK3WANvmBavymRzxbfFYG+tAu+fgx3zxQy3qdagQqBLwJVrdyO1TBfUXvfKveMKJZhpvUYoOjM+4g==}
     engines: {node: '>=18.17'}
 
-  unenv-nightly@2.0.0-20241024-111401-d4156ac:
-    resolution: {integrity: sha512-xJO1hfY+Te+/XnfCYrCbFbRcgu6XEODND1s5wnVbaBCkuQX7JXF7fHEXPrukFE2j8EOH848P8QN19VO47XN8hw==}
+  unenv-nightly@2.0.0-20241111-080453-894aa31:
+    resolution: {integrity: sha512-0W39QQOQ9VE8kVVUpGwEG+pZcsCXk5wqNG6rDPE6Gr+fiA69LR0qERM61hW5KCOkC1/ArCFrfCGjwHyyv/bI0Q==}
 
   unified@10.1.2:
     resolution: {integrity: sha512-pUSWAi/RAnVy1Pif2kAoeWNBa3JVrx0MId2LASj8G+7AiHWoKZNTomq6LG326T68U7/e263X6fTdcXIy7XnF7Q==}
@@ -6286,8 +6286,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.87.0:
-    resolution: {integrity: sha512-BExktnSLeGgG+uxgnr4h9eZ5nefdpTVcTHR+gEIWRvqk07XL04nJwpPYAOIPKPpB7E2tMdDJgNLGQN/CY6e1xQ==}
+  wrangler@3.88.0:
+    resolution: {integrity: sha512-1yM5cgerjKkIBL9GOzIWhl8MsyEGNTsN4emJCiLLHJFz52TSNjJJlMbd1x0hX351mfy2MsGgUqKcx8iRL51PcQ==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -7658,7 +7658,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  '@remix-run/dev@2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.87.0(@cloudflare/workers-types@4.20241112.0))':
+  '@remix-run/dev@2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/generator': 7.25.6
@@ -7717,7 +7717,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
       vite: 5.4.11(@types/node@22.5.4)(terser@5.33.0)
-      wrangler: 3.87.0(@cloudflare/workers-types@4.20241112.0)
+      wrangler: 3.88.0(@cloudflare/workers-types@4.20241112.0)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -12801,7 +12801,7 @@ snapshots:
 
   undici@6.19.8: {}
 
-  unenv-nightly@2.0.0-20241024-111401-d4156ac:
+  unenv-nightly@2.0.0-20241111-080453-894aa31:
     dependencies:
       defu: 6.1.4
       ohash: 1.1.4
@@ -13177,7 +13177,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20241106.1
       '@cloudflare/workerd-windows-64': 1.20241106.1
 
-  wrangler@3.87.0(@cloudflare/workers-types@4.20241112.0):
+  wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@cloudflare/workers-shared': 0.7.1
@@ -13195,7 +13195,7 @@ snapshots:
       resolve.exports: 2.0.2
       selfsigned: 2.4.1
       source-map: 0.6.1
-      unenv: unenv-nightly@2.0.0-20241024-111401-d4156ac
+      unenv: unenv-nightly@2.0.0-20241111-080453-894aa31
       workerd: 1.20241106.1
       xxhash-wasm: 1.0.2
     optionalDependencies:
