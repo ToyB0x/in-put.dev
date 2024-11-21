@@ -49,8 +49,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/typescript-config
       wrangler:
-        specifier: 3.88.0
-        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: 3.89.0
+        version: 3.89.0(@cloudflare/workers-types@4.20241112.0)
 
   apps/extension:
     dependencies:
@@ -139,7 +139,7 @@ importers:
         version: 4.20241112.0
       '@remix-run/dev':
         specifier: 2.12.0
-        version: 2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0))
+        version: 2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.89.0(@cloudflare/workers-types@4.20241112.0))
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../../packages/eslint-config
@@ -192,8 +192,8 @@ importers:
         specifier: 5.1.2
         version: 5.1.2(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))
       wrangler:
-        specifier: 3.88.0
-        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: 3.89.0
+        version: 3.89.0(@cloudflare/workers-types@4.20241112.0)
 
   packages/database:
     dependencies:
@@ -220,8 +220,8 @@ importers:
         specifier: 5.6.3
         version: 5.6.3
       wrangler:
-        specifier: 3.88.0
-        version: 3.88.0(@cloudflare/workers-types@4.20241112.0)
+        specifier: 3.89.0
+        version: 3.89.0(@cloudflare/workers-types@4.20241112.0)
 
   packages/env:
     dependencies:
@@ -4470,8 +4470,8 @@ packages:
     resolution: {integrity: sha512-e5ISH9xMYU0DzrT+jl8q2ze9D6eWBto+I8CNpe+VI+K2J/F/k3PdkdTdz4wvGVH4NTpo+NRYTVIuMQEMMcsLqg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  miniflare@3.20241106.0:
-    resolution: {integrity: sha512-PjOoJKjUUofCueQskfhXlGvvHxZj36UAJAp1DnquMK88MFF50zCULblh0KXMSNM+bXeQYA94Gj06a7kfmBGxPw==}
+  miniflare@3.20241106.1:
+    resolution: {integrity: sha512-dM3RBlJE8rUFxnqlPCaFCq0E7qQqEQvKbYX7W/APGCK+rLcyLmEBzC4GQR/niXdNM/oV6gdg9AA50ghnn2ALuw==}
     engines: {node: '>=16.13'}
     hasBin: true
 
@@ -6286,8 +6286,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  wrangler@3.88.0:
-    resolution: {integrity: sha512-1yM5cgerjKkIBL9GOzIWhl8MsyEGNTsN4emJCiLLHJFz52TSNjJJlMbd1x0hX351mfy2MsGgUqKcx8iRL51PcQ==}
+  wrangler@3.89.0:
+    resolution: {integrity: sha512-ix3Rir/cu9Cn6FklvPDIW1QwOMcRU8iPj3IrkBWGdB66K9z1uqyqoTP64UZZyXrBItfrU7SbQT4L5wJ5y10TPA==}
     engines: {node: '>=16.17.0'}
     hasBin: true
     peerDependencies:
@@ -7658,7 +7658,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
 
-  '@remix-run/dev@2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0))':
+  '@remix-run/dev@2.12.0(@remix-run/react@2.12.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.6.3))(@types/node@22.5.4)(terser@5.33.0)(ts-node@10.9.2(@types/node@22.5.4)(typescript@5.6.3))(typescript@5.6.3)(vite@5.4.11(@types/node@22.5.4)(terser@5.33.0))(wrangler@3.89.0(@cloudflare/workers-types@4.20241112.0))':
     dependencies:
       '@babel/core': 7.25.2
       '@babel/generator': 7.25.6
@@ -7717,7 +7717,7 @@ snapshots:
     optionalDependencies:
       typescript: 5.6.3
       vite: 5.4.11(@types/node@22.5.4)(terser@5.33.0)
-      wrangler: 3.88.0(@cloudflare/workers-types@4.20241112.0)
+      wrangler: 3.89.0(@cloudflare/workers-types@4.20241112.0)
     transitivePeerDependencies:
       - '@types/node'
       - babel-plugin-macros
@@ -11063,7 +11063,7 @@ snapshots:
 
   mimic-response@4.0.0: {}
 
-  miniflare@3.20241106.0:
+  miniflare@3.20241106.1:
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       acorn: 8.12.1
@@ -13177,7 +13177,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20241106.1
       '@cloudflare/workerd-windows-64': 1.20241106.1
 
-  wrangler@3.88.0(@cloudflare/workers-types@4.20241112.0):
+  wrangler@3.89.0(@cloudflare/workers-types@4.20241112.0):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.3.4
       '@cloudflare/workers-shared': 0.7.1
@@ -13188,7 +13188,7 @@ snapshots:
       date-fns: 4.1.0
       esbuild: 0.17.19
       itty-time: 1.0.6
-      miniflare: 3.20241106.0
+      miniflare: 3.20241106.1
       nanoid: 3.3.7
       path-to-regexp: 6.3.0
       resolve: 1.22.8
