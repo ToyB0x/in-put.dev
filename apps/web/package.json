@@ -47,10 +47,10 @@
     "eslint-plugin-react-hooks": "4.6.2",
     "postcss": "8.4.49",
     "tailwindcss": "3.4.14",
-    "typescript": "5.6.3",
+    "typescript": "5.7.2",
     "vite": "5.4.11",
     "vite-tsconfig-paths": "5.1.2",
-    "wrangler": "3.89.0"
+    "wrangler": "3.90.0"
   },
   "volta": {
     "extends": "../../package.json"
