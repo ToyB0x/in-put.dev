@@ -30,8 +30,8 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "0.28.0",
-    "typescript": "5.6.3",
-    "wrangler": "3.89.0"
+    "typescript": "5.7.2",
+    "wrangler": "3.90.0"
   },
   "volta": {
     "extends": "../../package.json"
