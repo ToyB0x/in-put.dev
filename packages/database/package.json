@@ -31,7 +31,7 @@
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "0.28.0",
     "typescript": "5.7.2",
-    "wrangler": "3.90.0"
+    "wrangler": "3.91.0"
   },
   "volta": {
     "extends": "../../package.json"
