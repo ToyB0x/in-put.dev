@@ -13,7 +13,7 @@
     "@hono/zod-validator": "0.4.1",
     "@repo/database": "workspace:*",
     "drizzle-orm": "0.37.0",
-    "hono": "4.6.10",
+    "hono": "4.6.13",
     "node-html-parser": "6.1.13"
   },
   "devDependencies": {
