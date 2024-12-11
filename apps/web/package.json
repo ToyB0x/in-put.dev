@@ -22,7 +22,7 @@
     "@repo/env": "workspace:*",
     "@repo/database": "workspace:*",
     "@repo/ui": "workspace:*",
-    "drizzle-orm": "0.37.0",
+    "drizzle-orm": "0.38.0",
     "firebase": "11.0.1",
     "firebase-auth-cloudflare-workers": "2.0.4",
     "isbot": "5.1.17",
@@ -38,7 +38,7 @@
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
     "@types/serviceworker": "0.0.102",
-    "@typescript-eslint/eslint-plugin": "8.17.0",
+    "@typescript-eslint/eslint-plugin": "8.18.0",
     "autoprefixer": "10.4.20",
     "eslint-import-resolver-typescript": "3.7.0",
     "eslint-plugin-import": "2.31.0",
@@ -50,7 +50,7 @@
     "typescript": "5.7.2",
     "vite": "5.4.11",
     "vite-tsconfig-paths": "5.1.2",
-    "wrangler": "3.93.0"
+    "wrangler": "3.95.0"
   },
   "volta": {
     "extends": "../../package.json"
