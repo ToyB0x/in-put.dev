@@ -12,14 +12,14 @@
     "firebase-auth-cloudflare-workers": "2.0.4",
     "@hono/zod-validator": "0.4.1",
     "@repo/database": "workspace:*",
-    "drizzle-orm": "0.37.0",
+    "drizzle-orm": "0.38.2",
     "hono": "4.6.10",
     "node-html-parser": "6.1.13"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20241205.0",
+    "@cloudflare/workers-types": "4.20241218.0",
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "wrangler": "3.93.0"
+    "wrangler": "3.98.0"
   }
 }
