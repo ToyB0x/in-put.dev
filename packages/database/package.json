@@ -30,7 +30,7 @@
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
     "drizzle-kit": "0.29.0",
-    "typescript": "5.7.2",
+    "typescript": "6.0.3",
     "wrangler": "3.93.0"
   },
   "volta": {
