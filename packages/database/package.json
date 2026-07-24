@@ -29,8 +29,8 @@
   "devDependencies": {
     "@repo/eslint-config": "workspace:*",
     "@repo/typescript-config": "workspace:*",
-    "drizzle-kit": "0.29.0",
-    "typescript": "5.7.2",
+    "drizzle-kit": "0.29.1",
+    "typescript": "5.7.3",
     "wrangler": "3.93.0"
   },
   "volta": {

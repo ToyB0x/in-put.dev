@@ -9,11 +9,11 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "firebase-auth-cloudflare-workers": "2.0.4",
-    "@hono/zod-validator": "0.4.1",
+    "firebase-auth-cloudflare-workers": "2.0.6",
+    "@hono/zod-validator": "0.4.3",
     "@repo/database": "workspace:*",
     "drizzle-orm": "0.37.0",
-    "hono": "4.6.10",
+    "hono": "4.6.20",
     "node-html-parser": "6.1.13"
   },
   "devDependencies": {
