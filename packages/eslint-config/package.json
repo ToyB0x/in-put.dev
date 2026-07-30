@@ -6,9 +6,9 @@
     "react-internal.js"
   ],
   "devDependencies": {
-    "eslint-config-turbo": "2.3.0",
+    "eslint-config-turbo": "2.10.7",
     "eslint-config-prettier": "9.1.0",
-    "@typescript-eslint/parser": "8.17.0"
+    "@typescript-eslint/parser": "8.65.0"
   },
   "volta": {
     "extends": "../../package.json"
